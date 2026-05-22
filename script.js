@@ -167,7 +167,13 @@ function avatarColors(name) {
 function initials(name) {
   const p=name.split(','); return p.length>1?(p[1].trim()[0]||'')+(p[0].trim()[0]||''):name.slice(0,2).toUpperCase();
 }
-function statusColor(s) { return s==='deployed'?'var(--red)':s==='tdy'?'var(--amber)':'var(--green)';if (s === 'leave') return '#a855f7';if (s === 'medical') return '#38bdf8'; }
+function statusColor(s) {
+    if (s === 'deployed') return 'var(--red)';
+    if (s === 'tdy')      return 'var(--amber)';
+    if (s === 'leave')    return '#a855f7'; // Purple
+    if (s === 'medical')  return '#38bdf8'; // Light blue
+    return 'var(--green)';                  // Default to Available
+}
 
 // ══════════════════════════════════════════════
 //  BRANCH SWITCHER
@@ -218,13 +224,20 @@ function switchBranch(id) {
 // ══════════════════════════════════════════════
 function calcMetrics() {
   const ps = people().filter(p => !whatIfOut.has(p.id));
-  const total = people().length;
-  const deployed = ps.filter(p=>p.status==='deployed').length;
-  const tdy = ps.filter(p=>p.status==='tdy').length;
-  const totalReq = branch().sections.reduce((a,s)=>a+s.required,0);
-  const filled = ps.filter(p=>p.section).length;
-  const readiness = totalReq > 0 ? Math.round((filled/totalReq)*100) : 0;
-  return {total,deployed,tdy,totalReq,filled,readiness};
+  
+  // Using ps.length ensures 'total' matches the other counts during What-If mode
+  const total = ps.length; 
+  
+  const deployed = ps.filter(p => p.status === 'deployed').length;
+  const tdy = ps.filter(p => p.status === 'tdy').length;
+  const leave = ps.filter(p => p.status === 'leave').length;
+  const medical = ps.filter(p => p.status === 'medical').length;
+  
+  const totalReq = branch().sections.reduce((a, s) => a + s.required, 0);
+  const filled = ps.filter(p => p.section).length;
+  const readiness = totalReq > 0 ? Math.round((filled / totalReq) * 100) : 0;
+  
+  return { total, deployed, tdy, leave, medical, totalReq, filled, readiness };
 }
 
 // ══════════════════════════════════════════════
@@ -299,9 +312,10 @@ function renderAlerts() {
 function renderMetrics() {
   const m = calcMetrics(), b = branch();
   const fillColor = m.readiness>=80?'var(--green)':m.readiness>=60?'var(--amber)':'var(--red)';
+  
   document.getElementById('metrics').innerHTML = `
     <div class="metric-card">
-      <div class="metric-label">Total personnel</div>
+      <div class="metric-label">Personnel Status</div>
       <div class="metric-value">${m.total}</div>
       <div class="metric-sub">${people().filter(p=>p.section).length} assigned</div>
     </div>
@@ -311,17 +325,20 @@ function renderMetrics() {
       <div class="metric-bar"><div class="metric-fill" style="width:${Math.min(m.readiness,100)}%;background:${fillColor}"></div></div>
     </div>
     <div class="metric-card">
-      <div class="metric-label">${b.deployedLabel}</div>
-      <div class="metric-value" style="color:var(--red)">${m.deployed}</div>
-      <div class="metric-sub">${m.tdy} on ${b.tdyLabel}</div>
+      <div class="metric-label">Deployment/TDY</div>
+      <div style="display:flex; gap:10px;">
+        <div style="flex:1"><div class="metric-value" style="color:var(--red);font-size:20px;">${m.deployed}</div><div class="metric-label" style="font-size:8px">Deployed</div></div>
+        <div style="flex:1"><div class="metric-value" style="color:var(--amber);font-size:20px;">${m.tdy}</div><div class="metric-label" style="font-size:8px">TDY</div></div>
+      </div>
     </div>
     <div class="metric-card">
-      <div class="metric-label">Required fill</div>
-      <div class="metric-value">${m.filled} <span style="font-size:15px;color:var(--text3)">/ ${m.totalReq}</span></div>
-      <div class="metric-sub">${m.totalReq - m.filled} positions unfilled</div>
+      <div class="metric-label">Admin/Med</div>
+      <div style="display:flex; gap:10px;">
+        <div style="flex:1"><div class="metric-value" style="color:#a855f7;font-size:20px;">${m.leave}</div><div class="metric-label" style="font-size:8px">Leave</div></div>
+        <div style="flex:1"><div class="metric-value" style="color:#38bdf8;font-size:20px;">${m.medical}</div><div class="metric-label" style="font-size:8px">Med</div></div>
+      </div>
     </div>`;
 }
-
 function renderSections() {
   const ps = people();
   document.getElementById('sections-grid').innerHTML = branch().sections.map(sec => {
@@ -545,21 +562,30 @@ function importCSV(input) {
       lines.slice(1).forEach(line => {
         if (!line.trim()) return;
         const row = line.split(sep).map(c => c.trim().replace(/^"|"$/g,''));
-        const name = get(row,'name');
-        if (!name) { skipped++; return; }
-        const rank = get(row,'rank') || branch().ranks[0];
-        const role = get(row,'role') || get(row,'afsc') || get(row,'mos') || '';
-        const rawStatus = (get(row,'status')||'available').toLowerCase();
+        
+        // Use direct array indexing [0, 1, 2...] based on your template order
+        // This is much safer than relying on header matching if the file is fixed format
+        const name = row[0].trim();
+        const rank = row[1] || branch().ranks[0];
+        const role = row[2] || '';
+        const rawStatus = (row[3]||'available').toLowerCase();
         const status = ['available','tdy','leave','medical','deployed'].includes(rawStatus) ? rawStatus : 'available';
-        const rawQuals = get(row,'quals') || get(row,'qualifications') || '';
-        const quals = rawQuals ? rawQuals.split(/[;|]/).map(q=>q.trim()).filter(Boolean) : [];
-        const notes = get(row,'notes') || get(row,'remarks') || null;
-        const dutyStart = get(row,'dutystart') || get(row,'duty') || null;
-        const arrived = get(row,'arrived') || get(row,'datearrived') || null;
-        const deros = get(row,'deros') || null;
+        const quals = row[4] ? row[4].split('|') : [];
+        const notes = row[5] || null;
+        const dutyStart = row[6] || null;
+        const arrived = row[7] || null;
+        const deros = row[8] || null;
+        // Auto-calculate DEROS if missing (2-4 years from arrival)
+        let finalDeros = deros;
+        if (!finalDeros && dutyStart) {
+          const d = new Date(dutyStart);
+          d.setFullYear(d.getFullYear() + (Math.floor(Math.random() * 3) + 2)); // Add 2-4 years
+          finalDeros = d.toISOString().split('T')[0];
+        }
+
         branchPeople[currentBranch].push({
           id:'p'+(nextId++), name, rank, role, status, quals,
-          notes:notes||null, dutyStart:dutyStart||null, arrived:arrived||null, deros:deros||null,
+          notes, dutyStart, arrived, deros,
           section:null, slot:null
         });
         added++;
@@ -768,11 +794,13 @@ function populateRankSelect() {
   const sel = document.getElementById('f-rank');
   sel.innerHTML = branch().ranks.map(r=>`<option>${r}</option>`).join('');
 }
+
 function buildQualGrid(selected) {
   document.getElementById('qual-grid').innerHTML = branch().quals.map(q =>
     `<label class="qual-label"><input type="checkbox" value="${q}" ${selected.includes(q)?'checked':''}> ${q}</label>`
   ).join('');
 }
+
 function openAddModal() {
   editingId = null;
   populateRankSelect();
@@ -786,13 +814,34 @@ function openAddModal() {
   document.getElementById('f-arrived').value = '';
   document.getElementById('f-deros').value = '';
   document.getElementById('f-notes').value = '';
-  document.getElementById('btn-delete').style.display = 'none';
+  
+  // Safe toggles for buttons
+  const btnDelete = document.getElementById('btn-delete');
+  if (btnDelete) btnDelete.style.display = 'none';
+  
+  const btnUnassign = document.getElementById('btn-unassign');
+  if (btnUnassign) btnUnassign.style.display = 'none';
+  
   buildQualGrid([]);
+  
+  // Open the modal
   document.getElementById('modal-overlay').classList.add('open');
   setTimeout(()=>document.getElementById('f-name').focus(), 50);
 }
+
 function openEditModal(pid) {
-  const p = people().find(x=>x.id===pid); if (!p) return;
+  const p = people().find(x => x.id === pid); 
+  if (!p) return;
+
+  // Now, use 'p' instead of 'person' everywhere below
+  const btnUnassign = document.getElementById('btn-unassign');
+  if (btnUnassign) {
+    if (p.section) {
+      btnUnassign.style.display = 'inline-flex';
+    } else {
+      btnUnassign.style.display = 'none';
+    }
+  }
   editingId = pid;
   populateRankSelect();
   document.getElementById('modal-title').textContent = 'Edit personnel';
@@ -809,7 +858,9 @@ function openEditModal(pid) {
   buildQualGrid(p.quals);
   document.getElementById('modal-overlay').classList.add('open');
 }
+
 function closeModal() { document.getElementById('modal-overlay').classList.remove('open'); editingId = null; }
+
 function savePerson() {
   const name = document.getElementById('f-name').value.trim();
   if (!name) { document.getElementById('f-name').focus(); return; }
@@ -844,6 +895,20 @@ function savePerson() {
   closeModal(); render(); saveState();
   showToast(editingId?'Personnel updated':'Personnel added');
 }
+
+function unassignPerson() {
+  if (!editingId) return;
+  const person = people().find(p => p.id === editingId);
+  
+  if (person) {
+    person.section = null;
+    person.slot = null;
+    saveState();
+    render();
+  }
+  closeModal();
+}
+
 function deletePerson() {
   if (!editingId) return;
   takeSnapshot();
@@ -901,10 +966,10 @@ function exportPDF() {
       // Metric boxes
       const rColor = m.readiness>=80?[34,197,94]:m.readiness>=60?[245,158,11]:[239,68,68];
       const mboxes = [
-        {label:'TOTAL PERSONNEL', val:String(m.total), sub:`${ps.filter(p=>p.section).length} assigned`},
-        {label:'OVERALL READINESS', val:m.readiness+'%', sub:`${m.filled}/${m.totalReq} slots`, color:rColor},
-        {label:b.deployedLabel.toUpperCase(), val:String(m.deployed), sub:`${m.tdy} on ${b.tdyLabel}`, color:[239,68,68]},
-        {label:'UNFILLED', val:String(m.totalReq-m.filled), sub:'positions open', color:(m.totalReq-m.filled)>0?[239,68,68]:[34,197,94]},
+        {label:'TOTAL', val:String(m.total), sub:`${ps.filter(p=>p.section).length} assigned`},
+        {label:'READINESS', val:m.readiness+'%', sub:`${m.filled}/${m.totalReq} filled`, color:rColor},
+        {label:'OPS (DEP/TDY)', val:`${m.deployed} / ${m.tdy}`, sub:'Deployed / TDY', color:[239,68,68]},
+        {label:'ADMIN (LV/MED)', val:`${m.leave} / ${m.medical}`, sub:'Leave / Medical', color:[168,85,247]},
       ];
       const bw=62,bh=24,bx=14,by=25,gap=5;
       mboxes.forEach((box,i) => {
@@ -923,8 +988,8 @@ function exportPDF() {
       let ty=57;
       doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(232,234,240);
       doc.text('Section Manning Summary', 14, ty-2);
-      const sCols=['Section','Required','Filled','Available',b.tdyLabel,'Deployed','Status','Fill %'];
-      const sW=[40,22,18,22,18,22,30,22];
+      const sCols=['Section','Req','Filled','Avail','TDY','Leave','Med','Dep','Fill %'];
+      const sW=[35,12,12,15,12,15,12,15,15];
       const rh=7;
       doc.setFillColor(28,32,48); doc.rect(14,ty,W-28,rh,'F');
       doc.setTextColor(138,143,168); doc.setFontSize(6.5); doc.setFont('courier','bold');
@@ -934,6 +999,8 @@ function exportPDF() {
         const avail=inSec.filter(p=>p.status==='available').length;
         const tdy=inSec.filter(p=>p.status==='tdy').length;
         const dep=inSec.filter(p=>p.status==='deployed').length;
+        const leave=inSec.filter(p=>p.status==='leave').length;
+        const med=inSec.filter(p=>p.status==='medical').length;
         const pct=Math.round((inSec.length/sec.required)*100);
         const ry=ty+rh+(si*rh);
         doc.setFillColor(si%2===0?20:24,si%2===0?23:27,si%2===0?35:42);
@@ -992,7 +1059,8 @@ function exportPDF() {
         const slotName=sec&&p.slot!=null?sec.positions[p.slot]:'—';
         doc.setFillColor(pi%2===0?20:24,pi%2===0?23:27,pi%2===0?35:42);
         doc.rect(14,curY,W-28,rowH,'F');
-        const sc=p.status==='deployed'?[239,68,68]:p.status==='tdy'?[245,158,11]:[200,200,200];
+        const statusColors = {deployed: [239, 68, 68],tdy: [245, 158, 11],leave: [168, 85, 247],medical: [56, 189, 248]};
+        const sc = statusColors[p.status] || [200, 200, 200]; // Default grey
         const fmt=d=>d?new Date(d+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'2-digit'}):'—';
         const row=[p.name,p.rank,p.role,sec?sec.name:'Unassigned',slotName,p.status.toUpperCase(),fmt(p.dutyStart),fmt(p.deros),(p.notes||'—')];
         let cx=14;

@@ -82,8 +82,8 @@
     <div class="legend">
       <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div><span id="leg-available">Available</span></div>
       <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div><span id="leg-tdy">TDY</span></div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div><span id="leg-tdy">Medical</span></div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div><span id="leg-tdy">Leave</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:#38bdf8"></div><span id="leg-tdy">Medical</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:#a855f7"></div><span id="leg-tdy">Leave</span></div>
       <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div><span id="leg-deployed">Deployed</span></div>
     </div>
     <div style="display:flex;align-items:center;gap:8px">
@@ -144,9 +144,12 @@
     <div class="form-group"><label class="form-label">DEROS</label><input class="form-input" id="f-deros" type="date"/></div>
     <div class="form-group"><label class="form-label">Notes / Remarks</label><textarea class="form-input" id="f-notes" rows="2" placeholder="Pending PCS, medical profile, projected return…" style="resize:vertical;min-height:52px"></textarea></div>
     <div class="modal-actions">
-      <button class="btn btn-danger" id="btn-delete" onclick="deletePerson()" style="display:none;margin-right:auto">Remove</button>
-      <button class="btn" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-primary" onclick="savePerson()">Save</button>
+      <div style="display:flex; gap:7px; margin-right:auto;">
+        <button class="btn btn-danger" id="btn-delete" style="display:none;" onclick="deletePerson()">Delete</button>
+        <button class="btn" id="btn-unassign" style="display:none;" onclick="unassignPerson()">Unassign</button>
+      </div>
+        <button class="btn" onclick="closeModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="savePerson()">Save</button>
     </div>
   </div>
 </div>
