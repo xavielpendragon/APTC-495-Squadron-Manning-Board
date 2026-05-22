@@ -40,144 +40,6 @@ const BRANCHES = {
       {id:'af14',name:'Adams, P.',    rank:'TSgt', role:'Admin NCO',        status:'available',quals:[],                                     section:'hq',   slot:2},
     ],
   },
-
-  army: {
-    id: 'army',
-    label: 'USA',
-    fullName: 'Army',
-    unitTerm: 'Company',
-    color: '#4ade80',   // Army green
-    colorRgb: '74,222,128',
-    roleLabel: 'MOS / Role',
-    rolePlaceholder: 'e.g. 11B Infantryman',
-    tdyLabel: 'TDY',
-    deployedLabel: 'Deployed',
-    ranks: ['Pvt','PV2','PFC','SPC','CPL','SGT','SSG','SFC','MSG','1SG','SGM','CSM','2LT','1LT','CPT','MAJ','LTC','COL','BG'],
-    quals: ['Airborne','Air Assault','Ranger','SERE','Combat Lifesaver','JTAC','Sniper','Demo','CBRN','Pathfinder'],
-    sections: [
-      {id:'hq',    name:'HQ Platoon',   required:6,  positions:['CO','XO','1SG','S3','S4','RTO']},
-      {id:'alpha', name:'Alpha Plt',    required:9,  positions:['PLT LDR','PSG','TM LDR A','TM LDR B','Bravo TL','SAW 1','SAW 2','RTO','Medic']},
-      {id:'bravo', name:'Bravo Plt',    required:9,  positions:['PLT LDR','PSG','TM LDR A','TM LDR B','Bravo TL','SAW 1','SAW 2','RTO','Medic']},
-      {id:'charlie',name:'Charlie Plt', required:9,  positions:['PLT LDR','PSG','TM LDR A','TM LDR B','Bravo TL','SAW 1','SAW 2','RTO','Medic']},
-      {id:'wpns',  name:'Weapons Plt',  required:6,  positions:['PLT LDR','PSG','Mortar TL','JTAC','Sniper TL','Anti-Armor']},
-      {id:'css',   name:'CSS / Log',    required:5,  positions:['S4','Supply SGT','Mechanic 1','Mechanic 2','Comms']},
-    ],
-    samplePeople: [
-      {id:'ar1', name:'Ramirez, J.',  rank:'CPT', role:'11A Infantry Officer',  status:'available',quals:['Ranger','Airborne'],    section:'hq',    slot:0},
-      {id:'ar2', name:'Nguyen, T.',   rank:'1LT', role:'11A Infantry Officer',  status:'available',quals:['Airborne'],             section:'hq',    slot:1},
-      {id:'ar3', name:'Okafor, D.',   rank:'1SG', role:'11Z Infantry Sr NCO',   status:'available',quals:['Ranger','SERE'],        section:'hq',    slot:2},
-      {id:'ar4', name:'Torres, M.',   rank:'SFC', role:'11B Infantryman',        status:'available',quals:['Airborne','Air Assault'],section:'alpha', slot:1},
-      {id:'ar5', name:'Smith, K.',    rank:'SGT', role:'11B Infantryman',        status:'available',quals:['Combat Lifesaver'],     section:'alpha', slot:2},
-      {id:'ar6', name:'Johnson, A.',  rank:'SPC', role:'68W Combat Medic',       status:'available',quals:['Combat Lifesaver'],    section:'alpha', slot:8},
-      {id:'ar7', name:'Brown, C.',    rank:'SSG', role:'11B Infantryman',        status:'tdy',      quals:['Airborne'],            section:'bravo', slot:1},
-      {id:'ar8', name:'Davis, R.',    rank:'SGT', role:'11C Indirect Fire',      status:'available',quals:[],                      section:'wpns',  slot:2},
-      {id:'ar9', name:'Wilson, E.',   rank:'SPC', role:'25U Signal',             status:'deployed', quals:[],                      section:'css',   slot:4},
-      {id:'ar10',name:'Martinez, F.', rank:'SSG', role:'11B Infantryman',        status:'available',quals:['JTAC'],                section:'wpns',  slot:3},
-      {id:'ar11',name:'Garcia, L.',   rank:'PFC', role:'11B Infantryman',        status:'available',quals:[],                      section:null,    slot:null},
-    ],
-  },
-
-  navy: {
-    id: 'navy',
-    label: 'USN',
-    fullName: 'Navy',
-    unitTerm: 'Division',
-    color: '#60a5fa',   // Navy blue (lighter for dark bg)
-    colorRgb: '96,165,250',
-    roleLabel: 'NEC / Rating',
-    rolePlaceholder: 'e.g. BM Boatswain\'s Mate',
-    tdyLabel: 'TAD',
-    deployedLabel: 'Underway',
-    ranks: ['SR','SA','SN','PO3','PO2','PO1','CPO','SCPO','MCPO','CMDCM','MCPON','ENS','LTJG','LT','LCDR','CDR','CAPT','RDML'],
-    quals: ['Qualified OOD','EOOW','Surface Warfare','EOD','SEAL','Diver','Rescue Swimmer','JTAC','SERE','Nuclear'],
-    sections: [
-      {id:'ops',  name:'Operations',    required:6, positions:['OOD','JOOD','CIC Watch','Radar Supervisor','Signals','Helm']},
-      {id:'eng',  name:'Engineering',   required:8, positions:['CHENG','EOOW','Electrician 1','Electrician 2','Machinist 1','Machinist 2','Damage Control','Hull Tech']},
-      {id:'deck', name:'Deck / Boats',  required:5, positions:['BMC','BM1','BM2','BM3','Messenger']},
-      {id:'supply',name:'Supply',       required:4, positions:['Supply Off','CS1','SK1','PC1']},
-      {id:'med',  name:'Medical',       required:3, positions:['Medical Off','HM1','HM2']},
-      {id:'admin',name:'Admin / XO',    required:4, positions:['XO','YN1','NC1','Chaplain']},
-    ],
-    samplePeople: [
-      {id:'nv1', name:'Petersen, J.', rank:'LCDR',role:'1100 Surface Warfare Off',status:'available',quals:['Qualified OOD','Surface Warfare'],section:'ops',  slot:0},
-      {id:'nv2', name:'Yamamoto, T.', rank:'LT',  role:'1120 Submarine Off',      status:'available',quals:['EOOW'],                          section:'eng',  slot:0},
-      {id:'nv3', name:'Williams, D.', rank:'CPO', role:'BM Boatswain\'s Mate',    status:'available',quals:['Surface Warfare'],               section:'deck', slot:0},
-      {id:'nv4', name:'Rodriguez, A.',rank:'PO1', role:'EM Electrician\'s Mate',   status:'available',quals:['Nuclear'],                       section:'eng',  slot:2},
-      {id:'nv5', name:'Chen, M.',     rank:'PO2', role:'HM Hospital Corpsman',     status:'available',quals:['Rescue Swimmer'],               section:'med',  slot:1},
-      {id:'nv6', name:'Thompson, R.', rank:'PO1', role:'YN Yeoman',               status:'tdy',      quals:[],                               section:'admin',slot:1},
-      {id:'nv7', name:'Davis, S.',    rank:'PO3', role:'CS Culinary Specialist',   status:'available',quals:[],                               section:'supply',slot:1},
-      {id:'nv8', name:'Johnson, K.',  rank:'LT',  role:'1160 EOD Officer',         status:'deployed', quals:['EOD','SERE'],                   section:null,   slot:null},
-      {id:'nv9', name:'Kim, B.',      rank:'PO2', role:'BM Boatswain\'s Mate',     status:'available',quals:[],                               section:'deck', slot:1},
-    ],
-  },
-
-  marines: {
-    id: 'marines',
-    label: 'USMC',
-    fullName: 'Marine Corps',
-    unitTerm: 'Company',
-    color: '#f97316',   // USMC scarlet-orange
-    colorRgb: '249,115,22',
-    roleLabel: 'MOS / Role',
-    rolePlaceholder: 'e.g. 0311 Rifleman',
-    tdyLabel: 'TAD',
-    deployedLabel: 'Deployed',
-    ranks: ['Pvt','PFC','LCpl','Cpl','Sgt','SSgt','GySgt','MSgt','1stSgt','MGySgt','SgtMaj','2ndLt','1stLt','Capt','Maj','LtCol','Col','BGen'],
-    quals: ['Rifle Expert','Pistol Expert','Jump Qual','SERE','JTAC','Scout Sniper','Combat Diver','ANGLICO','EOD','Martial Arts Instructor'],
-    sections: [
-      {id:'hq',   name:'H&S Plt',        required:5, positions:['CO','XO','SgtMaj','S3 SNCO','Gunner']},
-      {id:'1plt', name:'1st Platoon',     required:8, positions:['PLT CDR','PLT SGT','Squad Ldr 1','Squad Ldr 2','Squad Ldr 3','Corpsman','SAW Gunner','Asst Gunner']},
-      {id:'2plt', name:'2nd Platoon',     required:8, positions:['PLT CDR','PLT SGT','Squad Ldr 1','Squad Ldr 2','Squad Ldr 3','Corpsman','SAW Gunner','Asst Gunner']},
-      {id:'3plt', name:'3rd Platoon',     required:8, positions:['PLT CDR','PLT SGT','Squad Ldr 1','Squad Ldr 2','Squad Ldr 3','Corpsman','SAW Gunner','Asst Gunner']},
-      {id:'wpns', name:'Weapons Plt',     required:6, positions:['PLT CDR','PLT SGT','SMAW Tm Ldr','Mortar Sec Ldr','JTAC','Scout Sniper']},
-      {id:'log',  name:'Logistics / CSS', required:4, positions:['S4','Motor T Chief','Supply Chief','Comms Chief']},
-    ],
-    samplePeople: [
-      {id:'mc1', name:'Reyes, J.',    rank:'Capt', role:'0302 Infantry Officer',  status:'available',quals:['Rifle Expert','SERE'],         section:'hq',   slot:0},
-      {id:'mc2', name:'Nguyen, T.',   rank:'1stLt',role:'0302 Infantry Officer',  status:'available',quals:['Rifle Expert'],                section:'1plt', slot:0},
-      {id:'mc3', name:'Jackson, D.',  rank:'GySgt', role:'0369 Inf Unit Ldr',     status:'available',quals:['Scout Sniper','Rifle Expert'], section:'hq',   slot:3},
-      {id:'mc4', name:'Torres, A.',   rank:'Sgt',  role:'0311 Rifleman',          status:'available',quals:['Rifle Expert','JTAC'],         section:'1plt', slot:2},
-      {id:'mc5', name:'Okafor, C.',   rank:'LCpl', role:'0311 Rifleman',          status:'available',quals:['Rifle Expert'],                section:'2plt', slot:3},
-      {id:'mc6', name:'Smith, R.',    rank:'SSgt', role:'0369 Inf Unit Ldr',      status:'tdy',      quals:['Rifle Expert'],                section:'2plt', slot:1},
-      {id:'mc7', name:'Davis, M.',    rank:'Sgt',  role:'0341 Mortar Man',        status:'available',quals:[],                             section:'wpns', slot:3},
-      {id:'mc8', name:'Kim, E.',      rank:'LCpl', role:'0352 Anti-Armor',        status:'deployed', quals:[],                             section:null,   slot:null},
-      {id:'mc9', name:'Brown, P.',    rank:'Capt', role:'0402 Logistics Officer', status:'available',quals:[],                             section:'log',  slot:0},
-    ],
-  },
-
-  coastguard: {
-    id: 'coastguard',
-    label: 'USCG',
-    fullName: 'Coast Guard',
-    unitTerm: 'Station',
-    color: '#f59e0b',   // CG orange
-    colorRgb: '245,158,11',
-    roleLabel: 'Rating / Role',
-    rolePlaceholder: 'e.g. BM Boatswain\'s Mate',
-    tdyLabel: 'TDY',
-    deployedLabel: 'Underway',
-    ranks: ['SR','SA','SN','PO3','PO2','PO1','CPO','SCPO','MCPO','MCPOCG','ENS','LTJG','LT','LCDR','CDR','CAPT','RDML'],
-    quals: ['Coxswain','OIC Qualified','SAR Certified','ATON','Law Enforcement','Port Security','Rescue Swimmer','Diver','Aviation Survival','JTAC'],
-    sections: [
-      {id:'ops',    name:'Operations',       required:5, positions:['OIC','AOIC','Operations Supervisor','Coxswain 1','Coxswain 2']},
-      {id:'boat',   name:'Boat Crew',        required:6, positions:['Coxswain','Engineer','Crew 1','Crew 2','Crew 3','Rescue Swimmer']},
-      {id:'sar',    name:'SAR / Response',   required:4, positions:['SAR Mission Coord','Rescue Swimmer 1','Rescue Swimmer 2','Comms Watch']},
-      {id:'me',     name:'Maritime Enf.',    required:4, positions:['LE Supervisor','Boarding Officer 1','Boarding Officer 2','Intel']},
-      {id:'aton',   name:'Aids to Nav',      required:3, positions:['ATON OIC','Buoy Deck PO','Electronics Tech']},
-      {id:'admin',  name:'Admin / Support',  required:3, positions:['XPO','YN1','HS1']},
-    ],
-    samplePeople: [
-      {id:'cg1', name:'Hansen, J.',  rank:'LCDR',role:'OIC Station Commander',   status:'available',quals:['OIC Qualified','Coxswain'],     section:'ops',  slot:0},
-      {id:'cg2', name:'Park, S.',    rank:'LT',  role:'AOIC',                    status:'available',quals:['Coxswain','SAR Certified'],     section:'ops',  slot:1},
-      {id:'cg3', name:'Torres, M.',  rank:'CPO', role:'BM Boatswain\'s Mate',    status:'available',quals:['Coxswain','SAR Certified'],     section:'boat', slot:0},
-      {id:'cg4', name:'Williams, A.',rank:'PO1', role:'MK Machinery Tech',       status:'available',quals:[],                              section:'boat', slot:1},
-      {id:'cg5', name:'Nguyen, T.',  rank:'PO2', role:'RS Rescue Swimmer',       status:'available',quals:['Rescue Swimmer','SAR Certified'],section:'sar', slot:1},
-      {id:'cg6', name:'Davis, R.',   rank:'PO1', role:'LE Boarding Officer',     status:'tdy',      quals:['Law Enforcement'],             section:'me',   slot:1},
-      {id:'cg7', name:'Kim, C.',     rank:'PO2', role:'ET Electronics Tech',     status:'available',quals:[],                              section:'aton', slot:2},
-      {id:'cg8', name:'Brown, L.',   rank:'PO3', role:'BM Boatswain\'s Mate',    status:'available',quals:[],                              section:'boat', slot:2},
-      {id:'cg9', name:'Garcia, E.',  rank:'LT',  role:'LE Supervisor',           status:'deployed', quals:['Law Enforcement','Port Security'],section:null, slot:null},
-    ],
-  },
 };
 
 // ══════════════════════════════════════════════
@@ -305,7 +167,7 @@ function avatarColors(name) {
 function initials(name) {
   const p=name.split(','); return p.length>1?(p[1].trim()[0]||'')+(p[0].trim()[0]||''):name.slice(0,2).toUpperCase();
 }
-function statusColor(s) { return s==='deployed'?'var(--red)':s==='tdy'?'var(--amber)':'var(--green)'; }
+function statusColor(s) { return s==='deployed'?'var(--red)':s==='tdy'?'var(--amber)':'var(--green)';if (s === 'leave') return '#a855f7';if (s === 'medical') return '#38bdf8'; }
 
 // ══════════════════════════════════════════════
 //  BRANCH SWITCHER
@@ -514,8 +376,9 @@ function renderPool() {
       return (bi===-1?999:bi) - (ai===-1?999:ai); // higher rank first
     }
     if (sortBy === 'status') {
-      const order = {deployed:0,tdy:1,available:2};
-      return (order[a.status]??3) - (order[b.status]??3);
+      // The lower the number, the higher it appears in the unassigned list
+      const order = {deployed: 0, tdy: 1, medical: 2, leave: 3, available: 4};
+      return (order[a.status]??5) - (order[b.status]??5);
     }
     if (sortBy === 'role') return a.role.localeCompare(b.role);
     return a.name.localeCompare(b.name);
@@ -687,7 +550,7 @@ function importCSV(input) {
         const rank = get(row,'rank') || branch().ranks[0];
         const role = get(row,'role') || get(row,'afsc') || get(row,'mos') || '';
         const rawStatus = (get(row,'status')||'available').toLowerCase();
-        const status = ['available','tdy','deployed'].includes(rawStatus) ? rawStatus : 'available';
+        const status = ['available','tdy','leave','medical','deployed'].includes(rawStatus) ? rawStatus : 'available';
         const rawQuals = get(row,'quals') || get(row,'qualifications') || '';
         const quals = rawQuals ? rawQuals.split(/[;|]/).map(q=>q.trim()).filter(Boolean) : [];
         const notes = get(row,'notes') || get(row,'remarks') || null;
@@ -1179,6 +1042,37 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
 document.addEventListener('dblclick', e => {
   const card = e.target.closest('[data-id]');
   if (card) openEditModal(card.dataset.id);
+});
+
+// ══════════════════════════════════════════════
+//  UNIT NAME TOGGLE
+// ══════════════════════════════════════════════
+function toggleUnitNameEdit() {
+  const input = document.getElementById('unit-name');
+  const icon = document.getElementById('lock-icon');
+  const isLocked = input.hasAttribute('readonly');
+
+  if (isLocked) {
+    // Unlock it
+    input.removeAttribute('readonly');
+    input.focus();
+    // Change to 'Unlock' icon
+    icon.innerHTML = `<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path>`;
+  } else {
+    // Lock it
+    input.setAttribute('readonly', 'true');
+    input.blur();
+    saveState();
+    // Change back to 'Lock' icon
+    icon.innerHTML = `<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>`;
+  }
+}
+
+// Optional: Automatically lock it again when the user presses "Enter"
+document.getElementById('unit-name').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    toggleUnitNameEdit();
+  }
 });
 
 // ══════════════════════════════════════════════
