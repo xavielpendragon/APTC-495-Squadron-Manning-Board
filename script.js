@@ -559,37 +559,48 @@ function importCSV(input) {
       const get = (row, k) => { const i = idx(k); return i >= 0 ? (row[i]||'').trim() : ''; };
 
       let added = 0, skipped = 0;
-      lines.slice(1).forEach(line => {
-        if (!line.trim()) return;
-        const row = line.split(sep).map(c => c.trim().replace(/^"|"$/g,''));
-        
-        // Use direct array indexing [0, 1, 2...] based on your template order
-        // This is much safer than relying on header matching if the file is fixed format
-        const name = row[0].trim();
-        const rank = row[1] || branch().ranks[0];
-        const role = row[2] || '';
-        const rawStatus = (row[3]||'available').toLowerCase();
-        const status = ['available','tdy','leave','medical','deployed'].includes(rawStatus) ? rawStatus : 'available';
-        const quals = row[4] ? row[4].split('|') : [];
-        const notes = row[5] || null;
-        const dutyStart = row[6] || null;
-        const arrived = row[7] || null;
-        const deros = row[8] || null;
-        // Auto-calculate DEROS if missing (2-4 years from arrival)
-        let finalDeros = deros;
-        if (!finalDeros && dutyStart) {
-          const d = new Date(dutyStart);
-          d.setFullYear(d.getFullYear() + (Math.floor(Math.random() * 3) + 2)); // Add 2-4 years
-          finalDeros = d.toISOString().split('T')[0];
-        }
+  // Inside your importCSV function where you loop through the lines
+  lines.slice(1).forEach(l => {
+  // 1. A quote-aware parser that prevents splitting commas inside names
+  const cols = [];
+  let curr = '';
+  let inQuotes = false;
+  
+  for (let i = 0; i < l.length; i++) {
+    if (l[i] === '"') {
+      inQuotes = !inQuotes; // Toggle quote state
+    } else if (l[i] === ',' && !inQuotes) {
+      cols.push(curr.trim());
+      curr = ''; // Reset for the next column
+    } else {
+      curr += l[i];
+    }
+  }
+  cols.push(curr.trim()); // Push the final column
 
-        branchPeople[currentBranch].push({
-          id:'p'+(nextId++), name, rank, role, status, quals,
-          notes, dutyStart, arrived, deros,
-          section:null, slot:null
-        });
-        added++;
-      });
+  if (cols.length < 9) return; // Skip invalid or empty rows
+
+  // 2. Map the correctly aligned columns to variables
+  const name = cols[0].replace(/(^"|"$)/g, ''); // Strip the quotes from the name
+  const rank = cols[1];
+  const role = cols[2];
+  const status = cols[3].toLowerCase();
+  
+  // Parse qualifications correctly
+  const quals = (cols[4] && cols[4] !== 'None') ? cols[4].split('|') : [];
+  
+  const notes = cols[5] !== 'None' ? cols[5] : '';
+  const dutyStart = cols[6];
+  const arrived = cols[7];
+  const deros = cols[8];
+
+  // 3. Push to your data object
+  branchPeople[currentBranch].push({
+    id: 'p' + (nextId++),
+    name, rank, role, status, quals, notes, dutyStart, arrived, deros, section: null, slot: null
+  });
+  added++;
+});
 
       input.value = '';
       render(); saveState();

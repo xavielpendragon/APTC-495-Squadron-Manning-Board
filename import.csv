@@ -1,21 +1,21 @@
 name,rank,role,status,quals,notes,dutyStart,arrived,deros
-"Smith, John",SrA,2A353,leave,CDDAR,None,2023-11-07,2023-11-07,2027-11-06
-"Doe, Jane",A1C,2A571,leave,CDDAR|Evaluator|MX Controller,None,2023-07-22,2023-07-22,2026-07-21
-"Garcia, Maria",SrA,2A353,tdy,Crew Chief|Weapons,None,2024-02-13,2024-02-13,2026-02-12
-"Kim, David",MSgt,2A571,leave,Weapons,None,2023-11-12,2023-11-12,2025-11-11
-"Patel, Ravi",MSgt,2A571,deployed,Stan/Eval,None,2023-11-11,2023-11-11,2025-11-10
-"Brown, Sarah",A1C,2A571,medical,Stan/Eval|Task Certified|Crew Chief,None,2024-01-26,2024-01-26,2026-01-25
-"Wilson, Chris",A1C,2A571,deployed,Task Certified|Crew Chief|IP,None,2023-10-28,2023-10-28,2027-10-27
-"Miller, Alex",SrA,2A571,leave,Crew Chief|7-lvl|CDDAR,None,2024-08-28,2024-08-28,2028-08-27
-"Davis, Emily",MSgt,2A353,medical,Flight Lead|Evaluator,None,2024-11-09,2024-11-09,2028-11-08
-"Martinez, Luis",A1C,2A353,medical,Task Certified,None,2024-08-09,2024-08-09,2028-08-08
-"Taylor, Megan",A1C,2A353,medical,Weapons|Stan/Eval|Flight Lead,None,2024-02-21,2024-02-21,2028-02-20
-"Anderson, Ryan",SSgt,2A571,medical,Stan/Eval,None,2025-01-29,2025-01-29,2029-01-28
-"Thomas, Jessica",TSgt,2A353,leave,Crew Chief|IP,None,2024-10-31,2024-10-31,2026-10-31
-"White, James",SSgt,2A353,tdy,Evaluator|Flight Lead|Weapons,None,2023-08-07,2023-08-07,2026-08-06
-"Harris, Rachel",SrA,2A571,medical,Crew Chief|Flight Lead|MX Controller,None,2024-07-15,2024-07-15,2026-07-15
-"Clark, Kevin",A1C,2A571,medical,MX Controller|Evaluator|IP,None,2024-10-22,2024-10-22,2028-10-21
-"Lewis, Laura",SSgt,2A571,tdy,Evaluator|7-lvl|MX Controller,None,2024-02-13,2024-02-13,2026-02-12
-"Young, Scott",SSgt,2A571,tdy,IP,None,2024-01-31,2024-01-31,2028-01-30
-"Walker, Nicole",SrA,2A571,tdy,Flight Lead,None,2024-02-05,2024-02-05,2027-02-04
-"Hall, Brian",A1C,2A353,available,Crew Chief|Evaluator|Weapons,None,2025-04-23,2025-04-23,2028-04-22
+"Brown, Matthew",SrA,2A571,medical,Evaluator,None,2024-05-25,2024-05-25,2028-05-08
+"Doe, Jane",TSgt,2A353,medical,CDDAR|Stan/Eval,None,2023-11-10,2023-11-10,2027-07-27
+"Miller, Ravi",SSgt,2A571,tdy,Flight Lead|Task Certified,None,2023-08-01,2023-08-01,2025-08-28
+"Thompson, Jessica",SrA,2A571,leave,Crew Chief|IP|Stan/Eval,None,2022-07-10,2022-07-10,2028-11-07
+"Taylor, David",SrA,2A353,leave,Evaluator|Task Certified,None,2023-07-05,2023-07-05,2028-07-28
+"Young, Michael",SrA,2A353,leave,MX Controller,None,2023-01-27,2023-01-27,2027-04-29
+"Taylor, Ravi",TSgt,2A353,leave,IP|MX Controller|Task Certified,None,2022-02-11,2022-02-11,2027-02-08
+"Garcia, Ravi",SSgt,2A353,present,Flight Lead|Stan/Eval,None,2024-11-16,2024-11-16,2028-03-19
+"Thomas, David",A1C,2A353,tdy,Stan/Eval,None,2022-09-06,2022-09-06,2027-10-14
+"Miller, Michael",SSgt,2A571,deployed,Task Certified,None,2023-03-25,2023-03-25,2027-11-11
+"Harris, Michael",Amn,2A353,tdy,MX Controller|IP|Weapons,None,2024-05-21,2024-05-21,2028-08-17
+"White, Ashley",TSgt,2A353,tdy,MX Controller,None,2024-07-19,2024-07-19,2028-09-19
+"Wilson, Matthew",A1C,2A353,deployed,CDDAR|MX Controller|IP,None,2024-04-11,2024-04-11,2027-06-10
+"Wilson, Kevin",SSgt,2A571,deployed,Stan/Eval|IP,None,2023-03-07,2023-03-07,2028-11-06
+"Taylor, David",SSgt,2A353,present,Evaluator|Crew Chief|Stan/Eval,None,2024-12-05,2024-12-05,2027-08-07
+"Doe, Kevin",Amn,2A353,tdy,CDDAR|Flight Lead|MX Controller,None,2024-10-21,2024-10-21,2025-10-02
+"Thomas, John",TSgt,2A353,tdy,Task Certified,None,2023-06-02,2023-06-02,2027-10-25
+"Martinez, Michael",SMSgt,2A353,deployed,IP|Evaluator|Crew Chief,None,2023-01-24,2023-01-24,2026-07-07
+"Doe, Jessica",SrA,2A353,deployed,MX Controller|Crew Chief,None,2024-02-26,2024-02-26,2025-05-11
+"Smith, Megan",SSgt,2A353,deployed,Weapons,None,2022-12-08,2022-12-08,2027-01-27
