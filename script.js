@@ -16,28 +16,89 @@ const BRANCHES = {
     ranks: ['Amn','A1C','SrA','SSgt','TSgt','MSgt','SMSgt','CMSgt','2Lt','1Lt','Capt','Maj','Lt Col','Col','Brig Gen'],
     quals: ['Crew Chief','Task Certified','7-lvl','CDDAR','Weapons','Flight Lead','IP','MX Controller','Evaluator','Stan/Eval'],
     sections: [
-      {id:'ops',   name:'Operations',   required:8,  positions:['Flight Lead','Wingman 1','Wingman 2','Weapons Officer','IP Slot','Scheduler','SOF','Additional Duty']},
-      {id:'mx',    name:'Maintenance',  required:10, positions:['Expediter','Crew Chief A','Crew Chief B','Crew Chief C','Avionics','Weapons','Egress','Phase','CDDAR','QA']},
-      {id:'intel', name:'Intelligence', required:4,  positions:['OIC','NCOIC','Analyst 1','Analyst 2']},
-      {id:'log',   name:'Logistics',    required:5,  positions:['Chief','Supply 1','Supply 2','Transportation','Plans']},
-      {id:'med',   name:'Medical / FP', required:3,  positions:['Flight Doc','Corpsman','Readiness NCO']},
-      {id:'hq',    name:'HQ / Admin',   required:4,  positions:['DO','Chief of Staff','Admin NCO','Legal']},
+      {id:'hq',   name:'Command & Staff',        required:13, positions:['Commander', 'MX DO', 'SEL', 'First Sergeant', 'CSS', 'Resource Advisor', 'PRP / Security']},
+      {id:'prod', name:'Production Flight',      required:56, positions:['Flight Leadership', 'Conventional Mx', 'Precision Guided Missiles', 'Trailer Mx', 'Inspection']},
+      {id:'arm',  name:'Armament Flight',        required:47, positions:['Flight Leadership', 'Weapons Mx', 'Weapon Systems Mx']},
+      {id:'mat',  name:'Materiel Flight',        required:28, positions:['Flight Leadership', 'Munitions Operations', 'Stockpile Surveillance']},
+      {id:'sys',  name:'Systems Flight',         required:26, positions:['Flight Leadership', 'Munitions Control', 'Plans & Scheduling', 'Combat Plans, Training & Mobility']},
+      {id:'spec', name:'Special Weapons Flight', required:11, positions:['Flight Leadership', 'NARS', 'Vault Mx']}
     ],
-    samplePeople: [
-      {id:'af1', name:'Rodriguez, M.',rank:'MSgt', role:'2A571 Crew Chief', status:'available',quals:['Crew Chief','Task Certified','7-lvl'],section:'mx',   slot:1},
-      {id:'af2', name:'Chen, K.',     rank:'SSgt', role:'2A571 Crew Chief', status:'available',quals:['Crew Chief','Task Certified'],        section:'mx',   slot:2},
-      {id:'af3', name:'Williams, T.', rank:'TSgt', role:'2A571 Avionics',   status:'available',quals:['7-lvl'],                              section:'mx',   slot:4},
-      {id:'af4', name:'Martinez, J.', rank:'Capt', role:'11F Pilot',        status:'available',quals:['Flight Lead','IP'],                   section:'ops',  slot:0},
-      {id:'af5', name:'Thompson, R.', rank:'Maj',  role:'11F Pilot',        status:'available',quals:['Flight Lead','IP'],                   section:'ops',  slot:4},
-      {id:'af6', name:'Davis, A.',    rank:'1Lt',  role:'11F Pilot',        status:'tdy',      quals:[],                                     section:'ops',  slot:1},
-      {id:'af7', name:'Kim, S.',      rank:'Capt', role:'14N Intel',        status:'available',quals:[],                                     section:'intel',slot:0},
-      {id:'af8', name:'Johnson, B.',  rank:'MSgt', role:'2S071 Supply',     status:'deployed', quals:[],                                     section:'log',  slot:1},
-      {id:'af9', name:'Garcia, L.',   rank:'A1C',  role:'2A571 Crew Chief', status:'available',quals:[],                                     section:'mx',   slot:3},
-      {id:'af10',name:'Patel, V.',    rank:'TSgt', role:'2A571 CDDAR',      status:'available',quals:['CDDAR','7-lvl'],                      section:'mx',   slot:8},
-      {id:'af11',name:'Brown, E.',    rank:'SSgt', role:'14N Analyst',      status:'available',quals:[],                                     section:'intel',slot:2},
-      {id:'af12',name:'Wilson, C.',   rank:'Lt Col',role:'DO',              status:'available',quals:[],                                     section:'hq',   slot:0},
-      {id:'af13',name:'Lee, H.',      rank:'SrA',  role:'2A571 Crew Chief', status:'available',quals:['Task Certified'],                     section:null,   slot:null},
-      {id:'af14',name:'Adams, P.',    rank:'TSgt', role:'Admin NCO',        status:'available',quals:[],                                     section:'hq',   slot:2},
+samplePeople: [
+      {
+        id:'af1', name:'Martinez, J.', rank:'Maj', role:'21M Munitions Officer', status:'available', 
+        quals:[], section:'hq', slot:0, 
+        dutyStart:'2023-05-10', arrived:'2023-05-10', deros:'2026-05-10'
+      },
+      {
+        id:'af2', name:'Davis, A.', rank:'Capt', role:'21M Munitions Officer', status:'available', 
+        quals:[], section:'hq', slot:1, 
+        dutyStart:'2024-01-20', arrived:'2024-01-20', deros:'2027-01-20'
+      },
+      {
+        id:'af3', name:'Rodriguez, M.', rank:'CMSgt', role:'2W091 Munitions Supv', status:'available', 
+        quals:[], section:'hq', slot:2, 
+        dutyStart:'2022-08-15', arrived:'2022-08-15', deros:'2026-08-15'
+      },
+      {
+        id:'af4', name:'Williams, T.', rank:'MSgt', role:'2W071 Munitions Sys', status:'available', 
+        quals:['Inspector', '7-lvl'], section:'prod', slot:4, 
+        dutyStart:'2021-11-05', arrived:'2021-11-05', deros:'2025-11-05'
+      },
+      {
+        id:'af5', name:'Chen, K.', rank:'TSgt', role:'2W071 Munitions Sys', status:'available', 
+        quals:['Task Certified', '7-lvl'], section:'prod', slot:1, 
+        dutyStart:'2023-03-12', arrived:'2023-03-12', deros:'2026-03-12'
+      },
+      {
+        id:'af6', name:'Thompson, R.', rank:'SSgt', role:'2W051 Munitions Sys', status:'tdy', 
+        quals:['Task Certified'], section:'prod', slot:2, 
+        dutyStart:'2024-06-22', arrived:'2024-06-22', deros:'2028-06-22'
+      },
+      {
+        id:'af7', name:'Kim, S.', rank:'MSgt', role:'2W171 Armament Sys', status:'available', 
+        quals:['7-lvl'], section:'arm', slot:1, 
+        dutyStart:'2022-10-30', arrived:'2022-10-30', deros:'2026-10-30'
+      },
+      {
+        id:'af8', name:'Johnson, B.', rank:'TSgt', role:'2W171 Armament Sys', status:'deployed', 
+        quals:['Task Certified'], section:'arm', slot:2, 
+        dutyStart:'2023-09-18', arrived:'2023-09-18', deros:'2027-09-18'
+      },
+      {
+        id:'af9', name:'Garcia, L.', rank:'TSgt', role:'2W071 Munitions Sys', status:'available', 
+        quals:['7-lvl'], section:'mat', slot:1, 
+        dutyStart:'2021-04-10', arrived:'2021-04-10', deros:'2025-04-10'
+      },
+      {
+        id:'af10', name:'Patel, V.', rank:'SSgt', role:'2W051 Munitions Sys', status:'available', 
+        quals:['Task Certified'], section:'mat', slot:2, 
+        dutyStart:'2024-02-05', arrived:'2024-02-05', deros:'2028-02-05'
+      },
+      {
+        id:'af11', name:'Brown, E.', rank:'TSgt', role:'2W071 Munitions Sys', status:'available', 
+        quals:['Controller', '7-lvl'], section:'sys', slot:1, 
+        dutyStart:'2022-07-01', arrived:'2022-07-01', deros:'2026-07-01'
+      },
+      {
+        id:'af12', name:'Wilson, C.', rank:'MSgt', role:'2W071 Munitions Sys', status:'available', 
+        quals:['7-lvl'], section:'sys', slot:2, 
+        dutyStart:'2023-11-15', arrived:'2023-11-15', deros:'2027-11-15'
+      },
+      {
+        id:'af13', name:'Lee, H.', rank:'TSgt', role:'2W271 Nuclear Weapons', status:'available', 
+        quals:['Task Certified'], section:'spec', slot:1, 
+        dutyStart:'2024-08-20', arrived:'2024-08-20', deros:'2028-08-20'
+      },
+      {
+        id:'af14', name:'Adams, P.', rank:'SrA', role:'3F051 Personnel', status:'available', 
+        quals:[], section:'hq', slot:4, 
+        dutyStart:'2023-12-01', arrived:'2023-12-01', deros:'2026-12-01'
+      },
+      {
+        id:'af15', name:'Patchwork, P.', rank:'TSgt', role:'3F051 Personnel', status:'available', 
+        quals:['Controller'], section:null, slot:null, 
+        dutyStart:'2023-12-01', arrived:'2023-12-01', deros:'2026-12-01'
+      }
     ],
   },
 };
