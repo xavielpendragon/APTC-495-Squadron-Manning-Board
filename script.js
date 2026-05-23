@@ -589,13 +589,25 @@ document.addEventListener('click', ev => {
 
 function downloadCSVTemplate() {
   const cols = 'name,rank,role,status,quals,notes,dutyStart,arrived,deros';
-  const example = `Smith, John,${branch().ranks[5]||'SSgt'},${branch().rolePlaceholder||'Duty Title'},available,Qual1|Qual2,Notes here,2023-06-01,2023-06-15,2025-06-01`;
+  
+  // Enclose the name in double quotes to prevent the comma from breaking column mapping
+  const exampleName = '"Smith, John"';
+  const defaultRank = branch().ranks[3] || 'SSgt'; // Pulls a realistic NCO rank like SSgt
+  const defaultRole = branch().id === 'usaf' ? '2W051 Munitions Sys' : (branch().rolePlaceholder || 'Duty Title');
+  const defaultStatus = 'present';
+  const defaultQuals = branch().id === 'usaf' ? 'Task Certified|7-lvl' : 'Qual1|Qual2';
+  
+  const example = `${exampleName},${defaultRank},${defaultRole},${defaultStatus},${defaultQuals},None,2024-05-10,2024-05-10,2028-05-10`;
   const csv = `${cols}\n${example}\n`;
+  
   const a = document.createElement('a');
   a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
   a.download = `manning-template-${branch().id}.csv`;
+  document.body.appendChild(a); // Appending to body ensures browser compatibility
   a.click();
-  showToast('Template downloaded');
+  document.body.removeChild(a);
+  
+  showToast('Template downloaded successfully');
 }
 
 // ══════════════════════════════════════════════
@@ -673,6 +685,85 @@ function importCSV(input) {
     }
   };
   reader.readAsText(file);
+}
+
+function downloadCSV() {
+  // 1. Define the CSV Headers exactly as required by your import feature
+  const headers = ['name', 'rank', 'role', 'status', 'quals', 'notes', 'dutyStart', 'arrived', 'deros'];
+  const rows = [headers.join(',')];
+
+  // 2. Get the active list of personnel for the current branch/unit
+  // Adjust 'branchPeople[currentBranch]' if your global data object uses a different variable name
+  const currentPeople = branchPeople[currentBranch] || [];
+
+  if (currentPeople.length === 0) {
+    alert("There is no personnel data available to download.");
+    return;
+  }
+
+  // 3. Loop through personnel and format each field safely
+  currentPeople.forEach(person => {
+    // Re-wrap the name in double quotes to preserve the "Last, First" structure safely
+    const safeName = person.name.includes(',') ? `"${person.name}"` : `"${person.name}"`;
+    const rank = person.rank || '';
+    const role = person.role || '';
+    const status = person.status || 'present';
+    
+    // Join qualifications back with a pipe character '|', or use 'None' if empty
+    const quals = (person.quals && person.quals.length > 0) ? person.quals.join('|') : 'None';
+    
+    const notes = person.notes || 'None';
+    const dutyStart = person.dutyStart || '';
+    const arrived = person.arrived || person.dutyStart || '';
+    const deros = person.deros || '';
+
+    // Construct the row line
+    const row = [
+      safeName,
+      rank,
+      role,
+      status,
+      quals,
+      notes,
+      dutyStart,
+      arrived,
+      deros
+    ];
+    
+    rows.push(row.join(','));
+  });
+
+  // 4. Convert rows array into a single string block joined by newlines
+  const csvContent = rows.join('\n');
+
+// 5. Create a Blob and trigger a secure browser-driven download
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement("a");
+  
+  if (link.download !== undefined) {
+    const url = URL.createObjectURL(blob);
+    
+    // Fallback chain: Checks 'unit-name' ID first, then tries to find any input matching your header toggles
+    const unitInputElement = document.getElementById('unit-name') || document.querySelector('.unit-title input') || document.querySelector('input[readonly]');
+    let rawUnitName = unitInputElement ? unitInputElement.value : '';
+    
+    // If it's still empty, let's pull from the header text badge dynamically populated during INIT
+    if (!rawUnitName) {
+      const headerTitle = document.getElementById('header-title');
+      if (headerTitle) rawUnitName = headerTitle.textContent;
+    }
+
+    // Clean up the name for file systems (removes spaces/special characters and adds underscores)
+    const sanitizedUnitName = rawUnitName ? rawUnitName.replace(/[^a-z0-9]/gi, '_').toLowerCase() : 'muns_squadron';
+    
+    link.setAttribute("href", url);
+    link.setAttribute("download", `${sanitizedUnitName}_personnel.csv`);
+    
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
 }
 
 // ══════════════════════════════════════════════
@@ -1219,6 +1310,12 @@ document.getElementById('unit-name').addEventListener('keydown', function(e) {
 //  INIT
 // ══════════════════════════════════════════════
 const restored = loadState();
+
+// Pre-fill the input field with the default squadron name if nothing is in localStorage
+const unitNameInput = document.getElementById('unit-name');
+if (unitNameInput && !unitNameInput.value) {
+  unitNameInput.value = "31st Munitions Squadron";
+}
 
 // Apply branch theme (accent color + header text)
 const _b = branch();
