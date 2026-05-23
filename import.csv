@@ -6,14 +6,14 @@ name,rank,role,status,quals,notes,dutyStart,arrived,deros
 "Taylor, David",SrA,2A353,leave,Evaluator|Task Certified,None,2023-07-05,2023-07-05,2028-07-28
 "Young, Michael",SrA,2A353,leave,MX Controller,None,2023-01-27,2023-01-27,2027-04-29
 "Taylor, Ravi",TSgt,2A353,leave,IP|MX Controller|Task Certified,None,2022-02-11,2022-02-11,2027-02-08
-"Garcia, Ravi",SSgt,2A353,present,Flight Lead|Stan/Eval,None,2024-11-16,2024-11-16,2028-03-19
+"Garcia, Ravi",SSgt,2A353,available,Flight Lead|Stan/Eval,None,2024-11-16,2024-11-16,2028-03-19
 "Thomas, David",A1C,2A353,tdy,Stan/Eval,None,2022-09-06,2022-09-06,2027-10-14
 "Miller, Michael",SSgt,2A571,deployed,Task Certified,None,2023-03-25,2023-03-25,2027-11-11
 "Harris, Michael",Amn,2A353,tdy,MX Controller|IP|Weapons,None,2024-05-21,2024-05-21,2028-08-17
 "White, Ashley",TSgt,2A353,tdy,MX Controller,None,2024-07-19,2024-07-19,2028-09-19
 "Wilson, Matthew",A1C,2A353,deployed,CDDAR|MX Controller|IP,None,2024-04-11,2024-04-11,2027-06-10
 "Wilson, Kevin",SSgt,2A571,deployed,Stan/Eval|IP,None,2023-03-07,2023-03-07,2028-11-06
-"Taylor, David",SSgt,2A353,present,Evaluator|Crew Chief|Stan/Eval,None,2024-12-05,2024-12-05,2027-08-07
+"Taylor, John",SSgt,2A353,available,Evaluator|Crew Chief|Stan/Eval,None,2024-12-05,2024-12-05,2027-08-07
 "Doe, Kevin",Amn,2A353,tdy,CDDAR|Flight Lead|MX Controller,None,2024-10-21,2024-10-21,2025-10-02
 "Thomas, John",TSgt,2A353,tdy,Task Certified,None,2023-06-02,2023-06-02,2027-10-25
 "Martinez, Michael",SMSgt,2A353,deployed,IP|Evaluator|Crew Chief,None,2023-01-24,2023-01-24,2026-07-07

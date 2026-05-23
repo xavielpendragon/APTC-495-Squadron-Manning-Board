@@ -352,6 +352,9 @@ function render() {
     'Updated ' + new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
   applySearch();
   if (document.getElementById('deros-panel').classList.contains('open')) renderDerosPanel();
+  if (typeof initPositionQualConfig === 'function') {
+    initPositionQualConfig();
+  }
 }
 
 function renderAlerts() {
@@ -514,18 +517,59 @@ document.addEventListener('drop', ev => {
   ev.preventDefault();
   document.querySelectorAll('.drag-over').forEach(el=>el.classList.remove('drag-over'));
   if (!dragId) return;
+  
   const slot = ev.target.closest('.slot');
   const pool = ev.target.closest('#pool-drop');
+  
   if (slot) {
     const secId = slot.dataset.section;
     const slotIdx = parseInt(slot.dataset.slot, 10);
     const ps = people();
-    const p = ps.find(x=>x.id===dragId); if (!p) { clearDragState(); return; }
+    
+    // 1. Find the person moving
+    const p = ps.find(x=>x.id===dragId); 
+    if (!p) { clearDragState(); return; }
+
+    // 2. Look up the active flight section metadata to pull requirements
+    const _b = BRANCHES[currentBranch];
+    const targetSection = _b ? _b.sections.find(s => s.id === secId) : null;
+    const targetPosition = targetSection ? targetSection.positions[slotIdx] : null;
+    
+    let requiredQualifications = [];
+
+    // 3. Process required qualification formatting (handles string, array, or object mappings)
+    if (targetPosition && typeof targetPosition === 'object') {
+      if (Array.isArray(targetPosition.reqQual)) {
+        requiredQualifications = targetPosition.reqQual;
+      } else if (typeof targetPosition.reqQual === 'string' && targetPosition.reqQual) {
+        requiredQualifications = targetPosition.reqQual.split('|');
+      }
+    } else if (typeof targetPosition === 'string') {
+      // Legacy catch-all fallback configuration rules
+      if (targetPosition.includes('Inspection')) requiredQualifications = ['Inspector'];
+    }
+
+    // 4. LOGIC ENFORCEMENT GATEWAY
+    // Isolate any qualifications required by this position that the user lacks
+    if (requiredQualifications.length > 0) {
+      const missingQuals = requiredQualifications.filter(q => !p.quals || !p.quals.includes(q));
+      
+      if (missingQuals.length > 0) {
+        // Stimulus A match triggered -> Execute Response A: Reject assignment change and notify user
+        showToast(`❌ Placement Blocked: ${p.rank} ${p.name} lacks mandatory credentials: ${missingQuals.join(', ')}`, 'error');
+        clearDragState();
+        render(); // Force clear tracking artifacts and reset cards smoothly
+        return; 
+      }
+    }
+
+    // 5. Success Path: If checks clear, perform standard assignment manipulations
     const occ = ps.find(x=>x.section===secId&&x.slot===slotIdx);
     takeSnapshot();
     if (occ && occ.id !== dragId) { occ.section = p.section; occ.slot = p.slot; }
     p.section = secId; p.slot = slotIdx;
     clearDragState(); render(); saveState();
+    
   } else if (pool) {
     const p = people().find(x=>x.id===dragId);
     if (p) { takeSnapshot(); p.section = null; p.slot = null; }
@@ -610,11 +654,11 @@ function downloadCSVTemplate() {
   showToast('Template downloaded successfully');
 }
 
-// ══════════════════════════════════════════════
+/// ══════════════════════════════════════════════
 //  CSV IMPORT
 // ══════════════════════════════════════════════
 // Expected columns (case-insensitive, any order):
-// name, rank, role, status, section, quals, notes, dutyStart, arrived, deros
+// name, rank, role, status, quals, notes, dutystart, arrived, deros
 function importCSV(input) {
   const file = input.files[0]; if (!file) return;
   const reader = new FileReader();
@@ -624,59 +668,95 @@ function importCSV(input) {
       const lines = text.trim().split(/\r?\n/);
       if (lines.length < 2) { showToast('CSV must have a header row + data rows'); return; }
 
-      // Parse header
+      // Parse header row dynamically
       const sep = lines[0].includes('\t') ? '\t' : ',';
       const headers = lines[0].split(sep).map(h => h.trim().toLowerCase().replace(/[^a-z]/g,''));
 
-      const idx = k => headers.indexOf(k);
-      const get = (row, k) => { const i = idx(k); return i >= 0 ? (row[i]||'').trim() : ''; };
+      // Helper functions for dynamic header index matching
+      const idx = k => headers.indexOf(k.toLowerCase().replace(/[^a-z]/g,''));
+      const get = (rowArray, keyName) => { 
+        const i = idx(keyName); 
+        return i >= 0 ? (rowArray[i] || '').trim() : ''; 
+      };
 
       let added = 0, skipped = 0;
-  // Inside your importCSV function where you loop through the lines
-  lines.slice(1).forEach(l => {
-  // 1. A quote-aware parser that prevents splitting commas inside names
-  const cols = [];
-  let curr = '';
-  let inQuotes = false;
-  
-  for (let i = 0; i < l.length; i++) {
-    if (l[i] === '"') {
-      inQuotes = !inQuotes; // Toggle quote state
-    } else if (l[i] === ',' && !inQuotes) {
-      cols.push(curr.trim());
-      curr = ''; // Reset for the next column
-    } else {
-      curr += l[i];
-    }
-  }
-  cols.push(curr.trim()); // Push the final column
 
-  if (cols.length < 9) return; // Skip invalid or empty rows
+      // Process data rows
+      lines.slice(1).forEach(l => {
+        if (!l.trim()) return; // Skip completely empty rows
 
-  // 2. Map the correctly aligned columns to variables
-  const name = cols[0].replace(/(^"|"$)/g, ''); // Strip the quotes from the name
-  const rank = cols[1];
-  const role = cols[2];
-  const status = cols[3].toLowerCase();
-  
-  // Parse qualifications correctly
-  const quals = (cols[4] && cols[4] !== 'None') ? cols[4].split('|') : [];
-  
-  const notes = cols[5] !== 'None' ? cols[5] : '';
-  const dutyStart = cols[6];
-  const arrived = cols[7];
-  const deros = cols[8];
+        // 1. Quote-aware parsing engine loop to protect inner commas
+        const cols = [];
+        let curr = '';
+        let inQuotes = false;
+        
+        for (let i = 0; i < l.length; i++) {
+          if (l[i] === '"') {
+            inQuotes = !inQuotes; // Toggle quote state boundaries
+          } else if (l[i] === sep && !inQuotes) {
+            cols.push(curr.trim());
+            curr = ''; // Reset buffer for the next column token
+          } else {
+            curr += l[i];
+          }
+        }
+        cols.push(curr.trim()); // Push final column item string buffer
 
-  // 3. Push to your data object
-  branchPeople[currentBranch].push({
-    id: 'p' + (nextId++),
-    name, rank, role, status, quals, notes, dutyStart, arrived, deros, section: null, slot: null
-  });
-  added++;
-});
+        // Safety gate check
+        if (cols.length < headers.length) { skipped++; return; }
+
+        // 2. Extract elements safely using header mapping keys
+        let name = get(cols, 'name').replace(/(^"|"$)/g, ''); // Strip outer quote artifacts
+        const rank = get(cols, 'rank');
+        const role = get(cols, 'role');
+        const status = get(cols, 'status').toLowerCase() || 'present';
+        
+        // Parse qualifications safely
+        const rawQuals = get(cols, 'quals');
+        const quals = (rawQuals && rawQuals !== 'None' && rawQuals !== '') ? rawQuals.split('|') : [];
+        
+        const notes = get(cols, 'notes') !== 'None' ? get(cols, 'notes') : '';
+        
+        // Target tracking dates
+        let dutyStart = get(cols, 'dutystart');
+        let arrived = get(cols, 'arrived');
+        let deros = get(cols, 'deros');
+
+        // 3. LIFECYCLE RE-IMPORT HEALING LOGIC
+        // Intercepts compliance-masked strings and heals them with default calendar tracking placeholders
+        if (dutyStart === 'REDACTED' || arrived === 'REDACTED' || deros === 'REDACTED') {
+          dutyStart = '2025-05-01'; 
+          arrived = '2025-05-01';
+          deros = '2028-05-01'; 
+          
+          // Optional: Add a note marking this profile row state contextually
+          // notes = notes ? `${notes} (Healed System Profile)` : 'OPSEC Compliance Import';
+        }
+
+        // 4. Commit and Push clean object properties to the active branch lane collection matrix
+        branchPeople[currentBranch].push({
+          id: 'p' + (nextId++),
+          name, 
+          rank, 
+          role, 
+          status, 
+          quals, 
+          notes, 
+          dutyStart, 
+          arrived, 
+          deros, 
+          section: null, // Forces profile to land in the Unassigned holding yard
+          slot: null
+        });
+        added++;
+      });
 
       input.value = '';
-      render(); saveState();
+      // Ensure your interface uses your defined render state pipeline method names
+      if (typeof render === 'function') render();
+      else if (typeof renderBoard === 'function') renderBoard();
+      
+      saveState();
       showToast(`Imported ${added} personnel${skipped ? ` · ${skipped} rows skipped` : ''}`);
     } catch(err) {
       console.error(err);
