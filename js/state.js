@@ -226,7 +226,6 @@ export function undo() {
   
   saveState(); 
   return true; 
-<<<<<<< HEAD
 }
 
 // ══════════════════════════════════════════════════════════════════════════
@@ -284,6 +283,4 @@ export function stopSync(updateUIStatusCallback) {
   }
   localStorage.removeItem('manning_remote_db');
   updateUIStatusCallback('offline');
-=======
->>>>>>> b3ce99c4fd54bb6677c627886068b9d35dec23a6
 }
