@@ -227,3 +227,60 @@ export function undo() {
   saveState(); 
   return true; 
 }
+
+// ══════════════════════════════════════════════════════════════════════════
+// 🟢 REMOTE DATABASE SYNCHRONIZATION (CouchDB / Cloudant)
+// ══════════════════════════════════════════════════════════════════════════
+let syncHandler = null;
+
+export function getSavedSyncUrl() {
+  return localStorage.getItem('manning_remote_db') || '';
+}
+
+export function startSync(remoteDbUrl, updateUIStatusCallback) {
+  if (!remoteDbUrl) return;
+
+  // Save the URL locally so it reconnects automatically on refresh
+  localStorage.setItem('manning_remote_db', remoteDbUrl);
+  
+  const remoteDB = new window.PouchDB(remoteDbUrl);
+
+  // Initiate real-time, two-way sync
+  syncHandler = db.sync(remoteDB, {
+    live: true,
+    retry: true
+  })
+  .on('change', async function (info) {
+    // If the change came from the remote database, update the local memory and redraw
+    if (info.direction === 'pull') {
+       await loadState(); // Reload the fresh data into memory arrays
+       if (window.render) window.render(); // Redraw the board
+       if (window.showToast) window.showToast('Board updated by remote user', 'info');
+    }
+  })
+  .on('paused', function (err) {
+    // Paused means it is caught up and waiting, OR the network dropped
+    updateUIStatusCallback(err ? 'error' : 'synced');
+  })
+  .on('active', function () {
+    // Active means it is currently transferring data
+    updateUIStatusCallback('syncing');
+  })
+  .on('denied', function (err) {
+    updateUIStatusCallback('error');
+  })
+  .on('error', function (err) {
+    updateUIStatusCallback('error');
+  });
+
+  updateUIStatusCallback('connecting');
+}
+
+export function stopSync(updateUIStatusCallback) {
+  if (syncHandler) {
+    syncHandler.cancel();
+    syncHandler = null;
+  }
+  localStorage.removeItem('manning_remote_db');
+  updateUIStatusCallback('offline');
+}

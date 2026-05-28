@@ -90,6 +90,10 @@
     <div id="login-error" style="color: var(--red); font-size: 12px; margin-top: 10px; display: none;">Invalid credentials</div>
   </div>
 </div>
+<button class="btn" onclick="window.openSyncModal()" style="display:flex; align-items:center; gap:6px; background:var(--surface1); border:1px solid var(--border1);">
+  <span id="sync-dot" style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--text3);"></span>
+  <span id="sync-text" style="font-size:12px;">Local Only</span>
+</button>
 </header>
 <div id="what-if-banner" style="display: none; background: var(--amber); color: #000; padding: 12px 20px; justify-content: space-between; align-items: center; font-weight: bold; margin-bottom: 20px; border-radius: 6px; border: 2px solid #b45309;">
   <div style="display: flex; align-items: center; gap: 10px;">
@@ -187,6 +191,30 @@
       </div>
         <button class="btn" onclick="window.closeModal()">Cancel</button>
         <button class="btn btn-primary" onclick="window.savePerson()">Save</button>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="sync-modal-overlay">
+  <div class="modal-content" style="max-width: 450px;">
+    <div class="modal-header">
+      <h3 style="margin:0; font-size:16px;">Configure Remote Sync</h3>
+      <button class="sec-ctrl-btn" onclick="window.closeSyncModal()">✕</button>
+    </div>
+    
+    <div style="margin-bottom: 15px; font-size: 12px; color: var(--text2);">
+      Connect a CouchDB or IBM Cloudant database to enable live syncing. Ensure CORS is enabled on your remote database.
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Database URL (include credentials if required)</label>
+      <input class="form-input" id="f-sync-url" type="text" placeholder="https://user:pass@your-db-url.com/manning_board"/>
+      <div style="font-size:10px; color:var(--text3); margin-top:4px;">Example: http://admin:password@localhost:5984/board_db</div>
+    </div>
+
+    <div class="modal-actions" style="margin-top: 20px;">
+      <button class="btn btn-danger" style="margin-right:auto;" onclick="window.disconnectSync()">Disconnect</button>
+      <button class="btn" onclick="window.closeSyncModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="window.connectSync()">Connect & Sync</button>
     </div>
   </div>
 </div>

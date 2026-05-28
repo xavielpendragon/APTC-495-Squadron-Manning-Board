@@ -10,6 +10,7 @@ A browser-based, offline-first personnel readiness management system for USAF mu
 /
 ├── index.html              # Entry point — UI shell, login overlay, all panels
 ├── style.css               # Dark-theme stylesheet
+├── sync-config.js          # Remote DB configuration (see Remote Sync below)
 ├── js/
 │   ├── main.js             # Core application logic, rendering, modals, panels
 │   ├── state.js            # PouchDB persistence, auth, undo stack, sync engine

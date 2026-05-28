@@ -703,6 +703,59 @@ export function validateAssignment(person, position) {
   return { valid: true };
 }
 
+// ══════════════════════════════════════════════════════════════════════════
+// 🟢 REMOTE SYNC UI CONTROLS
+// ══════════════════════════════════════════════════════════════════════════
+
+export function updateSyncUI(status) {
+  const dot = document.getElementById('sync-dot');
+  const text = document.getElementById('sync-text');
+  if (!dot || !text) return;
+
+  if (status === 'synced') {
+    dot.style.background = 'var(--green)';
+    text.textContent = 'Synced Live';
+  } else if (status === 'syncing' || status === 'connecting') {
+    dot.style.background = 'var(--amber)';
+    text.textContent = 'Syncing...';
+  } else if (status === 'error') {
+    dot.style.background = 'var(--red)';
+    text.textContent = 'Sync Error';
+  } else {
+    dot.style.background = 'var(--text3)';
+    text.textContent = 'Local Only';
+  }
+}
+
+export function openSyncModal() {
+  const modal = document.getElementById('sync-modal-overlay');
+  if (modal) {
+    document.getElementById('f-sync-url').value = s.getSavedSyncUrl();
+    modal.classList.add('open');
+  }
+}
+
+export function closeSyncModal() {
+  const modal = document.getElementById('sync-modal-overlay');
+  if (modal) modal.classList.remove('open');
+}
+
+export function connectSync() {
+  const url = document.getElementById('f-sync-url').value.trim();
+  if (url) {
+    s.startSync(url, updateSyncUI);
+    closeSyncModal();
+    if (window.showToast) window.showToast('Connecting to remote database...', 'info');
+  }
+}
+
+export function disconnectSync() {
+  s.stopSync(updateSyncUI);
+  document.getElementById('f-sync-url').value = '';
+  closeSyncModal();
+  if (window.showToast) window.showToast('Disconnected. Operating on local storage.', 'warn');
+}
+
 export function savePerson() {
   const name = document.getElementById('f-name').value.trim();
   const rank = document.getElementById('f-rank').value;
@@ -1027,3 +1080,15 @@ window.undo = () => {
     if (window.showToast) window.showToast('Nothing to undo', 'warn');
   }
 };
+
+window.updateSyncUI = updateSyncUI;
+window.openSyncModal = openSyncModal;
+window.closeSyncModal = closeSyncModal;
+window.connectSync = connectSync;
+window.disconnectSync = disconnectSync;
+
+// Auto-start sync if a URL was previously saved
+window.addEventListener('DOMContentLoaded', () => {
+  const savedUrl = s.getSavedSyncUrl();
+  if (savedUrl) s.startSync(savedUrl, updateSyncUI);
+});
