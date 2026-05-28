@@ -703,7 +703,6 @@ export function validateAssignment(person, position) {
   return { valid: true };
 }
 
-<<<<<<< HEAD
 // ══════════════════════════════════════════════════════════════════════════
 // 🟢 REMOTE SYNC UI CONTROLS
 // ══════════════════════════════════════════════════════════════════════════
@@ -757,8 +756,6 @@ export function disconnectSync() {
   if (window.showToast) window.showToast('Disconnected. Operating on local storage.', 'warn');
 }
 
-=======
->>>>>>> b3ce99c4fd54bb6677c627886068b9d35dec23a6
 export function savePerson() {
   const name = document.getElementById('f-name').value.trim();
   const rank = document.getElementById('f-rank').value;
@@ -1082,7 +1079,6 @@ window.undo = () => {
   } else {
     if (window.showToast) window.showToast('Nothing to undo', 'warn');
   }
-<<<<<<< HEAD
 };
 
 window.updateSyncUI = updateSyncUI;
@@ -1096,6 +1092,3 @@ window.addEventListener('DOMContentLoaded', () => {
   const savedUrl = s.getSavedSyncUrl();
   if (savedUrl) s.startSync(savedUrl, updateSyncUI);
 });
-=======
-};
->>>>>>> b3ce99c4fd54bb6677c627886068b9d35dec23a6
