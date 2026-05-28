@@ -1,7 +1,9 @@
 :root {
   --bg:#0d0f12; --surface:#141720; --surface2:#1c2030;
   --border:rgba(255,255,255,0.08); --border2:rgba(255,255,255,0.14);
-  --text:#e8eaf0; --text2:#8a8fa8; --text3:#555a72;
+  --text: #f8fafc;
+  --text2: #cbd5e1;
+  --text3: #94a3b8;
   --accent:#3b82f6; --accent-rgb:59,130,246;
   --green:#22c55e; --amber:#f59e0b; --red:#ef4444;
   --radius:8px; --radius-lg:12px;
@@ -45,10 +47,10 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .alert svg{width:13px;height:13px;flex-shrink:0}
 
 /* METRICS */
-.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:18px}
+.metrics {display: grid;grid-template-columns: repeat(4, 1fr);gap: 12px;margin-bottom: 20px;}
 .metric-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:13px 15px}
-.metric-label{font-family:var(--mono);font-size:9px;font-weight:500;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
-.metric-value{font-size:26px;font-weight:600;color:var(--text);line-height:1}
+.metric-label{font-family:var(--mono);font-size:8px;font-weight:500;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
+.metric-value {font-family: var(--mono);font-weight: 600;line-height: 1.2;color: var(--text);}
 .metric-sub{font-size:11px;color:var(--text2);margin-top:3px}
 .metric-bar{height:2px;background:var(--border2);border-radius:2px;margin-top:7px}
 .metric-fill{height:100%;border-radius:2px;transition:width .5s ease,background .3s}
@@ -166,8 +168,8 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .add-section-row{grid-column:1/-1}
 .add-section-btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:12px;border:1px dashed var(--border2);border-radius:var(--radius-lg);background:transparent;color:var(--text3);font-size:12px;font-family:var(--font);cursor:pointer;transition:all .15s;width:100%}
 .add-section-btn:hover{border-color:rgba(var(--accent-rgb),.4);color:var(--accent);background:rgba(var(--accent-rgb),.05)}
-.del-section-btn{width:18px;height:18px;border-radius:3px;border:1px solid rgba(239,68,68,.2);background:rgba(239,68,68,.07);color:var(--red);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;flex-shrink:0;opacity:0;transition:opacity .15s;line-height:1}
-.section-card:hover .del-section-btn{opacity:1}
+.del-section-btn {background: var(--surface2);border: 1px solid var(--border2);color: var(--red);border-radius: 4px;width: 20px;height: 20px;display: flex;align-items: center;justify-content: center;font-size: 14px;cursor: pointer;transition: all 0.15s ease;}
+.del-section-btn:hover {background: var(--red);color: #ffffff;border-color: var(--red);box-shadow: 0 0 8px rgba(239, 68, 68, 0.4)}
 
 /* SLOT LABEL EDIT */
 .slot-label-input{font-size:8px;font-family:var(--mono);background:var(--surface);border:1px solid var(--accent);border-radius:3px;color:var(--text);padding:1px 4px;width:90%;outline:none;text-transform:uppercase;letter-spacing:.06em;position:absolute;top:2px;left:5px;z-index:2}
@@ -238,3 +240,36 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
   .tag{background:#e8f0fe;border-color:#c5d5f5;color:#1a3a8f}
 }
 @media(max-width:640px){.sections-grid{grid-template-columns:1fr}.header-center{display:none}.pool-drop{grid-template-columns:repeat(2,1fr)}}
+
+/* 🟢 Limit height to ~5 slots and enable vertical scrolling */
+.section-slots {
+  max-height: 450px; /* Adjust this up or down to perfectly fit 5 of your cards */
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 5px; /* Adds a tiny gap so the scrollbar doesn't touch the cards */
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Assuming this is your gap between slots */
+}
+
+/* 🟢 Custom Scrollbar Styling (Makes it look clean/modern) */
+.section-slots::-webkit-scrollbar {
+  width: 6px;
+}
+
+.section-slots::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.section-slots::-webkit-scrollbar-thumb {
+  background-color: var(--border2); /* Uses your existing border color variable */
+  border-radius: 10px;
+}
+
+.section-slots::-webkit-scrollbar-thumb:hover {
+  background-color: var(--text3);
+}
+.section-slots .slot {
+  flex-shrink: 0; /* Prevents the slot from squishing to fit the container */
+}
