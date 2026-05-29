@@ -37,10 +37,10 @@ Open `index.html` in a browser. No build step, no server, no install required.
 
 ## Login Credentials
 
-| Username | Password   | Role  | Access                                      |
-|----------|------------|-------|---------------------------------------------|
-| admin    | admin123   | Admin | Full access — add/delete sections, reset    |
-| user     | user123    | User  | Read + assign personnel, no structural edits|
+| Username | Password   | Role  | Access                                          |
+|----------|------------|-------|-------------------------------------------------|
+| admin    | admin123   | Admin | Full access — add/delete sections, reset        |
+| user     | user123    | User  | Read + add/remove personnel, no structural edits|
 
 Credentials are defined in `js/state.js` in the `CREDENTIALS` object.
 For production deployment, replace with a proper authentication backend.
