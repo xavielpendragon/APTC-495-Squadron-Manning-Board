@@ -18,7 +18,7 @@
       <div class="header-title" id="header-title">Squadron Manning Board</div>
       <div class="header-sub">
         <div style="display:flex; align-items:center; gap:6px;">
-    <input type="text" class="unit-name-input" id="unit-name" placeholder="31st Munitions Squadron" onchange="saveState()" readonly />
+    <input type="text" class="unit-name-input" id="unit-name" placeholder="31st Munitions Squadron" oninput="window.updateUnitTitle()" readonly />
     <button class="sec-ctrl-btn" id="unit-name-toggle" onclick="toggleUnitNameEdit()" title="Unlock Unit Name">
         <svg id="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -151,7 +151,7 @@
   <div class="pool-section">
     <div class="pool-header">
       <div>
-        <div class="section-name" id="pool-title">Unassigned / Staging</div>
+        <div class="section-name" id="pool-title">Unassigned</div>
         <div class="pool-sub" id="pool-sub">Drag to a slot to assign · drag here to unassign</div>
       </div>
     </div>

@@ -113,6 +113,24 @@ export function loadCurrentPositionQual() {
   updateQualDisplayText();
 }
 
+export function updateUnitTitle() {
+  const input = document.getElementById('unit-name');
+  const headerTitle = document.getElementById('header-title'); // 🟢 Target the HTML header
+
+  if (input) {
+    const newName = input.value.trim();
+    
+    // 1. Updates the browser tab at the very top of the window
+    document.title = newName ? `${newName} - Manning Board` : 'Military Manning Board';
+    
+    // 2. 🟢 Updates the main text title on the actual webpage header
+    if (headerTitle) {
+      headerTitle.textContent = newName ? `${newName} Manning Board` : 'Military Manning Board';
+    }
+  }
+  s.saveState(); 
+}
+
 export function savePositionQualRequirement() {
   const positionValue = document.getElementById('config-position-select').value;
   if (!positionValue) return;
@@ -242,6 +260,7 @@ export function cancelWhatIf() {
 }
 
 export function render() { 
+  updateUnitTitle();
   renderAlerts(); renderMetrics(); renderSections(); renderPool(); renderDeployed();
   const ts = document.getElementById('timestamp');
   if (ts) ts.textContent = 'Updated ' + new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
@@ -1058,7 +1077,7 @@ window.savePositionQualRequirement = savePositionQualRequirement;
 window.toggleQualDropdown = toggleQualDropdown;
 window.toggleUnitNameEdit = toggleUnitNameEdit;
 window.saveState = s.saveState;
-
+window.updateUnitTitle = updateUnitTitle;
 window.openAddModal = openAddModal;
 window.openModal = openModal;
 window.closeModal = closeModal;
