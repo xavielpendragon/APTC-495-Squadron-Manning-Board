@@ -23,7 +23,7 @@
 
 #11. Fix font colors for "status, total, assigned, readiness, medical/leave, deployment/tdy, filled/available/slots, role names, updated, drag to a slot..., +add section".
 
-12. Incorporate a DB into the project. "The system shall store personnel data and assignment records in a local database environment." "The system shall operate in a self-contained local environment accessible only to authorized users and shall not require external web connectivity during normal operation." "The application shall interface with a local database-backed storage environment for secure storage, retrieval, and persistence of personnel records and assignment data. "       Add a remote db that hosts it to add consistency
+#12. Incorporate a DB into the project. "The system shall store personnel data and assignment records in a local database environment." "The system shall operate in a self-contained local environment accessible only to authorized users and shall not require external web connectivity during normal operation." "The application shall interface with a local database-backed storage environment for secure storage, retrieval, and persistence of personnel records and assignment data. "       Add a remote db that hosts it to add consistency. **Added option to have a remote DB hooked into project**
 
 #13. Add scrolling inside each section after XX amount.
 
