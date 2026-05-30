@@ -318,11 +318,11 @@ export function renderMetrics() {
         <div style="display:flex; gap:10px;">
           <div style="flex:1">
             <div class="metric-value" style="color:var(--text); font-size:20px">${m.total}</div>
-            <div class="metric-label" style="font-size:8px">Total</div>
+            <div class="metric-label" style="font-size:8px">Total Personnel</div>
           </div>
           <div style="flex:1">
-            <div class="metric-value" style="color:var(--text2); font-size:20px">${m.filled}</div>
-            <div class="metric-label" style="font-size:8px">Assigned</div>
+            <div class="metric-value" style="color:var(--green); font-size:20px">${m.filled}</div>
+            <div class="metric-label" style="font-size:8px">Assigned Personnel</div>
           </div>
         </div>
       </div>
