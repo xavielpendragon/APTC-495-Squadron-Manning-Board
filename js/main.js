@@ -271,7 +271,7 @@ export function renderAlerts() {
   const depAssigned = ps.filter(p => p.status === 'deployed' && p.section);
   if (depAssigned.length) {
     const depLabel = b.deployedLabel ? b.deployedLabel.toLowerCase() : 'deployed';
-    alerts.push({ level: 'warn', msg: `${depAssigned.length} ${depLabel} personnel still holding assigned slots` });
+    alerts.push({ level: 'warn', msg: `${depAssigned.length} ${depLabel} personnel as of today.` });
   }
 
   const container = document.getElementById('alerts');
