@@ -100,35 +100,44 @@ function defaultSections(k) {
 // 🟢 ASYNCHRONOUS DATABASE TRANSACTIONS
 // ══════════════════════════════════════════════════════════════════════════
 
+let saveTimeout = null; // 🟢 OPTIMIZATION: Debounce timer
+
 export async function saveState() {   
-// 🟢 ADD THIS LINE: Prevent DB writes during What-If mode
+  // 🟢 Prevent DB writes during What-If mode
   if (isWhatIfMode) return;
-  try {
-    const sectionSnap = {};
-    Object.keys(BRANCHES).forEach(k => {
-      sectionSnap[k] = BRANCHES[k].sections.map(s => ({
-        id: s.id, name: s.name, required: s.required, positions: [...s.positions]
-      }));
-    });
-
-    const payload = {
-      _id: 'board_state',
-      currentBranch,
-      branchPeople,
-      sectionSnap,
-      nextId,
-      unitName: document.getElementById('unit-name')?.value || '',
-    };
-
+  
+  // 🟢 Clear the previous timer if the user is still making rapid changes
+  clearTimeout(saveTimeout);
+  
+  // 🟢 Wait 400ms after the last action before firing the database write
+  saveTimeout = setTimeout(async () => {
     try {
-      const existing = await db.get('board_state');
-      payload._rev = existing._rev; 
-    } catch (err) {}
+      const sectionSnap = {};
+      Object.keys(BRANCHES).forEach(k => {
+        sectionSnap[k] = BRANCHES[k].sections.map(s => ({
+          id: s.id, name: s.name, required: s.required, positions: [...s.positions]
+        }));
+      });
 
-    await db.put(payload);
-  } catch(e) {
-    console.warn('Could not save state to local database:', e);
-  } 
+      const payload = {
+        _id: 'board_state',
+        currentBranch,
+        branchPeople,
+        sectionSnap,
+        nextId,
+        unitName: document.getElementById('unit-name')?.value || '',
+      };
+
+      try {
+        const existing = await db.get('board_state');
+        payload._rev = existing._rev; 
+      } catch (err) {} // Ignore if document doesn't exist yet
+
+      await db.put(payload);
+    } catch(e) {
+      console.warn('Could not save state to local database:', e);
+    } 
+  }, 400); 
 }
 
 export async function loadState() {   
@@ -232,6 +241,7 @@ export function undo() {
 // 🟢 REMOTE DATABASE SYNCHRONIZATION (CouchDB / Cloudant)
 // ══════════════════════════════════════════════════════════════════════════
 let syncHandler = null;
+let pullTimeout = null; // 🟢 OPTIMIZATION: Debounce timer for incoming data
 
 export function getSavedSyncUrl() {
   return localStorage.getItem('manning_remote_db') || '';
@@ -243,37 +253,50 @@ export function startSync(remoteDbUrl, updateUIStatusCallback) {
   // Save the URL locally so it reconnects automatically on refresh
   localStorage.setItem('manning_remote_db', remoteDbUrl);
   
-  const remoteDB = new window.PouchDB(remoteDbUrl);
+  // 🟢 OPTIMIZATION: Connection Safety (Try/Catch)
+  try {
+    const remoteDB = new window.PouchDB(remoteDbUrl);
 
-  // Initiate real-time, two-way sync
-  syncHandler = db.sync(remoteDB, {
-    live: true,
-    retry: true
-  })
-  .on('change', async function (info) {
-    // If the change came from the remote database, update the local memory and redraw
-    if (info.direction === 'pull') {
-       await loadState(); // Reload the fresh data into memory arrays
-       if (window.render) window.render(); // Redraw the board
-       if (window.showToast) window.showToast('Board updated by remote user', 'info');
-    }
-  })
-  .on('paused', function (err) {
-    // Paused means it is caught up and waiting, OR the network dropped
-    updateUIStatusCallback(err ? 'error' : 'synced');
-  })
-  .on('active', function () {
-    // Active means it is currently transferring data
-    updateUIStatusCallback('syncing');
-  })
-  .on('denied', function (err) {
-    updateUIStatusCallback('error');
-  })
-  .on('error', function (err) {
-    updateUIStatusCallback('error');
-  });
+    // Initiate real-time, two-way sync
+    syncHandler = db.sync(remoteDB, {
+      live: true,
+      retry: true
+    })
+    .on('change', function (info) {
+      // If the change came from the remote database...
+      if (info.direction === 'pull') {
+         
+         // 🟢 OPTIMIZATION: The Pull Debounce
+         // Wait for the remote database to stop sending rapid packets for 300ms
+         clearTimeout(pullTimeout);
+         pullTimeout = setTimeout(async () => {
+            await loadState(); // Reload the fresh data into memory arrays
+            if (window.render) window.render(); // Redraw the board ONCE
+            if (window.showToast) window.showToast('Board updated by remote user', 'info');
+         }, 300);
+      }
+    })
+    .on('paused', function (err) {
+      updateUIStatusCallback(err ? 'error' : 'synced');
+    })
+    .on('active', function () {
+      updateUIStatusCallback('syncing');
+    })
+    .on('denied', function (err) {
+      updateUIStatusCallback('error');
+    })
+    .on('error', function (err) {
+      updateUIStatusCallback('error');
+    });
 
-  updateUIStatusCallback('connecting');
+    updateUIStatusCallback('connecting');
+    
+  } catch (err) {
+    // 🟢 Catches bad URLs typed into the UI Modal
+    console.error("Invalid database URL:", err);
+    updateUIStatusCallback('error');
+    if (window.showToast) window.showToast('Invalid Database URL', 'error');
+  }
 }
 
 export function stopSync(updateUIStatusCallback) {
