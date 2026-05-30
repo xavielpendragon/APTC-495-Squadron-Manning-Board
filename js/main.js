@@ -286,6 +286,17 @@ export function renderAlerts() {
 export function renderMetrics() {
   const ps = s.people() || []; 
   const totalReq = s.branch().sections.reduce((a, x) => a + x.positions.length, 0);
+  
+  // 🟢 FIX: Filter out non-ready statuses for the readiness calculation
+  const nonReadyStatuses = ['tdy', 'medical', 'leave', 'deployed'];
+  const readyCount = ps.filter(p => 
+    p.section && 
+    p.section !== 'pool' && 
+    p.section !== 'deployed' && 
+    p.status && 
+    !nonReadyStatuses.includes(p.status.toLowerCase())
+  ).length;
+
   const m = {
     total: ps.length, 
     deployed: ps.filter(p => p.status === 'deployed').length,
@@ -293,7 +304,8 @@ export function renderMetrics() {
     leave: ps.filter(p => p.status === 'leave').length,
     medical: ps.filter(p => p.status === 'medical').length, 
     filled: ps.filter(p => p.section).length,
-    readiness: totalReq > 0 ? Math.round((ps.filter(p => p.section).length / totalReq) * 100) : 0
+    // 🟢 Uses readyCount here instead of just checking if they are in a section
+    readiness: totalReq > 0 ? Math.round((readyCount / totalReq) * 100) : 0 
   };
   
   const fillColor = m.readiness >= 80 ? 'var(--green)' : m.readiness >= 60 ? 'var(--amber)' : 'var(--red)';
@@ -320,10 +332,7 @@ export function renderMetrics() {
         <div style="display:flex; gap:10px;">
           <div style="flex:1">
             <div class="metric-value" style="color:${fillColor}; font-size:20px">${m.readiness}%</div>
-          </div>
-          <div style="flex:1">
-            <div class="metric-value" style="color:var(--text2); font-size:20px">${m.filled}/${totalReq}</div>
-          </div>
+          </div>  
         </div>
       </div>
       
@@ -362,8 +371,12 @@ export function renderSections() {
       const inSec = ps.filter(p => p.section === sec.id);
       const avail = inSec.filter(p => p.status === 'available').length;
       
+      // 🟢 FIX: Exclude non-ready statuses from the % Manned calculation
+      const nonReadyStatuses = ['tdy', 'medical', 'leave', 'deployed'];
+      const readyCount = inSec.filter(p => p.status && !nonReadyStatuses.includes(p.status.toLowerCase())).length;
+      
       const req = sec.required || 1; 
-      const pct = Math.round((inSec.length / req) * 100);
+      const pct = Math.round((readyCount / req) * 100); // 🟢 Uses readyCount here
       const pctColor = pct >= 90 ? 'var(--green)' : pct >= 70 ? 'var(--amber)' : 'var(--red)';
       
       const isAdmin = s.currentUserRole === 'admin';
