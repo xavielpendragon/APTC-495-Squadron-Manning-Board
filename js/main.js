@@ -528,6 +528,50 @@ export function addSection() {
   render();
 }
 
+export function renameSection(secId) {
+  if (s.currentUserRole !== 'admin') {
+    if (window.showToast) {
+      window.showToast('Only admins can rename sections.', 'error');
+    }
+    return;
+  }
+  const sec = s.branch().sections.find(section => section.id === secId);
+  if (!sec) {
+    if (window.showToast) {
+      window.showToast('Section not found.', 'error');
+    }
+    return;
+  }
+  const currentName = sec.name || '';
+  const newName = prompt('Enter new section name:', currentName);
+  // User clicked Cancel
+  if (newName === null) return;
+  const cleanedName = newName.trim();
+  if (!cleanedName) {
+    if (window.showToast) {
+      window.showToast('Section name cannot be blank.', 'error');
+    }
+    return;
+  }
+  const duplicate = s.branch().sections.some(section =>
+    section.id !== secId &&
+    section.name.trim().toLowerCase() === cleanedName.toLowerCase()
+  );
+  if (duplicate) {
+    if (window.showToast) {
+      window.showToast('A section with that name already exists.', 'error');
+    }
+    return;
+  }
+  s.takeSnapshot();
+  sec.name = cleanedName;
+  s.saveState();
+  render();
+  if (window.showToast) {
+    window.showToast('Section renamed.', 'success');
+  }
+}
+
 export function deleteSection(secId) {
   if (s.currentUserRole !== 'admin') return;
   if (!confirm('Are you sure you want to delete this section? All assigned personnel will be returned to the unassigned pool.')) return;
@@ -1147,6 +1191,7 @@ window.onSearch = onSearch;
 window.clearSearch = clearSearch;
 window.validateAssignment = validateAssignment;
 window.addSection = addSection;
+window.renameSection = renameSection;
 window.deleteSection = deleteSection;
 window.renameSlot = renameSlot;
 window.changeSlots = changeSlots;
