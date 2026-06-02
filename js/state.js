@@ -1,9 +1,8 @@
-import { BRANCHES } from './config.js';
+import { BRANCHES, SAMPLE_PEOPLE } from './config.js';
 
 // ══════════════════════════════════════════════════════════════════════════
 // 🟢 DATABASE INITIALIZATION (PouchDB - Offline Local Storage)
 // ══════════════════════════════════════════════════════════════════════════
-// Using window.PouchDB ensures we avoid ReferenceErrors if the module loads quickly
 const db = new window.PouchDB('manning_board_db');
 
 export let currentBranch = 'usaf';
@@ -12,16 +11,49 @@ export let nextId = 1000;
 export let dragId = null;
 export let editingId = null;
 export let isWhatIfMode = false;
+
 export function setWhatIfMode(val) { isWhatIfMode = val; }
+export function setDragId(id) { dragId = id; }
+export function setNextId(val) { nextId = val; }
+export function setCurrentBranch(b) { currentBranch = b; }
+export function people() { return branchPeople[currentBranch] || []; }
+export function branch() { return BRANCHES[currentBranch]; }
+
 export const undoStack = [];
 const UNDO_LIMIT = 20;
+
+// ══════════════════════════════════════════════════════════════════════════
+// 🟢 DATA INITIALIZATION
+// ══════════════════════════════════════════════════════════════════════════
+
+function defaultPeople(branchId) {
+  const samples = SAMPLE_PEOPLE || [];
+  return samples.map(p => ({
+    ...p,
+    quals: p.quals ? [...p.quals] : [] 
+  }));
+}
+
+// Populate default arrays on boot
+Object.keys(BRANCHES).forEach(k => {
+  branchPeople[k] = defaultPeople(k); 
+});
+
+function defaultSections(branchId) {
+  const branchObj = BRANCHES[branchId];
+  if (!branchObj || !branchObj.sections) return [];
+  
+  return branchObj.sections.map(s => ({
+    ...s,
+    positions: [...s.positions]
+  }));
+}
 
 // ══════════════════════════════════════════════════════════════════════════
 // 🟢 AUTHENTICATION & SESSIONS
 // ══════════════════════════════════════════════════════════════════════════
 export let currentUserRole = null; 
 
-// Simple hardcoded offline credentials
 const CREDENTIALS = {
   'admin': { pass: 'admin123', role: 'admin' },
   'user': { pass: 'user123', role: 'user' }
@@ -49,67 +81,77 @@ export function login(username, password) {
 export function logout() {
   currentUserRole = null;
   sessionStorage.removeItem('manning_session');
-  window.location.reload(); 
+  if (window.render) window.render();
+  if (window.showToast) window.showToast('Logged out', 'info');
+  window.location.reload();
 }
 
 // ══════════════════════════════════════════════════════════════════════════
-// 🟢 CORE INITIALIZATION
+// 🟢 SNAPSHOTS & UNDO
 // ══════════════════════════════════════════════════════════════════════════
-
-Object.keys(BRANCHES).forEach(k => {
-  branchPeople[k] = defaultPeople(k);
-  BRANCHES[k].sections = defaultSections(k);
-});
-
-export function setBranch(val) { currentBranch = val; }
-export function setNextId(val) { nextId = val; }
-export function setDragId(val) { dragId = val; }
-export function setEditingId(val) { editingId = val; }
-
-export function branch() { return BRANCHES[currentBranch]; }
-export function people() { return branchPeople[currentBranch]; }
-export function setPeople(arr) { branchPeople[currentBranch] = arr; }
-
-export function defaultPeople(k) {
-  return BRANCHES[k].samplePeople.map(p => ({...p, quals:[...p.quals]}));
+export function takeSnapshot() {
+  if (isWhatIfMode) return;
+  const snap = {
+    people: JSON.parse(JSON.stringify(branchPeople)),
+    nextId: nextId,
+    sections: JSON.parse(JSON.stringify(BRANCHES[currentBranch].sections))
+  };
+  undoStack.push(snap);
+  if (undoStack.length > UNDO_LIMIT) undoStack.shift();
 }
 
-function defaultSections(k) {
-  return BRANCHES[k].sections.map(s => {
-    const structuralPositions = [...s.positions];
-    const requiredSize = s.required;
-    const currentSlotsCount = structuralPositions.length;
+export function undo() {
+  if (undoStack.length === 0) return false;
+  const snap = undoStack.pop();
+  
+  // Restore people and counters
+  branchPeople[currentBranch] = snap.people[currentBranch];
+  nextId = snap.nextId;
+  
+  // Restore sections
+  if (snap.sections) {
+    BRANCHES[currentBranch].sections = snap.sections;
+  }
+  
+  saveState();
+  return true;
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+// 🟢 STATE MANAGEMENT (Load, Save, Reset)
+// ══════════════════════════════════════════════════════════════════════════
+
+export async function loadState() {
+  try {
+    const doc = await db.get('board_state');
     
-    if (requiredSize > currentSlotsCount) {
-      const slotsToInflate = requiredSize - currentSlotsCount;
-      for (let i = 0; i < slotsToInflate; i++) {
-        structuralPositions.push('Open');
-      }
+    if (doc.currentBranch) currentBranch = doc.currentBranch;
+    if (doc.nextId) nextId = doc.nextId;
+    if (doc.unitName) {
+        const titleInput = document.getElementById('unit-name');
+        if (titleInput) titleInput.value = doc.unitName;
     }
     
-    return {
-      id: s.id,
-      name: s.name,
-      required: requiredSize,
-      positions: structuralPositions
-    };
-  });
+    Object.keys(BRANCHES).forEach(k => {
+      branchPeople[k] = doc.branchPeople && doc.branchPeople[k] ? doc.branchPeople[k] : defaultPeople(k);
+      if (doc.sectionSnap && doc.sectionSnap[k]) {
+        BRANCHES[k].sections = doc.sectionSnap[k];
+      }
+    });
+  } catch (err) {
+    // If DB is completely empty, populate defaults safely
+    Object.keys(BRANCHES).forEach(k => {
+      branchPeople[k] = defaultPeople(k); 
+    });
+  }
 }
 
-// ══════════════════════════════════════════════════════════════════════════
-// 🟢 ASYNCHRONOUS DATABASE TRANSACTIONS
-// ══════════════════════════════════════════════════════════════════════════
-
-let saveTimeout = null; // 🟢 OPTIMIZATION: Debounce timer
-
+let saveTimeout = null; // Debounce timer to prevent database flooding
 export async function saveState() {   
-  // 🟢 Prevent DB writes during What-If mode
   if (isWhatIfMode) return;
   
-  // 🟢 Clear the previous timer if the user is still making rapid changes
   clearTimeout(saveTimeout);
   
-  // 🟢 Wait 400ms after the last action before firing the database write
   saveTimeout = setTimeout(async () => {
     try {
       const sectionSnap = {};
@@ -131,7 +173,7 @@ export async function saveState() {
       try {
         const existing = await db.get('board_state');
         payload._rev = existing._rev; 
-      } catch (err) {} // Ignore if document doesn't exist yet
+      } catch (err) {} 
 
       await db.put(payload);
     } catch(e) {
@@ -140,108 +182,39 @@ export async function saveState() {
   }, 400); 
 }
 
-export async function loadState() {   
-  try {
-    const payload = await db.get('board_state');
-
-    if (payload.currentBranch && BRANCHES[payload.currentBranch]) {
-      currentBranch = payload.currentBranch;
-    }
-    if (payload.branchPeople) {
-      Object.keys(BRANCHES).forEach(k => {
-        if (payload.branchPeople[k]) branchPeople[k] = payload.branchPeople[k];
-      });
-    }
-    if (payload.sectionSnap) {
-      Object.keys(BRANCHES).forEach(k => {
-        if (payload.sectionSnap[k]) BRANCHES[k].sections = payload.sectionSnap[k];
-      });
-    }
-
-    if (payload.nextId) nextId = payload.nextId;
-    if (payload.unitName) {
-      const el = document.getElementById('unit-name');
-      if (el) el.value = payload.unitName;
-    }
-    
-    return true;
-  } catch(e) {
-    if (e.name === 'not_found') {
-      await saveState();
-    }
-    return false;
-  } 
-}
-
 export async function clearState() {
-  if (currentUserRole !== 'admin') return; 
-  if (!confirm('WARNING: Reset ALL branches to default rosters and clear ID history? This cannot be undone.')) return;
-  
+  // 1. Wipe the database
   try {
-    // 1. Remove the entire state document from the DB
     const existing = await db.get('board_state');
     await db.remove(existing);
-  } catch (err) { }
-  
-  // 2. Force reset all in-memory variables to their original factory settings
+  } catch (e) { }
+
+  // 2. Reset memory using the corrected defaultPeople function
   Object.keys(BRANCHES).forEach(k => {
-    branchPeople[k] = defaultPeople(k);
-    BRANCHES[k].sections = defaultSections(k);
+    branchPeople[k] = defaultPeople(k); 
+    
+    // Reset sections from config
+    if (BRANCHES[k] && BRANCHES[k].sections) {
+      BRANCHES[k].sections = BRANCHES[k].sections.map(sec => ({
+        ...sec,
+        positions: [...sec.positions]
+      }));
+    }
   });
+
+  // 3. Reset ID and update the UI
+  nextId = 1100; 
+  await saveState();
   
-  // 3. 🟢 THE FIX: Reset the ID counter and clear the undo history
-  nextId = 1000; 
-  undoStack.length = 0; 
-  
-// 4. Save the empty/default state back to DB
-// await saveState();
-  
-  // 5. 🟢 THE FIX: Force a hard browser reload to clear all cached logic
-  if (window.showToast) window.showToast('Board reset to defaults');
-  setTimeout(() => { window.location.reload(true); }, 300);
+  if (window.render) window.render();
+  if (window.showToast) window.showToast('Board reset to default personnel', 'success');
 }
 
 // ══════════════════════════════════════════════════════════════════════════
-// 🟢 RUNTIME MEMORY
-// ══════════════════════════════════════════════════════════════════════════
-
-// 1. The Stack Variable (keeps track of the last 20 moves)
-// (Already declared at the top of state.js)
-
-// 2. The Snapshot Function (records the current state)
-export function takeSnapshot() {
-  if (undoStack.length >= 20) {
-    undoStack.shift(); 
-  }
-  
-  // 🟢 FIX: Clone branchPeople and the current active branch's sections correctly
-  const memory = {
-    people: JSON.parse(JSON.stringify(branchPeople)),
-    sections: JSON.parse(JSON.stringify(BRANCHES[currentBranch].sections))
-  };
-  
-  undoStack.push(memory);
-}
-
-// 3. The Undo Function (restores the last memory)
-export function undo() {
-  if (undoStack.length === 0) return false; 
-  
-  const lastState = undoStack.pop();
-  
-  // 🟢 FIX: Restore the data deep-cloned into the active objects
-  Object.assign(branchPeople, lastState.people);
-  BRANCHES[currentBranch].sections = lastState.sections;
-  
-  saveState(); 
-  return true; 
-}
-
-// ══════════════════════════════════════════════════════════════════════════
-// 🟢 REMOTE DATABASE SYNCHRONIZATION (CouchDB / Cloudant)
+// 🟢 REMOTE DATABASE SYNCHRONIZATION (UI / LocalStorage Model)
 // ══════════════════════════════════════════════════════════════════════════
 let syncHandler = null;
-let pullTimeout = null; // 🟢 OPTIMIZATION: Debounce timer for incoming data
+let pullTimeout = null; 
 
 export function getSavedSyncUrl() {
   return localStorage.getItem('manning_remote_db') || '';
@@ -253,7 +226,6 @@ export function startSync(remoteDbUrl, updateUIStatusCallback) {
   // Save the URL locally so it reconnects automatically on refresh
   localStorage.setItem('manning_remote_db', remoteDbUrl);
   
-  // 🟢 OPTIMIZATION: Connection Safety (Try/Catch)
   try {
     const remoteDB = new window.PouchDB(remoteDbUrl);
 
@@ -265,9 +237,7 @@ export function startSync(remoteDbUrl, updateUIStatusCallback) {
     .on('change', function (info) {
       // If the change came from the remote database...
       if (info.direction === 'pull') {
-         
-         // 🟢 OPTIMIZATION: The Pull Debounce
-         // Wait for the remote database to stop sending rapid packets for 300ms
+         // Debounce: Wait for the remote database to stop sending rapid packets for 300ms
          clearTimeout(pullTimeout);
          pullTimeout = setTimeout(async () => {
             await loadState(); // Reload the fresh data into memory arrays
@@ -292,7 +262,7 @@ export function startSync(remoteDbUrl, updateUIStatusCallback) {
     updateUIStatusCallback('connecting');
     
   } catch (err) {
-    // 🟢 Catches bad URLs typed into the UI Modal
+    // Catches bad URLs typed into the UI Modal
     console.error("Invalid database URL:", err);
     updateUIStatusCallback('error');
     if (window.showToast) window.showToast('Invalid Database URL', 'error');
