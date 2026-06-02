@@ -88,28 +88,33 @@ export function logout() {
 // ══════════════════════════════════════════════════════════════════════════
 export function takeSnapshot() {
   if (isWhatIfMode) return;
+  const sectionSnap = {};
+  Object.keys(BRANCHES).forEach(branchId => {
+    sectionSnap[branchId] = JSON.parse(JSON.stringify(BRANCHES[branchId].sections || []));
+  });
   const snap = {
     people: JSON.parse(JSON.stringify(branchPeople)),
-    nextId: nextId,
-    sections: JSON.parse(JSON.stringify(BRANCHES[currentBranch].sections))
+    nextId,
+    currentBranch,
+    sections: sectionSnap
   };
   undoStack.push(snap);
-  if (undoStack.length > UNDO_LIMIT) undoStack.shift();
+  if (undoStack.length > UNDO_LIMIT) {
+    undoStack.shift();
+  }
 }
 
 export function undo() {
   if (undoStack.length === 0) return false;
   const snap = undoStack.pop();
-  
-  // Restore people and counters
-  branchPeople[currentBranch] = snap.people[currentBranch];
+  Object.keys(BRANCHES).forEach(branchId => {
+    branchPeople[branchId] = snap.people[branchId] || defaultPeople(branchId);
+    if (snap.sections && snap.sections[branchId]) {
+      BRANCHES[branchId].sections = snap.sections[branchId];
+    }
+  });
   nextId = snap.nextId;
-  
-  // Restore sections
-  if (snap.sections) {
-    BRANCHES[currentBranch].sections = snap.sections;
-  }
-  
+  currentBranch = snap.currentBranch || currentBranch;
   saveState();
   return true;
 }
@@ -145,37 +150,24 @@ export async function loadState() {
 
 let saveTimeout = null; // Debounce timer to prevent database flooding
 
-export async function saveState() {   
-  if (isWhatIfMode) return;
-  
+export function saveState() {
+  if (isWhatIfMode) {
+    return Promise.resolve(false);
+  }
+
   clearTimeout(saveTimeout);
-  
-  saveTimeout = setTimeout(async () => {
-    try {
-      const sectionSnap = {};
-      Object.keys(BRANCHES).forEach(k => {
-        sectionSnap[k] = JSON.parse(JSON.stringify(BRANCHES[k].sections || []));
-      });
 
-      const payload = {
-        _id: 'board_state',
-        currentBranch,
-        branchPeople,
-        sectionSnap,
-        nextId,
-        unitName: document.getElementById('unit-name')?.value || '',
-      };
-
+  return new Promise(resolve => {
+    saveTimeout = setTimeout(async () => {
       try {
-        const existing = await db.get('board_state');
-        payload._rev = existing._rev; 
-      } catch (err) {} 
-
-      await db.put(payload);
-    } catch(e) {
-      console.warn('Could not save state to local database:', e);
-    } 
-  }, 400); 
+        await saveStateImmediate();
+        resolve(true);
+      } catch (e) {
+        console.warn('Could not save state to local database:', e);
+        resolve(false);
+      }
+    }, 400);
+  });
 }
 
 export async function saveStateImmediate() {

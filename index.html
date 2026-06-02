@@ -84,9 +84,9 @@
       <input type="text" id="login-user" placeholder="Username" style="width: 100%; padding: 8px; margin-bottom: 10px; background: var(--surface2); border: 1px solid var(--border); color: var(--text);">
     </div>
     <div class="form-group">
-      <input type="password" id="login-pass" placeholder="Password" style="width: 100%; padding: 8px; margin-bottom: 20px; background: var(--surface2); border: 1px solid var(--border); color: var(--text);" onkeydown="if(event.key === 'Enter') window.attemptLogin()">
+      <input type="password" id="login-pass" placeholder="Password" style="width: 100%; padding: 8px; margin-bottom: 20px; background: var(--surface2); border: 1px solid var(--border); color: var(--text);" onkeydown="if(event.key === 'Enter' && window.attemptLogin) window.attemptLogin()">
     </div>
-    <button class="btn btn-primary" onclick="window.attemptLogin()" style="width: 100%; justify-content: center;">Log In</button>
+    <button class="btn btn-primary" onclick="if(window.attemptLogin) window.attemptLogin()" style="width: 100%; justify-content: center;">Log In</button>
     <div id="login-error" style="color: var(--red); font-size: 12px; margin-top: 10px; display: none;">Invalid credentials</div>
   </div>
 </div>

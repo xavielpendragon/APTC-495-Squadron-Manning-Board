@@ -208,8 +208,7 @@ export function buildPersonCard(p) {
     <div class="card-date ${dc}">DEROS<span>${fmtDate(p.deros)}</span></div>
   </div>` : '';
   
-  return `<div class="person-card status-${safeStatus}" id="card-${safeId}" draggable="true" data-id="${safeId}" title="Double-click to edit" ondblclick="window.openModal('${safeId}')">
-    <div class="card-top">
+  return `<div class="person-card status-${safeStatus}" id="card-${safeId}" draggable="true" data-id="${safeId}" title="Double-click to edit" ondblclick="event.stopPropagation(); window.openModal('${safeId}')">    <div class="card-top">
       <div class="avatar" style="background:${bg};color:${fg}">${escapeHTML(initials(p.name || ''))}</div>
       <div class="card-info">
         <div class="card-name">${safeRank} ${safeName}</div>
@@ -413,6 +412,8 @@ export function renderSections() {
       const inSec = ps.filter(p => p.section === sec.id);
       const avail = inSec.filter(p => p.status === 'available').length;
       
+      const secName = escapeHTML(sec.name);
+
       // 🟢 FIX: Exclude non-ready statuses from the % Manned calculation
       const nonReadyStatuses = ['tdy', 'medical', 'leave', 'deployed'];
       const readyCount = inSec.filter(p => p.status && !nonReadyStatuses.includes(p.status.toLowerCase())).length;
@@ -446,26 +447,35 @@ export function renderSections() {
       ` : `Auth: <span style="font-weight:bold; color:var(--text);">${sec.required}</span>`;
 
 
-      const slots = sec.positions.map((pos, i) => {
-        const occ = inSec.find(p => p.section === sec.id && p.slot === i);
-        const posName = typeof pos === 'object' ? (pos ? pos.name : 'Open Slot') : pos;
-        
-        // Slot renaming is admin only
-        const renameAttr = isAdmin ? `ondblclick=" if (!event.target.closest('.person-card')) { event.stopPropagation(); window.renameSlot('${sec.id}', ${i}); } "` : '';
-        const renameTitle = isAdmin ? 'title="Double-click slot label to change position criteria"' : '';
-  
-        return `<div class="slot" data-section="${sec.id}" data-slot="${i}" ${renameTitle} ${renameAttr}>
-          <div class="slot-label">${posName}</div>
-          ${occ ? buildPersonCard(occ) : '<div class="slot-empty">—</div>'}
-        </div>`;
-      }).join('');
+    const slots = sec.positions.map((pos, i) => {
+      const occ = inSec.find(p => p.section === sec.id && Number(p.slot) === i);
+
+      const rawPosName =
+        typeof pos === 'object'
+          ? (pos ? pos.name : 'Open Slot')
+          : pos;
+
+      const posName = escapeHTML(rawPosName);
+
+      const renameAttr = isAdmin
+        ? `ondblclick=" if (!event.target.closest('.person-card')) { event.stopPropagation(); window.renameSlot('${sec.id}', ${i}); } "`
+        : '';
+
+      const renameTitle = isAdmin
+        ? 'title="Double-click slot label to change position criteria"'
+        : '';
+
+      return `<div class="slot" data-section="${sec.id}" data-slot="${i}" ${renameTitle} ${renameAttr}>
+        <div class="slot-label">${posName}</div>
+        ${occ ? buildPersonCard(occ) : '<div class="slot-empty">—</div>'}
+      </div>`;
+    }).join('');
       
       const renameSecAttr = isAdmin ? `onclick="window.renameSection('${sec.id}')" style="cursor:pointer;border-bottom:1px dashed var(--border2)" title="Click to rename"` : '';
 
       return `<div class="section-card">
         <div class="section-header">
-          <div class="section-name" ${renameSecAttr}>${sec.name}</div>
-          
+          <div class="section-name" ${renameSecAttr}>${secName}</div>
           <div style="display:flex;align-items:center;gap:10px">
             <span style="color:${pctColor}; font-weight:bold; font-size:11px;">${pct}% Manned</span>
             ${slotControlsHTML}

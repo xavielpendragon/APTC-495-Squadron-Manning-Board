@@ -1,6 +1,6 @@
 import { branchPeople, currentBranch, branch, people, nextId, setNextId, saveState, takeSnapshot } from './state.js';
 import { BRANCHES } from './config.js';
-import { calculateBoardMetrics } from './metrics.js';
+import { calculateBoardMetrics, calculateSectionMetrics } from './metrics.js';
 
 function cleanCSVValue(value) {
   const val = String(value || '').trim();
@@ -35,17 +35,23 @@ export function importCSV(inputElement) {
 }
 
 export function parseCSVRow(str) {
-  let result = [];
+  const result = [];
   let cur = '';
   let inQuotes = false;
   for (let i = 0; i < str.length; i++) {
-    if (str[i] === '"') {
+    const char = str[i];
+    const next = str[i + 1];
+
+    if (char === '"' && inQuotes && next === '"') {
+      cur += '"';
+      i++;
+    } else if (char === '"') {
       inQuotes = !inQuotes;
-    } else if (str[i] === ',' && !inQuotes) {
+    } else if (char === ',' && !inQuotes) {
       result.push(cur.trim());
       cur = '';
     } else {
-      cur += str[i];
+      cur += char;
     }
   }
   result.push(cur.trim());
@@ -153,49 +159,58 @@ export function parseCSV(text) {
 export function executeExport(format) {
   if (format === 'csv') {
     const ps = branchPeople[currentBranch] || [];
-    
-    // 🟢 1. Add 'section' to the header row
+    const sections = BRANCHES[currentBranch]?.sections || [];
     let csvContent = "name,rank,role,status,quals,notes,dutyStart,arrived,deros,section\n";
-    
     ps.forEach(p => {
-      // 🟢 2. Translate internal section ID to the readable Section Name
       let secName = '';
       if (p.section && p.section !== 'pool' && p.section !== 'deployed') {
-        const secObj = BRANCHES[currentBranch].sections.find(s => s.id === p.section);
+        const secObj = sections.find(s => s.id === p.section);
         if (secObj) secName = secObj.name;
       } else if (p.section === 'deployed') {
         secName = 'Deployed';
+      } else {
+        secName = 'Unassigned';
       }
-
       const row = [
-        `"${(p.name || '').replace(/"/g, '""')}"`,
-        p.rank || '',
-        `"${(p.role || '').replace(/"/g, '""')}"`,
-        p.status || 'available',
-        `"${(p.quals || []).join('|')}"`,
-        `"${(p.notes || '').replace(/"/g, '""')}"`,
-        p.dutyStart || '',
-        p.arrived || '',
-        p.deros || '',
-        `"${secName}"` // 🟢 3. Append to the row
+        csvEscape(p.name || ''),
+        csvEscape(p.rank || ''),
+        csvEscape(p.role || ''),
+        csvEscape(p.status || 'available'),
+        csvEscape((p.quals || []).join('|')),
+        csvEscape(p.notes || ''),
+        csvEscape(p.dutyStart || ''),
+        csvEscape(p.arrived || ''),
+        csvEscape(p.deros || ''),
+        csvEscape(secName)
       ];
       csvContent += row.join(',') + "\n";
     });
-
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const blob = new Blob([csvContent], {
+      type: 'text/csv;charset=utf-8;'
+    });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.setAttribute("href", url);
-    link.setAttribute("download", `manning_board_${new Date().toISOString().slice(0,10)}.csv`);
+    link.setAttribute(
+      "download",
+      `manning_board_${new Date().toISOString().slice(0, 10)}.csv`
+    );
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    
-    if (window.showToast) window.showToast('CSV Exported Successfully', 'info');
+    URL.revokeObjectURL(url);
+    if (window.showToast) {
+      window.showToast('CSV Exported Successfully', 'info');
+    }
     return;
   }
-  
-  // ... [Leave your existing PDF export logic alone down here] ...
+  if (format === 'pdf') {
+    exportPDF();
+    return;
+  }
+  if (window.showToast) {
+    window.showToast(`Unsupported export format: ${format}`, 'error');
+  }
 }
 
 export function downloadCSVTemplate() {
@@ -238,9 +253,6 @@ export function exportPDF() {
       const ps = people();
       
       const currentUnitName = document.getElementById('unit-name')?.value || "31st Munitions Squadron";
-      const sanitizedUnitName = currentUnitName.trim().replace(/[^a-z0-9_-]/gi, '_');
-
-      const totalReq = b.sections.reduce((a, s) => a + s.required, 0);
       const boardMetrics = calculateBoardMetrics(b, ps);
 
       const m = {
