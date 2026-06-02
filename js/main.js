@@ -442,12 +442,12 @@ export function renderSections() {
       const isAdmin = s.currentUserRole === 'admin';
 
       // 🟢 Slot Controls available to ALL
-      const slotControlsHTML = `
+      const slotControlsHTML = isAdmin ? `
         <div class="section-controls">
-          <button class="sec-ctrl-btn" onclick="window.changeSlots('${sec.id}',-1)" title="Remove last slot">−</button>
-          <button class="sec-ctrl-btn" onclick="window.changeSlots('${sec.id}',1)" title="Add slot">+</button>
+          <button class="sec-ctrl-btn" onclick="event.stopPropagation(); window.changeSlots('${sec.id}', -1)" title="Remove last slot">−</button>
+          <button class="sec-ctrl-btn" onclick="event.stopPropagation(); window.changeSlots('${sec.id}', 1)" title="Add slot">+</button>
         </div>
-      `;
+      ` : '';
 
       // 🔴 Delete Section Admin ONLY
       const deleteSectionHTML = isAdmin ? `
@@ -515,17 +515,38 @@ export function renderSections() {
 }
 
 export function addSection() {
-  if (s.currentUserRole !== 'admin') return;
+  if (s.currentUserRole !== 'admin') {
+    if (window.showToast) {
+      window.showToast('Only admins can create sections.', 'error');
+    }
+    return;
+  }
   const name = prompt('Enter new section name:');
   if (!name || name.trim() === '') return;
-  
+  const cleanedName = name.trim();
+  const duplicate = s.branch().sections.some(section =>
+    section.name.trim().toLowerCase() === cleanedName.toLowerCase()
+  );
+  if (duplicate) {
+    if (window.showToast) {
+      window.showToast('A section with that name already exists.', 'error');
+    }
+    return;
+  }
   s.takeSnapshot();
   const id = 'sec_' + Date.now();
   s.branch().sections.push({
-    id, name: name.trim(), required: 5, positions: ['Open','Open','Open','Open','Open']
+    id,
+    name: cleanedName,
+    required: 5,
+    positions: ['Open', 'Open', 'Open', 'Open', 'Open']
   });
   s.saveState();
   render();
+
+  if (window.showToast) {
+    window.showToast('Section created.', 'success');
+  }
 }
 
 export function renameSection(secId) {
@@ -573,21 +594,44 @@ export function renameSection(secId) {
 }
 
 export function deleteSection(secId) {
-  if (s.currentUserRole !== 'admin') return;
-  if (!confirm('Are you sure you want to delete this section? All assigned personnel will be returned to the unassigned pool.')) return;
-  
+  if (s.currentUserRole !== 'admin') {
+    if (window.showToast) {
+      window.showToast('Only admins can delete sections.', 'error');
+    }
+    return;
+  }
+  const sec = s.branch().sections.find(section => section.id === secId);
+  if (!sec) {
+    if (window.showToast) {
+      window.showToast('Section not found.', 'error');
+    }
+    return;
+  }
+  if (!confirm(`Are you sure you want to delete "${sec.name}"? All assigned personnel will be returned to the unassigned pool.`)) {
+    return;
+  }
   s.takeSnapshot();
-  s.people().filter(p => p.section === secId).forEach(p => {
-    p.section = null;
-    p.slot = null;
-  });
-  
+
+  s.people()
+    .filter(p => p.section === secId)
+    .forEach(p => {
+      p.section = '';
+      p.slot = '';
+    });
+
   const branchSections = s.branch().sections;
-  const index = branchSections.findIndex(sec => sec.id === secId);
-  if (index !== -1) branchSections.splice(index, 1);
-  
+  const index = branchSections.findIndex(section => section.id === secId);
+
+  if (index !== -1) {
+    branchSections.splice(index, 1);
+  }
+
   s.saveState();
   render();
+
+  if (window.showToast) {
+    window.showToast('Section deleted.', 'success');
+  }
 }
 
 export function renameSlot(secId, slotIdx) {
@@ -617,10 +661,17 @@ export function renameSlot(secId, slotIdx) {
 }
 
 export function changeSlots(secId, delta) {
+  if (s.currentUserRole !== 'admin') {
+    if (window.showToast) {
+      window.showToast('Only admins can change section slots.', 'error');
+    }
+    return;
+  }
+
   const activeSections = BRANCHES[s.currentBranch].sections;
   const sec = activeSections.find(x => x.id === secId);
   if (!sec) return;
-  
+
   s.takeSnapshot();
   
   if (delta > 0) {
@@ -646,7 +697,13 @@ export function changeSlots(secId, delta) {
 }
 
 export function setRequired(secId, val) {
-  if (s.currentUserRole !== 'admin') return;
+  if (s.currentUserRole !== 'admin') {
+    if (window.showToast) {
+      window.showToast('Only admins can change authorized strength.', 'error');
+    }
+    return;
+  }
+
   const sec = s.branch().sections.find(s => s.id === secId);
   if (!sec) return;
   
@@ -982,11 +1039,19 @@ export function onSearch(val) {
   searchQuery = val.trim().toLowerCase();
   applySearch();
 }
+
 export function clearSearch() {
   const sInp = document.getElementById('search-input');
   if (sInp) sInp.value = '';
   onSearch('');
 }
+
+const addSectionBtn = document.getElementById('add-section-btn');
+
+if (addSectionBtn) {
+  addSectionBtn.style.display = s.currentUserRole === 'admin' ? 'flex' : 'none';
+}
+
 export function applySearch() {
   if (!searchQuery) {
     document.querySelectorAll('.person-card').forEach(el => el.classList.remove('dimmed'));

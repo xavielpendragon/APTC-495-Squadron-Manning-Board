@@ -44,3 +44,11 @@
 #21. When removing slots, personnel in those slots are not being shuffled to unassigned.
 
 #22. Reset function does not reset the tiles back to default.
+
+#23. User cannot change name of sections.
+
+#24. User cannot delete/create sections.
+
+#25. Add function to admin that allows renaming sections already in the tracker.
+
+#26. Remove user privledge to import.
