@@ -1,6 +1,7 @@
 import { BRANCHES, PALETTES } from './config.js';
 import * as s from './state.js'; 
 import { importCSV, executeExport, toggleExportMenu, downloadCSVTemplate, exportPDF } from './importExport.js';
+import { calculateBoardMetrics, calculateSectionMetrics } from './metrics.js';
 import './dragDrop.js'; 
 
 export function openConfigPosModal() {
@@ -113,22 +114,20 @@ export function loadCurrentPositionQual() {
   updateQualDisplayText();
 }
 
-export function updateUnitTitle() {
+export function updateUnitTitle({ persist = true } = {}) {
   const input = document.getElementById('unit-name');
-  const headerTitle = document.getElementById('header-title'); // 🟢 Target the HTML header
+  const headerTitle = document.getElementById('header-title');
 
   if (input) {
     const newName = input.value.trim();
-    
-    // 1. Updates the browser tab at the very top of the window
     document.title = newName ? `${newName} - Manning Board` : 'Military Manning Board';
-    
-    // 2. 🟢 Updates the main text title on the actual webpage header
+
     if (headerTitle) {
       headerTitle.textContent = newName ? `${newName} Manning Board` : 'Military Manning Board';
     }
   }
-  s.saveState(); 
+
+  if (persist) s.saveState();
 }
 
 export function savePositionQualRequirement() {
@@ -178,28 +177,49 @@ export function statusColor(status) {
     return map[status] || 'var(--green)';
 }
 
+export function escapeHTML(value) {
+  return String(value ?? '')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
+}
+
 export function buildPersonCard(p) {
-  const [bg,fg] = avatarColors(p.name);
-  const tags = (p.quals || []).slice(0, 5).map(q=>`<span class="tag">${q}</span>`).join('');
+  const safeId = escapeHTML(p.id);
+  const safeName = escapeHTML(p.name || '');
+  const safeRank = escapeHTML(p.rank || '');
+  const safeRole = escapeHTML(p.role || '');
+  const safeStatus = escapeHTML(p.status || 'available');
+  const safeNotes = escapeHTML(p.notes || '');
+  const [bg, fg] = avatarColors(p.name || 'Unknown');
+
+  const tags = (p.quals || [])
+    .slice(0, 5)
+    .map(q => `<span class="tag">${escapeHTML(q)}</span>`)
+    .join('');
+
   const dc = derosClass(p.deros);
+
   const datesHtml = (p.dutyStart || p.arrived || p.deros) ? `<div class="card-dates">
     <div class="card-date">DUTY START<span>${fmtDate(p.dutyStart)}</span></div>
     <div class="card-date">ARRIVED<span>${fmtDate(p.arrived)}</span></div>
     <div class="card-date ${dc}">DEROS<span>${fmtDate(p.deros)}</span></div>
   </div>` : '';
   
-  return `<div class="person-card status-${p.status}" id="card-${p.id}" draggable="true" data-id="${p.id}" title="Double-click to edit" ondblclick="window.openModal('${p.id}')">
+  return `<div class="person-card status-${safeStatus}" id="card-${safeId}" draggable="true" data-id="${safeId}" title="Double-click to edit" ondblclick="window.openModal('${safeId}')">
     <div class="card-top">
-      <div class="avatar" style="background:${bg};color:${fg}">${initials(p.name)}</div>
+      <div class="avatar" style="background:${bg};color:${fg}">${escapeHTML(initials(p.name || ''))}</div>
       <div class="card-info">
-        <div class="card-name">${p.rank} ${p.name}</div>
-        <div class="card-role">${p.role || ''}</div>
+        <div class="card-name">${safeRank} ${safeName}</div>
+        <div class="card-role">${safeRole}</div>
       </div>
       <div class="status-pip" style="background:${statusColor(p.status)}"></div>
     </div>
-    ${tags?`<div class="card-tags">${tags}</div>`:''}
+    ${tags ? `<div class="card-tags">${tags}</div>` : ''}
     ${datesHtml}
-    ${p.notes ? `<div class="card-notes">${p.notes.replace(/</g,'&lt;')}</div>` : ''}
+    ${safeNotes ? `<div class="card-notes">${safeNotes}</div>` : ''}
   </div>`;
 }
 
@@ -260,12 +280,27 @@ export function cancelWhatIf() {
 }
 
 export function render() { 
-  updateUnitTitle();
-  renderAlerts(); renderMetrics(); renderSections(); renderPool(); renderDeployed();
+  updateUnitTitle({ persist: false });
+
+  renderAlerts();
+  renderMetrics();
+  renderSections();
+  renderPool();
+  renderDeployed();
+
   const ts = document.getElementById('timestamp');
-  if (ts) ts.textContent = 'Updated ' + new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  if (ts) {
+    ts.textContent = 'Updated ' + new Date().toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  }
+
   applySearch();
-  if (document.getElementById('deros-panel')?.classList.contains('open')) renderDerosPanel();
+
+  if (document.getElementById('deros-panel')?.classList.contains('open')) {
+    renderDerosPanel();
+  }
 }
 
 export function renderAlerts() {
@@ -303,31 +338,18 @@ export function renderAlerts() {
 }
 
 export function renderMetrics() {
-  const ps = s.people() || []; 
-  const totalReq = s.branch().sections.reduce((a, x) => a + x.positions.length, 0);
-  
-  // 🟢 FIX: Filter out non-ready statuses for the readiness calculation
-  const nonReadyStatuses = ['tdy', 'medical', 'leave', 'deployed'];
-  const readyCount = ps.filter(p => 
-    p.section && 
-    p.section !== 'pool' && 
-    p.section !== 'deployed' && 
-    p.status && 
-    !nonReadyStatuses.includes(p.status.toLowerCase())
-  ).length;
+  const m = calculateBoardMetrics(s.branch(), s.people() || []);
 
-  const m = {
-    total: ps.length, 
-    deployed: ps.filter(p => p.status === 'deployed').length,
-    tdy: ps.filter(p => p.status === 'tdy').length, 
-    leave: ps.filter(p => p.status === 'leave').length,
-    medical: ps.filter(p => p.status === 'medical').length, 
-    filled: ps.filter(p => p.section).length,
-    // 🟢 Uses readyCount here instead of just checking if they are in a section
-    readiness: totalReq > 0 ? Math.round((readyCount / totalReq) * 100) : 0 
-  };
-  
-  const fillColor = m.readiness >= 80 ? 'var(--green)' : m.readiness >= 60 ? 'var(--amber)' : 'var(--red)';
+  const fillColor =
+    m.readinessPct >= 80 ? 'var(--green)' :
+    m.readinessPct >= 60 ? 'var(--amber)' :
+    'var(--red)';
+
+  const mannedColor =
+    m.mannedPct >= 90 ? 'var(--green)' :
+    m.mannedPct >= 70 ? 'var(--amber)' :
+    'var(--red)';
+
   const mCont = document.getElementById('metrics');
   
   if (mCont) {
@@ -336,12 +358,12 @@ export function renderMetrics() {
         <div class="metric-label">Status</div>
         <div style="display:flex; gap:10px;">
           <div style="flex:1">
-            <div class="metric-value" style="color:var(--text); font-size:20px">${m.total}</div>
+            <div class="metric-value" style="color:var(--text); font-size:20px">${m.totalPersonnel}</div>
             <div class="metric-label" style="font-size:8px">Total Personnel</div>
           </div>
           <div style="flex:1">
-            <div class="metric-value" style="color:var(--green); font-size:20px">${m.filled}</div>
-            <div class="metric-label" style="font-size:8px">Assigned Personnel</div>
+            <div class="metric-value" style="color:${mannedColor}; font-size:20px">${m.assignedCount}</div>
+            <div class="metric-label" style="font-size:8px">Assigned / ${m.totalAuthorized} Auth</div>
           </div>
         </div>
       </div>
@@ -350,8 +372,9 @@ export function renderMetrics() {
         <div class="metric-label">Readiness</div>
         <div style="display:flex; gap:10px;">
           <div style="flex:1">
-            <div class="metric-value" style="color:${fillColor}; font-size:20px">${m.readiness}%</div>
-          </div>  
+            <div class="metric-value" style="color:${fillColor}; font-size:20px">${m.readinessPct}%</div>
+            <div class="metric-label" style="font-size:8px">${m.availableCount} Available / ${m.totalAuthorized} Auth</div>
+          </div>
         </div>
       </div>
       
@@ -428,7 +451,7 @@ export function renderSections() {
         const posName = typeof pos === 'object' ? (pos ? pos.name : 'Open Slot') : pos;
         
         // Slot renaming is admin only
-        const renameAttr = isAdmin ? `ondblclick="window.renameSlot('${sec.id}', ${i})"` : '';
+        const renameAttr = isAdmin ? `ondblclick=" if (!event.target.closest('.person-card')) { event.stopPropagation(); window.renameSlot('${sec.id}', ${i}); } "` : '';
         const renameTitle = isAdmin ? 'title="Double-click slot label to change position criteria"' : '';
   
         return `<div class="slot" data-section="${sec.id}" data-slot="${i}" ${renameTitle} ${renameAttr}>
@@ -858,11 +881,16 @@ export function savePerson() {
 
 export function deletePerson() {
   if (!s.editingId) return;
+
+  const deletingId = s.editingId;
+
   s.takeSnapshot();
-  s.setPeople(s.people().filter(p=>p.id!==s.editingId));
-  closeModal(); 
-  render(); 
+  s.setPeople(s.people().filter(p => p.id !== deletingId));
+
+  closeModal();
+  render();
   s.saveState();
+
   showToast('Personnel Removed', 'error');
 }
 
@@ -1046,20 +1074,23 @@ async function initializeApp() {
 }
 
 window.attemptLogin = async function() {
-  const u = document.getElementById('login-user').value;
-  const p = document.getElementById('login-pass').value;
-  const err = document.getElementById('login-error');
-  
-  if (s.login(u, p)) {
-    if (err) err.style.display = 'none';
+  const username = document.getElementById('login-user')?.value || '';
+  const password = document.getElementById('login-pass')?.value || '';
+
+  if (s.login(username, password)) {
     const overlay = document.getElementById('login-overlay');
-    if (overlay) overlay.classList.remove('open');
+    if (overlay) overlay.style.display = 'none';
+
     await initializeApp();
+
+    if (window.showToast) {
+      window.showToast(`Logged in as ${s.currentUserRole}`, 'success');
+    }
   } else {
-    if (err) err.style.display = 'block';
+    const error = document.getElementById('login-error');
+    if (error) error.style.display = 'block';
   }
 };
-
 // ══════════════════════════════════════════════
 // GLOBAL WINDOW BINDINGS
 // ══════════════════════════════════════════════

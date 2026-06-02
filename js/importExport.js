@@ -1,5 +1,25 @@
 import { branchPeople, currentBranch, branch, people, nextId, setNextId, saveState, takeSnapshot } from './state.js';
 import { BRANCHES } from './config.js';
+import { calculateBoardMetrics } from './metrics.js';
+
+function cleanCSVValue(value) {
+  const val = String(value || '').trim();
+  return val.toLowerCase() === 'none' ? '' : val;
+}
+
+function parseQuals(value) {
+  const val = cleanCSVValue(value);
+  if (!val) return [];
+
+  return val
+    .split('|')
+    .map(q => q.trim())
+    .filter(Boolean);
+}
+
+function csvEscape(value) {
+  return `"${String(value ?? '').replace(/"/g, '""')}"`;
+}
 
 export function importCSV(inputElement) {
   const file = inputElement.files[0];
@@ -51,20 +71,22 @@ export function parseCSV(text) {
     let person = { id: 'p' + currentId++ };
     let sectionName = '';
 
-    // Map CSV columns to person data
-    headers.forEach((h, idx) => {
-      let val = fields[idx] || '';
-      if (h === 'name') person.name = val;
-      else if (h === 'rank') person.rank = val;
-      else if (h === 'role') person.role = val;
-      else if (h === 'status') person.status = val.toLowerCase();
-      else if (h === 'quals') person.quals = val ? val.split('|').map(q => q.trim()) : [];
-      else if (h === 'notes') person.notes = val;
-      else if (h === 'dutystart') person.dutyStart = val;
-      else if (h === 'arrived') person.arrived = val;
-      else if (h === 'deros') person.deros = val;
-      else if (h === 'section') sectionName = val.trim(); // 🟢 Capture section column
-    });
+  // Map CSV columns to person data
+  headers.forEach((h, idx) => {
+    const rawVal = fields[idx] || '';
+    const val = cleanCSVValue(rawVal);
+
+    if (h === 'name') person.name = val;
+    else if (h === 'rank') person.rank = val;
+    else if (h === 'role') person.role = val;
+    else if (h === 'status') person.status = val.toLowerCase();
+    else if (h === 'quals') person.quals = parseQuals(rawVal);
+    else if (h === 'notes') person.notes = val;
+    else if (h === 'dutystart') person.dutyStart = val;
+    else if (h === 'arrived') person.arrived = val;
+    else if (h === 'deros') person.deros = val;
+    else if (h === 'section') sectionName = val.trim();
+  });
     
     // ═════════════════════════════════════════════════════════════════
     // 🟢 DYNAMIC SECTION ASSIGNMENT & CREATION
@@ -219,15 +241,18 @@ export function exportPDF() {
       const sanitizedUnitName = currentUnitName.trim().replace(/[^a-z0-9_-]/gi, '_');
 
       const totalReq = b.sections.reduce((a, s) => a + s.required, 0);
+      const boardMetrics = calculateBoardMetrics(b, ps);
+
       const m = {
-        total: ps.length, 
-        deployed: ps.filter(p=>p.status==='deployed').length,
-        tdy: ps.filter(p=>p.status==='tdy').length, 
-        leave: ps.filter(p=>p.status==='leave').length,
-        medical: ps.filter(p=>p.status==='medical').length, 
-        filled: ps.filter(p=>p.section).length,
-        readiness: totalReq > 0 ? Math.round((ps.filter(p=>p.section).length / totalReq) * 100) : 0,
-        totalReq: totalReq
+        total: boardMetrics.totalPersonnel,
+        deployed: boardMetrics.deployed,
+        tdy: boardMetrics.tdy,
+        leave: boardMetrics.leave,
+        medical: boardMetrics.medical,
+        filled: boardMetrics.assignedCount,
+        readiness: boardMetrics.readinessPct,
+        manned: boardMetrics.mannedPct,
+        totalReq: boardMetrics.totalAuthorized
       };
 
       const now = new Date();

@@ -34,9 +34,9 @@ export const BRANCHES = {
       { id: 'hq', name: 'Command & Staff', required: 3, positions: ['Commander', 'MX DO', 'SEL'] },
       { id: 'mat', name: 'Materiel Flight', required: 4, positions: ['Flight CC', 'Flight Chief', 'Section Chief', 'Open Slot'] },
       { id: 'arm', name: 'Armament Flight', required: 4, positions: ['Flight CC', 'Flight Chief', 'Section Chief', 'Open Slot'] },
-      { id:'mat',  name: 'Materiel Flight', required:3, positions: ['Flight Leadership', 'Munitions Operations', 'Stockpile Surveillance']},
-      { id:'sys',  name: 'Systems Flight', required:4, positions: ['Flight Leadership', 'Munitions Control', 'Plans & Scheduling', 'Combat Plans, Training & Mobility']},
-      { id:'spec', name: 'Special Weapons Flight', required:3, positions: ['Flight Leadership', 'NARS', 'Vault Mx']}
+      { id: 'mun_ops', name: 'Munitions Operations', required: 3, positions: ['Flight Leadership', 'Munitions Operations', 'Stockpile Surveillance'] },
+      { id: 'sys', name: 'Systems Flight', required: 4, positions: ['Flight Leadership', 'Munitions Control', 'Plans & Scheduling', 'Combat Plans, Training & Mobility'] },
+      { id: 'spec', name: 'Special Weapons Flight', required: 3, positions: ['Flight Leadership', 'NARS', 'Vault Mx'] }
     ]
   }
 };

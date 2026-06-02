@@ -4,6 +4,16 @@ import { BRANCHES, SAMPLE_PEOPLE } from './config.js';
 // 🟢 DATABASE INITIALIZATION (PouchDB - Offline Local Storage)
 // ══════════════════════════════════════════════════════════════════════════
 const db = new window.PouchDB('manning_board_db');
+const ORIGINAL_BRANCH_SECTIONS = JSON.parse(
+  JSON.stringify(
+    Object.fromEntries(
+      Object.entries(BRANCHES).map(([branchId, branch]) => [
+        branchId,
+        branch.sections || []
+      ])
+    )
+  )
+);
 
 export let currentBranch = 'usaf';
 export const branchPeople = {};
@@ -11,14 +21,15 @@ export let nextId = 1000;
 export let dragId = null;
 export let editingId = null;
 export let isWhatIfMode = false;
-
 export function setWhatIfMode(val) { isWhatIfMode = val; }
 export function setDragId(id) { dragId = id; }
+export function getDragId() { return dragId; }
+export function setEditingId(id) { editingId = id; }
 export function setNextId(val) { nextId = val; }
 export function setCurrentBranch(b) { currentBranch = b; }
+export function setPeople(newPeople) { branchPeople[currentBranch] = newPeople; }
 export function people() { return branchPeople[currentBranch] || []; }
 export function branch() { return BRANCHES[currentBranch]; }
-
 export const undoStack = [];
 const UNDO_LIMIT = 20;
 
@@ -28,25 +39,11 @@ const UNDO_LIMIT = 20;
 
 function defaultPeople(branchId) {
   const samples = SAMPLE_PEOPLE || [];
-  return samples.map(p => ({
-    ...p,
-    quals: p.quals ? [...p.quals] : [] 
-  }));
+  return JSON.parse(JSON.stringify(samples));
 }
 
-// Populate default arrays on boot
-Object.keys(BRANCHES).forEach(k => {
-  branchPeople[k] = defaultPeople(k); 
-});
-
 function defaultSections(branchId) {
-  const branchObj = BRANCHES[branchId];
-  if (!branchObj || !branchObj.sections) return [];
-  
-  return branchObj.sections.map(s => ({
-    ...s,
-    positions: [...s.positions]
-  }));
+  return JSON.parse(JSON.stringify(ORIGINAL_BRANCH_SECTIONS[branchId] || []));
 }
 
 // ══════════════════════════════════════════════════════════════════════════
@@ -147,6 +144,7 @@ export async function loadState() {
 }
 
 let saveTimeout = null; // Debounce timer to prevent database flooding
+
 export async function saveState() {   
   if (isWhatIfMode) return;
   
@@ -156,9 +154,7 @@ export async function saveState() {
     try {
       const sectionSnap = {};
       Object.keys(BRANCHES).forEach(k => {
-        sectionSnap[k] = BRANCHES[k].sections.map(s => ({
-          id: s.id, name: s.name, required: s.required, positions: [...s.positions]
-        }));
+        sectionSnap[k] = JSON.parse(JSON.stringify(BRANCHES[k].sections || []));
       });
 
       const payload = {
@@ -182,29 +178,59 @@ export async function saveState() {
   }, 400); 
 }
 
+export async function saveStateImmediate() {
+  if (isWhatIfMode) return;
+
+  clearTimeout(saveTimeout);
+
+  try {
+    const sectionSnap = {};
+    Object.keys(BRANCHES).forEach(k => {
+      sectionSnap[k] = JSON.parse(JSON.stringify(BRANCHES[k].sections || []));
+    });
+
+    const payload = {
+      _id: 'board_state',
+      currentBranch,
+      branchPeople,
+      sectionSnap,
+      nextId,
+      unitName: document.getElementById('unit-name')?.value || '',
+    };
+
+    try {
+      const existing = await db.get('board_state');
+      payload._rev = existing._rev;
+    } catch (err) {
+      // New document.
+    }
+
+    await db.put(payload);
+  } catch (e) {
+    console.warn('Could not immediately save state to local database:', e);
+  }
+}
+
 export async function clearState() {
-  // 1. Wipe the database
   try {
     const existing = await db.get('board_state');
     await db.remove(existing);
-  } catch (e) { }
+  } catch (e) {
+    // Ignore if board_state does not exist.
+  }
 
-  // 2. Reset memory using the corrected defaultPeople function
-  Object.keys(BRANCHES).forEach(k => {
-    branchPeople[k] = defaultPeople(k); 
-    
-    // Reset sections from config
-    if (BRANCHES[k] && BRANCHES[k].sections) {
-      BRANCHES[k].sections = BRANCHES[k].sections.map(sec => ({
-        ...sec,
-        positions: [...sec.positions]
-      }));
-    }
+  Object.keys(BRANCHES).forEach(branchId => {
+    branchPeople[branchId] = defaultPeople(branchId);
+    BRANCHES[branchId].sections = defaultSections(branchId);
   });
 
-  // 3. Reset ID and update the UI
-  nextId = 1100; 
-  await saveState();
+  currentBranch = 'usaf';
+  nextId = 1100;
+  dragId = null;
+  editingId = null;
+  undoStack.length = 0;
+
+  await saveStateImmediate();
   
   if (window.render) window.render();
   if (window.showToast) window.showToast('Board reset to default personnel', 'success');
