@@ -477,7 +477,7 @@ export function renderSections() {
         <div class="section-header">
           <div class="section-name" ${renameSecAttr}>${secName}</div>
           <div style="display:flex;align-items:center;gap:10px">
-            <span style="color:${pctColor}; font-weight:bold; font-size:11px;">${pct}% Manned</span>
+            <span style="color:${pctColor}; font-weight:bold; font-size:11px;">${pct}% Section Readiness</span>
             ${slotControlsHTML}
             ${deleteSectionHTML}
           </div>
