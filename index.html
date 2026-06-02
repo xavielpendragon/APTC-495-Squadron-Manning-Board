@@ -129,7 +129,10 @@
         <input class="search-input" id="search-input" placeholder="Search by name, rank, role…" oninput="onSearch(this.value)"/>
         <button class="search-clear" id="search-clear" onclick="clearSearch()">×</button>
       </div>
-      <div class="timestamp" id="timestamp"></div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px">
+        <div class="timestamp" id="timestamp"></div>
+        <div class="timestamp" id="last-modified"></div>
+      </div>
     </div>
   </div>
   <div class="sections-grid" id="sections-grid"></div>

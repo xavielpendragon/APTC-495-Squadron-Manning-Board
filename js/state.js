@@ -49,27 +49,50 @@ function defaultSections(branchId) {
 // ══════════════════════════════════════════════════════════════════════════
 // 🟢 AUTHENTICATION & SESSIONS
 // ══════════════════════════════════════════════════════════════════════════
-export let currentUserRole = null; 
+export let currentUserRole = null;
+export let currentUserName = null;
+export let currentUserDisplayName = null;
+export let lastModifiedBy = null;
+export let lastModifiedAt = null;
 
 const CREDENTIALS = {
-  'admin': { pass: 'admin123', role: 'admin' },
-  'user': { pass: 'user123', role: 'user' }
+  'admin': {
+    pass: 'admin123',
+    role: 'admin',
+    displayName: 'Administrator'
+  },
+  'user': {
+    pass: 'user123',
+    role: 'user',
+    displayName: 'Standard User'
+  }
 };
 
 export function checkSession() {
-  const sessionRole = sessionStorage.getItem('manning_session');
-  if (sessionRole) {
+  const sessionRole = sessionStorage.getItem('manning_session_role');
+  const sessionUser = sessionStorage.getItem('manning_session_user');
+  const sessionDisplay = sessionStorage.getItem('manning_session_display');
+
+  if (sessionRole && sessionUser) {
     currentUserRole = sessionRole;
+    currentUserName = sessionUser;
+    currentUserDisplayName = sessionDisplay || sessionUser;
     return true;
   }
+
   return false;
 }
 
 export function login(username, password) {
-  const user = CREDENTIALS[username.toLowerCase()];
+  const normalizedUser = String(username || '').toLowerCase().trim();
+  const user = CREDENTIALS[normalizedUser];
   if (user && user.pass === password) {
     currentUserRole = user.role;
-    sessionStorage.setItem('manning_session', user.role);
+    currentUserName = normalizedUser;
+    currentUserDisplayName = user.displayName || normalizedUser;
+    sessionStorage.setItem('manning_session_role', user.role);
+    sessionStorage.setItem('manning_session_user', normalizedUser);
+    sessionStorage.setItem('manning_session_display', currentUserDisplayName);
     return true;
   }
   return false;
@@ -77,7 +100,11 @@ export function login(username, password) {
 
 export function logout() {
   currentUserRole = null;
-  sessionStorage.removeItem('manning_session');
+  currentUserName = null;
+  currentUserDisplayName = null;
+  sessionStorage.removeItem('manning_session_role');
+  sessionStorage.removeItem('manning_session_user');
+  sessionStorage.removeItem('manning_session_display');
   if (window.render) window.render();
   if (window.showToast) window.showToast('Logged out', 'info');
   window.location.reload();
@@ -129,10 +156,12 @@ export async function loadState() {
     
     if (doc.currentBranch) currentBranch = doc.currentBranch;
     if (doc.nextId) nextId = doc.nextId;
+    if (doc.lastModifiedBy) lastModifiedBy = doc.lastModifiedBy;
+    if (doc.lastModifiedAt) lastModifiedAt = doc.lastModifiedAt;
     if (doc.unitName) {
-        const titleInput = document.getElementById('unit-name');
-        if (titleInput) titleInput.value = doc.unitName;
-    }
+      const titleInput = document.getElementById('unit-name');
+      if (titleInput) titleInput.value = doc.unitName;
+}
     
     Object.keys(BRANCHES).forEach(k => {
       branchPeople[k] = doc.branchPeople && doc.branchPeople[k] ? doc.branchPeople[k] : defaultPeople(k);
@@ -188,6 +217,8 @@ export async function saveStateImmediate() {
       sectionSnap,
       nextId,
       unitName: document.getElementById('unit-name')?.value || '',
+      lastModifiedBy: currentUserDisplayName || currentUserName || currentUserRole || 'Unknown User',
+      lastModifiedAt: new Date().toISOString()
     };
 
     try {
@@ -198,6 +229,8 @@ export async function saveStateImmediate() {
     }
 
     await db.put(payload);
+    lastModifiedBy = payload.lastModifiedBy;
+    lastModifiedAt = payload.lastModifiedAt;
   } catch (e) {
     console.warn('Could not immediately save state to local database:', e);
   }

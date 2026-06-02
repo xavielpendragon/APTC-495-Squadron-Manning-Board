@@ -295,6 +295,23 @@ export function render() {
     });
   }
 
+  const lm = document.getElementById('last-modified');
+
+  if (lm) {
+    if (s.lastModifiedBy && s.lastModifiedAt) {
+      const modifiedDate = new Date(s.lastModifiedAt);
+
+      lm.textContent = `Last saved by ${s.lastModifiedBy} · ${modifiedDate.toLocaleString([], {
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      })}`;
+    } else {
+      lm.textContent = 'Last saved by —';
+    }
+}
+
   applySearch();
 
   if (document.getElementById('deros-panel')?.classList.contains('open')) {
