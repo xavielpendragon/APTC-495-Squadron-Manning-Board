@@ -1,4 +1,5 @@
 import { branchPeople, currentBranch, branch, people, nextId, setNextId, saveState, takeSnapshot } from './state.js';
+import { BRANCHES } from './config.js';
 
 export function importCSV(inputElement) {
   const file = inputElement.files[0];
@@ -38,62 +39,155 @@ export function parseCSV(text) {
     return;
   }
 
+  const headers = parseCSVRow(lines[0]).map(h => h.toLowerCase().trim());
   const importedPeople = [];
-  let currentId = nextId;
+  let currentId = nextId; 
+  
+  const secs = BRANCHES[currentBranch].sections;
+  const currentBoardPeople = branchPeople[currentBranch] || [];
 
   for (let i = 1; i < lines.length; i++) {
     let fields = parseCSVRow(lines[i]);
-    while (fields.length < 9) fields.push('');
+    let person = { id: 'p' + currentId++ };
+    let sectionName = '';
 
-    const [name, rank, role, status, qualsStr, notesStr, dutyStart, arrived, deros] = fields;
-    if (!name) continue; 
-
-    const quals = (qualsStr && qualsStr !== 'None') ? qualsStr.split('|').map(q => q.trim()) : [];
-    const notes = (notesStr && notesStr !== 'None') ? notesStr : null;
-
-    importedPeople.push({
-      id: 'p' + currentId++,
-      name, rank, role, 
-      status: status.toLowerCase(),
-      quals, notes,
-      dutyStart: dutyStart || null,
-      arrived: arrived || null,
-      deros: deros || null,
-      section: null, slot: null
+    // Map CSV columns to person data
+    headers.forEach((h, idx) => {
+      let val = fields[idx] || '';
+      if (h === 'name') person.name = val;
+      else if (h === 'rank') person.rank = val;
+      else if (h === 'role') person.role = val;
+      else if (h === 'status') person.status = val.toLowerCase();
+      else if (h === 'quals') person.quals = val ? val.split('|').map(q => q.trim()) : [];
+      else if (h === 'notes') person.notes = val;
+      else if (h === 'dutystart') person.dutyStart = val;
+      else if (h === 'arrived') person.arrived = val;
+      else if (h === 'deros') person.deros = val;
+      else if (h === 'section') sectionName = val.trim(); // 🟢 Capture section column
     });
+    
+    // ═════════════════════════════════════════════════════════════════
+    // 🟢 DYNAMIC SECTION ASSIGNMENT & CREATION
+    // ═════════════════════════════════════════════════════════════════
+    if (sectionName) {
+       if (sectionName.toLowerCase() === 'deployed') {
+          person.section = 'deployed';
+          person.status = 'deployed';
+       } else if (sectionName.toLowerCase() === 'pool' || sectionName.toLowerCase() === 'unassigned') {
+          person.section = '';
+       } else {
+          // Look for an existing section with this name
+          let existingSec = secs.find(s => s.name.toLowerCase() === sectionName.toLowerCase());
+          
+          // If it doesn't exist, create it dynamically!
+          if (!existingSec) {
+             const newSecId = 'sec_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
+             existingSec = {
+                id: newSecId,
+                name: sectionName,
+                required: 1,
+                positions: ['Open Slot']
+             };
+             secs.push(existingSec); // Add to the board's configuration
+          }
+          
+          person.section = existingSec.id;
+          
+          // Figure out which slot number to put them in
+          const existingOccupants = currentBoardPeople.filter(p => p.section === existingSec.id).length;
+          const importedOccupants = importedPeople.filter(p => p.section === existingSec.id).length;
+          const totalOccupants = existingOccupants + importedOccupants;
+          
+          // If the section is full, automatically generate a new slot so they have a place to sit
+          if (existingSec.positions.length <= totalOccupants) {
+              existingSec.positions.push('Open Slot');
+              existingSec.required = existingSec.positions.length; // Scale auth strength automatically
+          }
+          
+          person.slot = totalOccupants;
+       }
+    } else {
+       person.section = ''; // Send to Unassigned Pool if blank
+    }
+
+    if (!person.status) person.status = 'available';
+    importedPeople.push(person);
   }
 
-  if (importedPeople.length > 0) {
-    takeSnapshot();
-    branchPeople[currentBranch].push(...importedPeople);
-    setNextId(currentId);
-    saveState();
-    if (window.render) window.render();
-    if (window.showToast) window.showToast(`Imported ${importedPeople.length} personnel successfully.`);
-  }
+  // ═════════════════════════════════════════════════════════════════
+  // 🟢 SAVE & RENDER
+  // ═════════════════════════════════════════════════════════════════
+  takeSnapshot();
+  if (!branchPeople[currentBranch]) branchPeople[currentBranch] = [];
+  branchPeople[currentBranch].push(...importedPeople);
+  
+  setNextId(currentId);
+  saveState();
+
+  if (window.render) window.render();
+  if (window.showToast) window.showToast(`Imported ${importedPeople.length} personnel`, 'success');
 }
 
-export function executeExport(type) {
-  if (type === 'csv') {
-    let csvContent = 'name,rank,role,status,quals,notes,dutyStart,arrived,deros\n';
-    branchPeople[currentBranch].forEach(p => {
-      const name = `"${p.name}"`;
-      const quals = p.quals && p.quals.length ? p.quals.join('|') : 'None';
-      const notes = p.notes ? p.notes.replace(/,/g, ';') : 'None';
-      csvContent += `${name},${p.rank},${p.role},${p.status},${quals},${notes},${p.dutyStart||''},${p.arrived||''},${p.deros||''}\n`;
+export function executeExport(format) {
+  if (format === 'csv') {
+    const ps = branchPeople[currentBranch] || [];
+    
+    // 🟢 1. Add 'section' to the header row
+    let csvContent = "name,rank,role,status,quals,notes,dutyStart,arrived,deros,section\n";
+    
+    ps.forEach(p => {
+      // 🟢 2. Translate internal section ID to the readable Section Name
+      let secName = '';
+      if (p.section && p.section !== 'pool' && p.section !== 'deployed') {
+        const secObj = BRANCHES[currentBranch].sections.find(s => s.id === p.section);
+        if (secObj) secName = secObj.name;
+      } else if (p.section === 'deployed') {
+        secName = 'Deployed';
+      }
+
+      const row = [
+        `"${(p.name || '').replace(/"/g, '""')}"`,
+        p.rank || '',
+        `"${(p.role || '').replace(/"/g, '""')}"`,
+        p.status || 'available',
+        `"${(p.quals || []).join('|')}"`,
+        `"${(p.notes || '').replace(/"/g, '""')}"`,
+        p.dutyStart || '',
+        p.arrived || '',
+        p.deros || '',
+        `"${secName}"` // 🟢 3. Append to the row
+      ];
+      csvContent += row.join(',') + "\n";
     });
 
-    // 💡 FIX: Fetch unit name live and replace filename characters securely
-    const rawUnitName = document.getElementById('unit-name')?.value || "Military";
-    const sanitizedUnitName = rawUnitName.trim().replace(/[^a-z0-9_-]/gi, '_');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `manning_board_${new Date().toISOString().slice(0,10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
     
-    downloadFile(`${sanitizedUnitName}_roster_export.csv`, csvContent, 'text/csv');
+    if (window.showToast) window.showToast('CSV Exported Successfully', 'info');
+    return;
   }
+  
+  // ... [Leave your existing PDF export logic alone down here] ...
 }
 
 export function downloadCSVTemplate() {
-  const template = 'name,rank,role,status,quals,notes,dutyStart,arrived,deros\n"Brown, Matthew",SrA,2A571,medical,Evaluator|Task Certified,None,2024-05-25,2024-05-25,2028-05-08\n';
-  downloadFile('import_template.csv', template, 'text/csv');
+  const header = "name,rank,role,status,quals,notes,dutyStart,arrived,deros,section\n";
+  const sample = '"Doe, John",SSgt,2W051 Muns Systems,available,Crew Chief|Task Certified,None,2024-01-01,2024-01-01,2027-01-01,Command & Staff\n';
+  const blob = new Blob([header + sample], { type: 'text/csv;charset=utf-8;' });
+  
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.setAttribute("href", url);
+  link.setAttribute("download", "manning_board_template.csv");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
 
 export function toggleExportMenu() {
