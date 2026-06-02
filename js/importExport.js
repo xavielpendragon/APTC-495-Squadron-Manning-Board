@@ -251,8 +251,14 @@ export function exportPDF() {
       
       const b = branch();
       const ps = people();
-      
+
       const currentUnitName = document.getElementById('unit-name')?.value || "31st Munitions Squadron";
+
+      const sanitizedUnitName = currentUnitName
+        .trim()
+        .replace(/[^a-z0-9_-]/gi, '_')
+        .replace(/_+/g, '_')
+        .replace(/^_+|_+$/g, '') || 'manning_board';
       const boardMetrics = calculateBoardMetrics(b, ps);
 
       const m = {
