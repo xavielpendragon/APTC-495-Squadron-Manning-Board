@@ -38,6 +38,7 @@ export function parseCSVRow(str) {
   const result = [];
   let cur = '';
   let inQuotes = false;
+
   for (let i = 0; i < str.length; i++) {
     const char = str[i];
     const next = str[i + 1];
@@ -54,118 +55,365 @@ export function parseCSVRow(str) {
       cur += char;
     }
   }
+
   result.push(cur.trim());
   return result;
 }
 
 export function parseCSV(text) {
-  const lines = text.split('\n').filter(l => l.trim() !== '');
+  const lines = text
+    .replace(/^\uFEFF/, '') // remove hidden BOM if present
+    .split(/\r?\n/)
+    .filter(line => line.trim() !== '');
+
   if (lines.length < 2) {
-    if (window.showToast) window.showToast('CSV is empty or invalid format', 'error');
+    if (window.showToast) {
+      window.showToast('CSV is empty or invalid format', 'error');
+    }
     return;
   }
 
-  const headers = parseCSVRow(lines[0]).map(h => h.toLowerCase().trim());
-  const importedPeople = [];
-  let currentId = nextId; 
-  
-  const secs = BRANCHES[currentBranch].sections;
-  const currentBoardPeople = branchPeople[currentBranch] || [];
+  function normalizeHeader(header) {
+    return String(header || '')
+      .replace(/^\uFEFF/, '')
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]/g, '');
+  }
 
-  for (let i = 1; i < lines.length; i++) {
-    let fields = parseCSVRow(lines[i]);
-    let person = { id: 'p' + currentId++ };
-    let sectionName = '';
+  function getHeaderKey(header) {
+    const h = normalizeHeader(header);
 
-  // Map CSV columns to person data
-  headers.forEach((h, idx) => {
-    const rawVal = fields[idx] || '';
-    const val = cleanCSVValue(rawVal);
+    const aliases = {
+      name: 'name',
+      fullname: 'name',
+      personnel: 'name',
 
-    if (h === 'name') person.name = val;
-    else if (h === 'rank') person.rank = val;
-    else if (h === 'role') person.role = val;
-    else if (h === 'status') person.status = val.toLowerCase();
-    else if (h === 'quals') person.quals = parseQuals(rawVal);
-    else if (h === 'notes') person.notes = val;
-    else if (h === 'dutystart') person.dutyStart = val;
-    else if (h === 'arrived') person.arrived = val;
-    else if (h === 'deros') person.deros = val;
-    else if (h === 'section') sectionName = val.trim();
-  });
-    
-    // ═════════════════════════════════════════════════════════════════
-    // 🟢 DYNAMIC SECTION ASSIGNMENT & CREATION
-    // ═════════════════════════════════════════════════════════════════
-    if (sectionName) {
-       if (sectionName.toLowerCase() === 'deployed') {
-          person.section = 'deployed';
-          person.status = 'deployed';
-       } else if (sectionName.toLowerCase() === 'pool' || sectionName.toLowerCase() === 'unassigned') {
-          person.section = '';
-       } else {
-          // Look for an existing section with this name
-          let existingSec = secs.find(s => s.name.toLowerCase() === sectionName.toLowerCase());
-          
-          // If it doesn't exist, create it dynamically!
-          if (!existingSec) {
-             const newSecId = 'sec_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
-             existingSec = {
-                id: newSecId,
-                name: sectionName,
-                required: 1,
-                positions: ['Open Slot']
-             };
-             secs.push(existingSec); // Add to the board's configuration
-          }
-          
-          person.section = existingSec.id;
-          
-          // Figure out which slot number to put them in
-          const existingOccupants = currentBoardPeople.filter(p => p.section === existingSec.id).length;
-          const importedOccupants = importedPeople.filter(p => p.section === existingSec.id).length;
-          const totalOccupants = existingOccupants + importedOccupants;
-          
-          // If the section is full, automatically generate a new slot so they have a place to sit
-          if (existingSec.positions.length <= totalOccupants) {
-              existingSec.positions.push('Open Slot');
-              existingSec.required = existingSec.positions.length; // Scale auth strength automatically
-          }
-          
-          person.slot = totalOccupants;
-       }
-    } else {
-       person.section = ''; // Send to Unassigned Pool if blank
+      rank: 'rank',
+      grade: 'rank',
+      paygrade: 'rank',
+      paygrades: 'rank',
+
+      role: 'role',
+      dutytitle: 'role',
+      afsc: 'role',
+      afscdutytitle: 'role',
+      positiontitle: 'role',
+
+      status: 'status',
+
+      quals: 'quals',
+      qualifications: 'quals',
+      qualification: 'quals',
+
+      notes: 'notes',
+      note: 'notes',
+
+      dutystart: 'dutyStart',
+      dutystartdate: 'dutyStart',
+
+      arrived: 'arrived',
+      arrival: 'arrived',
+      arrivaldate: 'arrived',
+
+      deros: 'deros',
+      derosdate: 'deros',
+
+      section: 'section',
+      sectionname: 'section',
+      assignedsection: 'section',
+      assignedto: 'section',
+
+      position: 'position',
+      slot: 'position',
+      billet: 'position',
+      requirement: 'position',
+      rankrequirement: 'position'
+    };
+
+    return aliases[h] || h;
+  }
+
+  function normalizeSectionName(value) {
+    return cleanCSVValue(value).trim();
+  }
+
+  function normalizePositionName(value) {
+    const cleaned = cleanCSVValue(value).trim();
+    return cleaned || 'Open Slot';
+  }
+
+  function makeSectionId(name) {
+    const base = String(name || 'section')
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, '_')
+      .replace(/^_+|_+$/g, '');
+
+    let id = base ? `sec_${base}` : `sec_${Date.now()}`;
+    let counter = 1;
+
+    while (sections.some(sec => sec.id === id)) {
+      id = `${base}_${counter++}`;
     }
 
-    if (!person.status) person.status = 'available';
+    return id;
+  }
+
+  function getPositionLabel(pos) {
+    if (typeof pos === 'object' && pos !== null) {
+      return pos.name || 'Open Slot';
+    }
+
+    return pos || 'Open Slot';
+  }
+
+  function setPositionLabel(sec, slotIndex, label) {
+    const current = sec.positions[slotIndex];
+
+    if (typeof current === 'object' && current !== null) {
+      sec.positions[slotIndex] = {
+        ...current,
+        name: label
+      };
+    } else {
+      sec.positions[slotIndex] = label;
+    }
+  }
+
+  const headers = parseCSVRow(lines[0]).map(getHeaderKey);
+
+  const importedPeople = [];
+  let currentId = nextId;
+
+  const activeBranch = BRANCHES[currentBranch];
+
+  if (!activeBranch) {
+    if (window.showToast) {
+      window.showToast('Current branch configuration not found.', 'error');
+    }
+    return;
+  }
+
+  if (!Array.isArray(activeBranch.sections)) {
+    activeBranch.sections = [];
+  }
+
+  const sections = activeBranch.sections;
+  const currentBoardPeople = branchPeople[currentBranch] || [];
+
+  function getOrCreateSection(sectionName) {
+    const cleanedName = normalizeSectionName(sectionName);
+
+    if (!cleanedName) return null;
+
+    let existingSec = sections.find(sec =>
+      String(sec.name || '').trim().toLowerCase() === cleanedName.toLowerCase()
+    );
+
+    if (!existingSec) {
+      existingSec = {
+        id: makeSectionId(cleanedName),
+        name: cleanedName,
+        required: 0,
+        positions: []
+      };
+
+      sections.push(existingSec);
+    }
+
+    if (!Array.isArray(existingSec.positions)) {
+      existingSec.positions = [];
+    }
+
+    existingSec.required = Number(existingSec.required) || existingSec.positions.length || 0;
+
+    return existingSec;
+  }
+
+  function getOccupiedSlots(sectionId) {
+    const occupied = new Set();
+
+    currentBoardPeople.forEach(p => {
+      if (
+        p.section === sectionId &&
+        p.slot !== '' &&
+        p.slot !== null &&
+        p.slot !== undefined
+      ) {
+        occupied.add(Number(p.slot));
+      }
+    });
+
+    importedPeople.forEach(p => {
+      if (
+        p.section === sectionId &&
+        p.slot !== '' &&
+        p.slot !== null &&
+        p.slot !== undefined
+      ) {
+        occupied.add(Number(p.slot));
+      }
+    });
+
+    return occupied;
+  }
+
+  function findOrCreateSlot(sec, positionName) {
+    const occupied = getOccupiedSlots(sec.id);
+    const normalizedPosition = positionName.trim().toLowerCase();
+
+    // 1. Prefer an unoccupied existing slot with the same position/rank label.
+    for (let i = 0; i < sec.positions.length; i++) {
+      const label = getPositionLabel(sec.positions[i]).trim().toLowerCase();
+
+      if (!occupied.has(i) && label === normalizedPosition) {
+        return i;
+      }
+    }
+
+    // 2. Use the first unoccupied Open slot.
+    for (let i = 0; i < sec.positions.length; i++) {
+      const label = getPositionLabel(sec.positions[i]).trim().toLowerCase();
+
+      if (
+        !occupied.has(i) &&
+        (!label || label === 'open' || label === 'open slot')
+      ) {
+        setPositionLabel(sec, i, positionName);
+        return i;
+      }
+    }
+
+    // 3. Create a new slot if the section is full or no matching slot exists.
+    sec.positions.push(positionName);
+    sec.required = sec.positions.length;
+
+    return sec.positions.length - 1;
+  }
+
+  // Take snapshot BEFORE modifying people/sections.
+  takeSnapshot();
+
+  for (let i = 1; i < lines.length; i++) {
+    const fields = parseCSVRow(lines[i]);
+
+    const person = {
+      id: 'p' + currentId++,
+      name: '',
+      rank: '',
+      role: '',
+      status: 'available',
+      quals: [],
+      notes: '',
+      dutyStart: '',
+      arrived: '',
+      deros: '',
+      section: '',
+      slot: ''
+    };
+
+    let sectionName = '';
+    let positionName = '';
+
+    headers.forEach((h, idx) => {
+      const rawVal = fields[idx] || '';
+      const val = cleanCSVValue(rawVal);
+
+      if (h === 'name') person.name = val;
+      else if (h === 'rank') person.rank = val;
+      else if (h === 'role') person.role = val;
+      else if (h === 'status') person.status = val.toLowerCase() || 'available';
+      else if (h === 'quals') person.quals = parseQuals(rawVal);
+      else if (h === 'notes') person.notes = val;
+      else if (h === 'dutyStart') person.dutyStart = val;
+      else if (h === 'arrived') person.arrived = val;
+      else if (h === 'deros') person.deros = val;
+      else if (h === 'section') sectionName = val;
+      else if (h === 'position') positionName = val;
+    });
+
+    sectionName = normalizeSectionName(sectionName);
+    positionName = normalizePositionName(positionName);
+
+    if (!person.name) {
+      continue;
+    }
+
+    if (!person.status) {
+      person.status = 'available';
+    }
+
+    const lowerSection = sectionName.toLowerCase();
+
+    if (!sectionName || lowerSection === 'pool' || lowerSection === 'unassigned') {
+      person.section = '';
+      person.slot = '';
+    } else if (lowerSection === 'deployed') {
+      person.section = 'deployed';
+      person.slot = '';
+      person.status = 'deployed';
+    } else {
+      const sec = getOrCreateSection(sectionName);
+
+      if (sec) {
+        const slotIndex = findOrCreateSlot(sec, positionName);
+
+        person.section = sec.id;
+        person.slot = slotIndex;
+
+        sec.required = Math.max(
+          Number(sec.required) || 0,
+          sec.positions.length
+        );
+      }
+    }
+
     importedPeople.push(person);
   }
 
-  // ═════════════════════════════════════════════════════════════════
-  // 🟢 SAVE & RENDER
-  // ═════════════════════════════════════════════════════════════════
-  takeSnapshot();
-  if (!branchPeople[currentBranch]) branchPeople[currentBranch] = [];
+  if (!branchPeople[currentBranch]) {
+    branchPeople[currentBranch] = [];
+  }
+
   branchPeople[currentBranch].push(...importedPeople);
-  
+
   setNextId(currentId);
   saveState();
 
-  if (window.render) window.render();
-  if (window.showToast) window.showToast(`Imported ${importedPeople.length} personnel`, 'success');
+  if (window.render) {
+    window.render();
+  }
+
+  if (window.showToast) {
+    window.showToast(
+      `Imported ${importedPeople.length} personnel and updated ${sections.length} sections`,
+      'success'
+    );
+  }
 }
 
 export function executeExport(format) {
   if (format === 'csv') {
     const ps = branchPeople[currentBranch] || [];
     const sections = BRANCHES[currentBranch]?.sections || [];
-    let csvContent = "name,rank,role,status,quals,notes,dutyStart,arrived,deros,section\n";
+    let csvContent = "name,rank,role,status,quals,notes,dutyStart,arrived,deros,section,position\n";
     ps.forEach(p => {
       let secName = '';
+      let positionName = '';
       if (p.section && p.section !== 'pool' && p.section !== 'deployed') {
         const secObj = sections.find(s => s.id === p.section);
-        if (secObj) secName = secObj.name;
+        if (secObj) {
+          secName = secObj.name;
+          if (p.slot !== '' && p.slot !== null && p.slot !== undefined) {
+            const slot = secObj.positions[Number(p.slot)];
+            if (typeof slot === 'object' && slot !== null) {
+              positionName = slot.name || '';
+            } else {
+              positionName = slot || '';
+            }
+          }
+        }
       } else if (p.section === 'deployed') {
         secName = 'Deployed';
       } else {
@@ -181,7 +429,8 @@ export function executeExport(format) {
         csvEscape(p.dutyStart || ''),
         csvEscape(p.arrived || ''),
         csvEscape(p.deros || ''),
-        csvEscape(secName)
+        csvEscape(secName),
+        csvEscape(positionName)
       ];
       csvContent += row.join(',') + "\n";
     });
@@ -214,10 +463,12 @@ export function executeExport(format) {
 }
 
 export function downloadCSVTemplate() {
-  const header = "name,rank,role,status,quals,notes,dutyStart,arrived,deros,section\n";
-  const sample = '"Doe, John",SSgt,2W051 Muns Systems,available,Crew Chief|Task Certified,None,2024-01-01,2024-01-01,2027-01-01,Command & Staff\n';
-  const blob = new Blob([header + sample], { type: 'text/csv;charset=utf-8;' });
-  
+  const header = "name,rank,role,status,quals,notes,dutyStart,arrived,deros,section,position\n";
+  const sample =
+    '"Doe, John",SSgt,2W051 Muns Systems,available,Crew Chief|Task Certified,None,2024-01-01,2024-01-01,2027-01-01,Weapons Mx,E5\n';
+  const blob = new Blob([header + sample], {
+    type: 'text/csv;charset=utf-8;'
+  });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.setAttribute("href", url);
@@ -225,6 +476,7 @@ export function downloadCSVTemplate() {
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
+  URL.revokeObjectURL(url);
 }
 
 export function toggleExportMenu() {
