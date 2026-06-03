@@ -434,20 +434,36 @@ export function executeExport(format) {
       ];
       csvContent += row.join(',') + "\n";
     });
-    const blob = new Blob([csvContent], {
-      type: 'text/csv;charset=utf-8;'
-    });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.setAttribute("href", url);
-    link.setAttribute(
-      "download",
-      `manning_board_${new Date().toISOString().slice(0, 10)}.csv`
-    );
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+      const blob = new Blob([csvContent], {
+        type: 'text/csv;charset=utf-8;'
+      });
+
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+
+      const currentUnitName =
+        document.getElementById('unit-name')?.value?.trim() ||
+        document.getElementById('unit-name')?.placeholder?.trim() ||
+        'manning_board';
+
+      const sanitizedUnitName = currentUnitName
+        .replace(/[^a-z0-9_-]/gi, '_')
+        .replace(/_+/g, '_')
+        .replace(/^_+|_+$/g, '') || 'manning_board';
+
+      const exportDate = new Date().toISOString().slice(0, 10);
+
+      link.setAttribute("href", url);
+      link.setAttribute(
+        "download",
+        `${sanitizedUnitName}_manning_board_${exportDate}.csv`
+      );
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      URL.revokeObjectURL(url);
     if (window.showToast) {
       window.showToast('CSV Exported Successfully', 'info');
     }
