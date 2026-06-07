@@ -12,10 +12,11 @@ A browser-based, offline-first personnel readiness management system for USAF mu
 ├── style.css               # Dark-theme stylesheet
 ├── js/
 │   ├── main.js             # Core application logic, rendering, modals, panels
-│   ├── state.js            # PouchDB persistence, auth, undo stack, sync engine
-│   ├── config.js           # Branch definitions, section/position/qual data
-│   ├── dragDrop.js         # Drag-and-drop assignment with qual enforcement
+│   ├── state.js            # PouchDB persistence, authentication, undo stack, What-If mode, sync engine
+│   ├── config.js           # Branch definitions, section/position/qualification data
+│   ├── dragDrop.js         # Drag-and-drop assignment with qualification enforcement
 │   ├── importExport.js     # CSV import/export and PDF generation
+│   ├── metrics.js          # Centralized readiness and manning calculations
 │   └── pouchdb.min.js      # PouchDB library (bundled, no CDN required)
 └── import.csv              # Sample squadron roster for import
 ```
@@ -52,15 +53,20 @@ For production deployment, replace with a proper authentication backend.
 | Feature | Description |
 |---|---|
 | Drag & drop assignment | Drag personnel cards between section slots and the staging pool |
-| Qual enforcement (REQ-4) | Slots with `reqQual` arrays block uncertified personnel — drag and modal both enforced |
 | Section dropdown | Add/Edit modal includes section + slot assignment with optgroup layout |
 | Section rename | Admin: click section title to rename inline |
 | Slot rename | Admin: double-click slot label to rename |
-| % Manned | Each section shows filled vs authorized in real time |
+| % Section Readiness | Each section shows available vs authorized in real time |
+| Centralized readiness engine |
+| All board and section manning calculations are performed through metrics.js to ensure consistency across dashboards, alerts, exports, and readiness displays |
+| Readiness % is calculated from the personnel available and assigned. TDY, Medical, Leave, and Deployed personnel are excluded from readiness calculations |
 | DEROS panel | On-demand list of personnel rotating within 12 months |
 | Deployed panel | All personnel with `status: deployed` in one view |
 | Action log | Session audit trail — every assign, edit, delete, import, reset |
 | Undo (20 steps) | Ctrl+Z or programmatic undo across all mutations |
+| What-If Mode - Create simulated board changes without affecting the live database |
+| Commit or discard What-If Mode Scenarios |
+| Promote simulated changes to the live board or restore the original board state |
 | assignedDate | Auto-stamped when personnel are placed into a section |
 | Section scroll | Sections with many slots scroll internally (max-height: 520px) |
 | CSV import | Quote-aware parser supports Last, First name format |
@@ -68,6 +74,13 @@ For production deployment, replace with a proper authentication backend.
 | PDF export | Landscape A4 report with metrics, section summary, and full roster |
 | PouchDB persistence | State saved to browser IndexedDB on every change |
 | Remote sync | CouchDB/Cloudant sync engine — see below |
+| Last Modified Tracking - Records who last saved the board and when |
+| Session Persistence - Login sessions survive page refreshes using session storage |
+| Unit Name Persistence - Unit title is saved and restored with board state |
+| PDF exports use the editable Unit Name rather than a hardcoded squadron name
+| Supports section and slot assignments during import |
+| Import process can create missing sections referenced in CSV files |
+| Slot/position assignments can be imported directly from CSV |
 
 ---
 
@@ -183,7 +196,7 @@ The sync status indicator appears next to the unit name in the header:
 | Remote DB for consistency | `startSync()` in `state.js`, configured via `sync-config.js` |
 | Authorized access only | Login overlay, session-based roles, admin gate on destructive actions |
 | Qual-based assignment enforcement (REQ-4 / 5.2.2) | `validateAssignment()` in `main.js`, enforced in `dragDrop.js` and `savePerson()` |
-| Automated readiness calculation | `renderMetrics()` and per-section `% Manned` in `renderSections()` |
+Automated readiness calculation | metrics.js central readiness engine used by renderMetrics(), renderSections(), alerts, exports, and dashboards
 
 ---
 
