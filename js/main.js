@@ -939,6 +939,33 @@ export function disconnectSync() {
   if (window.showToast) window.showToast('Disconnected. Operating on local storage.', 'warn');
 }
 
+export function validatePersonnelForm() {
+  const fields = [
+    { id: 'f-name', label: 'Name' },
+    { id: 'f-rank', label: 'Rank' },
+    { id: 'f-role', label: 'MOS/Role' },
+    { id: 'f-status', label: 'Status' },
+    { id: 'f-duty-start', label: 'Duty Start Date' },
+    { id: 'f-arrived', label: 'Date Arrived at Station' },
+    { id: 'f-deros', label: 'DEROS' }
+  ];
+
+  const missing = [];
+
+  fields.forEach(field => {
+    const element = document.getElementById(field.id);
+
+    if (!element || !element.value.trim()) {
+      missing.push(field.label);
+      element?.classList.add('field-error');
+    } else {
+      element?.classList.remove('field-error');
+    }
+  });
+
+  return missing;
+}
+
 export function savePerson() {
   const name = document.getElementById('f-name').value.trim();
   const rank = document.getElementById('f-rank').value;
@@ -951,8 +978,17 @@ export function savePerson() {
   const notes = document.getElementById('f-notes').value || null;
   
   const assignVal = document.getElementById('f-assign-slot')?.value;
-  
-  if (!name) return; 
+
+  // Required field validation
+ const missingFields = validatePersonnelForm();
+
+if (missingFields.length > 0) {
+  showToast(
+    `Required fields missing: ${missingFields.join(', ')}`,
+    'error'
+  );
+  return;
+}
 
   let targetSecId = null;
   let targetSlotIdx = null;
@@ -1009,16 +1045,12 @@ export function savePerson() {
 
 export function deletePerson() {
   if (!s.editingId) return;
-
   const deletingId = s.editingId;
-
   s.takeSnapshot();
   s.setPeople(s.people().filter(p => p.id !== deletingId));
-
   closeModal();
   render();
   s.saveState();
-
   showToast('Personnel Removed', 'error');
 }
 
@@ -1206,6 +1238,27 @@ async function initializeApp() {
     }
   }
   
+  [
+    'f-name',
+    'f-rank',
+    'f-role',
+    'f-status',
+    'f-assign-slot',
+    'f-duty-start',
+    'f-arrived',
+    'f-deros'
+  ].forEach(id => {
+    const field = document.getElementById(id);
+
+    field?.addEventListener('input', () => {
+      field.classList.remove('field-error');
+    });
+
+    field?.addEventListener('change', () => {
+      field.classList.remove('field-error');
+    });
+  });
+
   render();
 }
 

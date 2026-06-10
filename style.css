@@ -97,6 +97,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .status-pip{width:6px;height:6px;border-radius:50%;flex-shrink:0}
 .card-tags{display:flex;gap:3px;flex-wrap:wrap;margin-top:4px}
 .tag{font-size:8px;font-family:var(--mono);padding:1px 5px;border-radius:3px;background:rgba(var(--accent-rgb),.1);border:1px solid rgba(var(--accent-rgb),.2);color:#7ca9f0}
+.field-error {border: 2px solid #dc3545 !important;background-color: rgba(220,53,69,0.08);}
 
 /* POOL */
 .pool-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:13px}
