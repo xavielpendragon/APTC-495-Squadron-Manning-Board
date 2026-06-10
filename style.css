@@ -338,3 +338,11 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
   color: var(--text3);
   font-size: 9px;
 }
+
+.footer {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #666;
+    padding: 10px;
+    margin-top: 20px;
+}
