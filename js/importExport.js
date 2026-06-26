@@ -345,14 +345,15 @@ export function parseCSV(text) {
     }
 
     const lowerSection = sectionName.toLowerCase();
+    const lowerStatus = String(person.status || '').trim().toLowerCase();
 
-    if (!sectionName || lowerSection === 'pool' || lowerSection === 'unassigned') {
-      person.section = '';
-      person.slot = '';
-    } else if (lowerSection === 'deployed') {
+    if (lowerStatus === 'deployed' || lowerSection === 'deployed' || lowerSection === 'deployed personnel') {
       person.section = 'deployed';
       person.slot = '';
       person.status = 'deployed';
+    } else if (!sectionName || lowerSection === 'pool' || lowerSection === 'unassigned') {
+      person.section = '';
+      person.slot = '';
     } else {
       const sec = getOrCreateSection(sectionName);
 

@@ -1,281 +1,280 @@
-name,rank,role,status,quals,notes,dutyStart,arrived,deros,section,position
-
-"Bennett, Jules",Maj,21M Munitions Officer,Commander,available,None,None,2024-01-18,2023-12-12,2026-12-24
-"Jenkins, Rowan",1Lt,21M Munitions Officer,Mx Director of Operations,available,None,None,2024-02-04,2023-11-22,2026-12-17
-"Diaz, Dylan",CMSgt,2W091 Muns Supv,Senior Enlisted Leader,available,None,None,2024-02-21,2023-11-02,2026-12-10
-"Watson, Robin",MSgt,8F000 First Sergeant,First Sergeant,available,None,None,2024-03-09,2023-10-13,2026-12-03
-"Bennett, Riley",Amn,3F0X1 Personnel,Command Support Section,available,None,None,2024-03-26,2023-09-23,2026-11-26
-"Jackson, Kelly",TSgt,3F0X1 Personnel,Command Support Section,available,None,None,2024-04-12,2023-09-03,2026-11-19
-"Bennett, Payton",Capt,3F0X1 Personnel,Command Support Section,available,None,None,2024-04-29,2023-08-14,2026-11-12
-"Thomas, Terry",SSgt,6F0X1 Financial Mgmt,Resource Advisor,available,None,None,2024-05-16,2023-07-25,2026-11-05
-"Richardson, Blake",TSgt,6F0X1 Financial Mgmt,Resource Advisor,available,None,None,2024-06-02,2023-07-05,2026-10-29
-"Adams, Kris",SSgt,2W2X1 Nuclear Wpns,PRP / Security,available,PRP Certified|Nuclear Certified,None,2024-06-19,2023-06-15,2026-10-22
-"Price, Noah",TSgt,2W2X1 Nuclear Wpns,PRP / Security,available,PRP Certified|Nuclear Certified,None,2024-07-06,2023-05-26,2026-10-15
-"Garcia, Parker",SMSgt,21M Munitions Officer,Special Weapons Flight,available,PRP Certified|Nuclear Certified,None,2024-07-23,2023-05-06,2026-10-08
-"Diaz, Riley",1Lt,21M Munitions Officer,Special Weapons Flight,available,PRP Certified|Nuclear Certified,None,2024-08-09,2023-04-16,2026-10-01
-"Davis, Elliot",SrA,2W2X1 Nuclear Wpns,NARS,available,PRP Certified|Nuclear Certified|NARS Certified,None,2024-08-26,2023-03-27,2026-09-24
-"Williams, Emerson",SSgt,2W2X1 Nuclear Wpns,NARS,available,PRP Certified|Nuclear Certified|NARS Certified|Vault Certified,None,2024-09-12,2023-03-07,2026-09-17
-"Rivera, Marley",Amn,2W2X1 Nuclear Wpns,Weapons Mx,available,PRP Certified|Nuclear Certified|NARS Certified,None,2024-09-29,2023-02-15,2026-09-10
-"Nelson, Riley",Amn,2W2X1 Nuclear Wpns,Weapons Mx,available,PRP Certified|Nuclear Certified,None,2024-10-16,2023-01-26,2026-09-03
-"Young, Kai",SrA,2W2X1 Nuclear Wpns,Weapons Mx,available,PRP Certified|Nuclear Certified|NARS Certified|Vault Certified,None,2024-11-02,2023-01-06,2026-08-27
-"Walker, Skyler",SrA,2W2X1 Nuclear Wpns,Weapons Mx,available,PRP Certified|Nuclear Certified,None,2024-11-19,2022-12-17,2026-08-20
-"Brown, Corey",Amn,2W2X1 Nuclear Wpns,Weapons Mx,available,PRP Certified|Nuclear Certified|NARS Certified,None,2024-12-06,2022-11-27,2026-08-13
-"Lee, Riley",A1C,2W2X1 Nuclear Wpns,Weapons Mx,available,PRP Certified|Nuclear Certified|Vault Certified,None,2024-12-23,2022-11-07,2026-08-06
-"Davis, Sawyer",SSgt,2W2X1 Nuclear Wpns,Weapons Mx,available,PRP Certified|Nuclear Certified|NARS Certified,None,2025-01-09,2022-10-18,2026-07-30
-"Rivera, Adrian",SSgt,2W2X1 Nuclear Wpns,Weapons Mx,available,PRP Certified|Nuclear Certified,None,2025-01-26,2022-09-28,2026-07-23
-"Gonzalez, Reagan",SSgt,2W2X1 Nuclear Wpns,Weapons Mx,available,PRP Certified|Nuclear Certified|NARS Certified|Vault Certified,None,2025-02-12,2022-09-08,2026-07-16
-"Henderson, Corey",SSgt,2W2X1 Nuclear Wpns,Weapons Mx,available,PRP Certified|Nuclear Certified,None,2025-03-01,2025-02-04,2028-12-25
-"Collins, Devon",SSgt,2W2X1 Nuclear Wpns,Weapons Mx,available,PRP Certified|Nuclear Certified|NARS Certified,None,2025-03-18,2025-01-15,2028-12-18
-"Taylor, Hunter",SSgt,2W2X1 Nuclear Wpns,Weapons Mx,available,PRP Certified|Nuclear Certified|Vault Certified,None,2025-04-04,2024-12-26,2028-12-11
-"Gonzalez, Chris",SSgt,2W2X1 Nuclear Wpns,Weapons Mx,available,PRP Certified|Nuclear Certified|NARS Certified,None,2025-04-21,2024-12-06,2028-12-04
-"Kelly, Zion",SSgt,2W2X1 Nuclear Wpns,Weapons Mx,available,PRP Certified|Nuclear Certified,None,2025-05-08,2024-11-16,2027-11-28
-"Martin, Phoenix",TSgt,2W2X1 Nuclear Wpns,Weapons Mx,available,PRP Certified|Nuclear Certified|NARS Certified|Vault Certified,None,2025-05-25,2024-10-27,2027-11-21
-"Jackson, Oakley",TSgt,2W2X1 Nuclear Wpns,Weapons Mx,available,PRP Certified|Nuclear Certified,None,2025-06-11,2024-10-07,2027-11-14
-"Lopez, Kendall",MSgt,2W2X1 Nuclear Wpns,Weapons Mx,available,PRP Certified|Nuclear Certified|NARS Certified,None,2025-06-28,2024-09-17,2027-11-07
-"Clark, Parker",SrA,2W2X1 Nuclear Wpns,Vault Mx,available,PRP Certified|Nuclear Certified|Vault Certified,None,2025-07-15,2024-08-28,2027-10-31
-"Hill, Bailey",SrA,2W2X1 Nuclear Wpns,Vault Mx,available,PRP Certified|Nuclear Certified|NARS Certified|Vault Certified,None,2025-08-01,2024-08-08,2027-10-24
-"Perez, Tatum",SrA,2W2X1 Nuclear Wpns,Vault Mx,available,PRP Certified|Nuclear Certified|Vault Certified,None,2025-08-18,2024-07-19,2027-10-17
-"Ford, Emerson",SrA,2W2X1 Nuclear Wpns,Vault Mx,available,PRP Certified|Nuclear Certified|NARS Certified|Vault Certified,None,2025-09-04,2024-06-29,2027-10-10
-"Jenkins, Jules",A1C,2W2X1 Nuclear Wpns,Vault Mx,available,PRP Certified|Nuclear Certified|Vault Certified,None,2025-09-21,2024-06-09,2027-10-03
-"Washington, Robin",SSgt,2W2X1 Nuclear Wpns,Vault Mx,available,PRP Certified|Nuclear Certified|NARS Certified|Vault Certified,None,2025-10-08,2024-05-20,2027-09-26
-"Morris, Rowan",SSgt,2W2X1 Nuclear Wpns,Vault Mx,available,PRP Certified|Nuclear Certified|Vault Certified,None,2025-10-25,2024-04-30,2027-09-19
-"Scott, Jesse",SSgt,2W2X1 Nuclear Wpns,Vault Mx,available,PRP Certified|Nuclear Certified|NARS Certified|Vault Certified,None,2025-11-11,2024-04-10,2027-09-12
-"Campbell, Sidney",SSgt,2W2X1 Nuclear Wpns,Vault Mx,available,PRP Certified|Nuclear Certified|Vault Certified,None,2025-11-28,2024-03-21,2027-09-05
-"Garcia, Adrian",SSgt,2W2X1 Nuclear Wpns,Vault Mx,available,PRP Certified|Nuclear Certified|NARS Certified|Vault Certified,None,2025-12-15,2024-03-01,2027-08-29
-"Price, Devon",SSgt,2W2X1 Nuclear Wpns,Vault Mx,available,PRP Certified|Nuclear Certified|Vault Certified,None,2026-01-01,2024-02-10,2027-08-22
-"Parker, Sawyer",TSgt,2W2X1 Nuclear Wpns,Vault Mx,available,PRP Certified|Nuclear Certified|NARS Certified|Vault Certified,None,2026-01-18,2024-01-21,2027-08-15
-"Stewart, Emerson",MSgt,2W2X1 Nuclear Wpns,Vault Mx,available,PRP Certified|Nuclear Certified|Vault Certified,None,2026-02-04,2024-01-01,2027-08-08
-"Edwards, Dylan",SMSgt,2W1X1 Armament Sys,Armament Flight,available,None,None,2026-02-21,2023-12-12,2027-08-01
-"Mitchell, Avery",SrA,2W1X1 Armament Sys,Weapon System Mx,available,None,None,2026-03-10,2023-11-22,2027-07-25
-"Ramirez, Quinn",SrA,2W1X1 Armament Sys,Weapon System Mx,available,Load Crew Certified,None,2024-01-17,2021-08-24,2025-05-09
-"Adams, Hunter",SrA,2W1X1 Armament Sys,Weapon System Mx,available,None,None,2024-02-03,2024-01-21,2027-10-19
-"Sanchez, Kris",SrA,2W1X1 Armament Sys,Weapon System Mx,available,None,None,2024-02-20,2024-01-01,2027-10-12
-"Sanchez, Winter",A1C,2W1X1 Armament Sys,Weapon System Mx,available,None,None,2024-03-08,2023-12-12,2027-10-05
-"Young, Logan",Amn,2W1X1 Armament Sys,Weapon System Mx,available,Load Crew Certified,None,2024-03-25,2023-11-22,2027-09-28
-"Garcia, Reagan",A1C,2W1X1 Armament Sys,Weapon System Mx,available,None,None,2024-04-11,2023-11-02,2027-09-21
-"Thomas, Lee",A1C,2W1X1 Armament Sys,Weapon System Mx,available,Inspector,None,2024-04-28,2023-10-13,2027-09-14
-"White, Micah",Amn,2W1X1 Armament Sys,Weapon System Mx,available,None,None,2024-05-15,2023-09-23,2027-09-07
-"Baker, Avery",SrA,2W1X1 Armament Sys,Weapon System Mx,available,Load Crew Certified,None,2024-06-01,2023-09-03,2027-08-31
-"Long, Hayden",SrA,2W1X1 Armament Sys,Weapon System Mx,available,None,None,2024-06-18,2023-08-14,2026-08-24
-"James, Tatum",Amn,2W1X1 Armament Sys,Weapon System Mx,available,None,None,2024-07-05,2023-07-25,2026-08-17
-"Cooper, Hunter",Amn,2W1X1 Armament Sys,Weapon System Mx,available,None,None,2024-07-22,2023-07-05,2026-08-10
-"Clark, Kris",SrA,2W1X1 Armament Sys,Weapon System Mx,available,Load Crew Certified,None,2024-08-08,2023-06-15,2026-08-03
-"Fisher, Corey",A1C,2W1X1 Armament Sys,Weapon System Mx,available,None,None,2024-08-25,2023-05-26,2026-07-27
-"Thompson, Quinn",SSgt,2W1X1 Armament Sys,Weapon System Mx,available,None,None,2024-09-11,2023-05-06,2026-07-20
-"Stewart, Sidney",SSgt,2W1X1 Armament Sys,Weapon System Mx,available,Inspector,None,2024-09-28,2023-04-16,2026-07-13
-"Hill, Zion",SSgt,2W1X1 Armament Sys,Weapon System Mx,available,Load Crew Certified,None,2024-10-15,2023-03-27,2026-07-06
-"Long, Kendall",SSgt,2W1X1 Armament Sys,Weapon System Mx,available,None,None,2024-11-01,2023-03-07,2026-06-29
-"Reed, Val",SSgt,2W1X1 Armament Sys,Weapon System Mx,available,None,None,2024-11-18,2023-02-15,2026-06-22
-"Evans, Hayden",SSgt,2W1X1 Armament Sys,Weapon System Mx,available,None,None,2024-12-05,2023-01-26,2026-06-15
-"Clark, Noah",TSgt,2W1X1 Armament Sys,Weapon System Mx,available,Load Crew Certified,None,2024-12-22,2023-01-06,2026-06-08
-"Watson, Payton",TSgt,2W1X1 Armament Sys,Weapon System Mx,available,None,None,2025-01-08,2022-12-17,2026-06-01
-"Watson, Rowan",TSgt,2W1X1 Armament Sys,Weapon System Mx,available,None,None,2025-01-25,2022-11-27,2026-05-25
-"Collins, Gray",TSgt,2W1X1 Armament Sys,Weapon System Mx,available,None,None,2025-02-11,2022-11-07,2026-05-18
-"Jackson, Casey",MSgt,2W1X1 Armament Sys,Weapon System Mx,available,Load Crew Certified|Inspector,None,2025-02-28,2022-10-18,2026-05-11
-"Miller, Casey",SMSgt,2W0X1 Muns Systems,Production Flight,available,None,None,2025-03-17,2025-03-16,2028-10-20
-"Kennedy, Corey",A1C,2W0X1 Muns Systems,Conventional Mx,available,None,None,2025-04-03,2025-02-24,2028-10-13
-"Hill, Marley",SrA,2W0X1 Muns Systems,Conventional Mx,available,Crew Chief,None,2025-04-20,2025-02-04,2028-10-06
-"Walker, Sage",A1C,2W0X1 Muns Systems,Conventional Mx,available,None,None,2025-05-07,2025-01-15,2028-09-29
-"Jenkins, Mason",SrA,2W0X1 Muns Systems,Conventional Mx,available,Controller,None,2025-05-24,2024-12-26,2028-09-22
-"Phillips, Skyler",SrA,2W0X1 Muns Systems,Conventional Mx,available,None,None,2025-06-10,2024-12-06,2028-09-15
-"Davis, Corey",Amn,2W0X1 Muns Systems,Conventional Mx,available,None,None,2025-06-27,2024-11-16,2028-09-08
-"Morgan, Robin",SrA,2W0X1 Muns Systems,Conventional Mx,available,Crew Chief,None,2025-07-14,2024-10-27,2028-09-01
-"Roberts, Sidney",SrA,2W0X1 Muns Systems,Conventional Mx,available,None,None,2025-07-31,2024-10-07,2028-08-25
-"Davis, Morgan",Amn,2W0X1 Muns Systems,Conventional Mx,available,None,None,2025-08-17,2024-09-17,2028-08-18
-"Mitchell, Nico",SrA,2W0X1 Muns Systems,Conventional Mx,available,None,None,2025-09-03,2024-08-28,2028-08-11
-"Jenkins, Skyler",Amn,2W0X1 Muns Systems,Conventional Mx,available,None,None,2025-09-20,2024-08-08,2028-08-04
-"Taylor, Shawn",A1C,2W0X1 Muns Systems,Conventional Mx,available,Crew Chief|Inspector,None,2025-10-07,2024-07-19,2027-07-29
-"Price, Reese",A1C,2W0X1 Muns Systems,Conventional Mx,available,None,None,2025-10-24,2024-06-29,2027-07-22
-"Roberts, Hayden",SrA,2W0X1 Muns Systems,Conventional Mx,available,None,None,2025-11-10,2024-06-09,2027-07-15
-"Reed, Nico",Amn,2W0X1 Muns Systems,Conventional Mx,available,Controller,None,2025-11-27,2024-05-20,2027-07-08
-"Campbell, Bailey",Amn,2W0X1 Muns Systems,Conventional Mx,available,None,None,2025-12-14,2024-04-30,2027-07-01
-"Cruz, Zion",Amn,2W0X1 Muns Systems,Conventional Mx,available,Crew Chief,None,2025-12-31,2024-04-10,2027-06-24
-"Gray, Terry",A1C,2W0X1 Muns Systems,Conventional Mx,available,None,None,2026-01-17,2024-03-21,2027-06-17
-"Rogers, Parker",SrA,2W0X1 Muns Systems,Conventional Mx,available,None,None,2026-02-03,2024-03-01,2027-06-10
-"Carter, Quinn",SrA,2W0X1 Muns Systems,Conventional Mx,available,None,None,2026-02-20,2024-02-10,2027-06-03
-"Adams, Sawyer",SrA,2W0X1 Muns Systems,Conventional Mx,available,None,None,2026-03-09,2024-01-21,2027-05-27
-"Rivera, Harper",SrA,2W0X1 Muns Systems,Conventional Mx,available,Crew Chief,None,2024-01-16,2021-10-23,2025-03-11
-"Torres, Corey",SrA,2W0X1 Muns Systems,Conventional Mx,available,None,None,2024-02-02,2021-10-03,2025-03-04
-"Garcia, Skyler",SrA,2W0X1 Muns Systems,Conventional Mx,available,None,None,2024-02-19,2021-09-13,2025-02-25
-"Hill, Morgan",SrA,2W0X1 Muns Systems,Conventional Mx,available,None,None,2024-03-07,2024-02-10,2027-08-07
-"Lopez, Morgan",Amn,2W0X1 Muns Systems,Conventional Mx,available,Controller,None,2024-03-24,2024-01-21,2027-07-31
-"Washington, Dakota",Amn,2W0X1 Muns Systems,Conventional Mx,available,Crew Chief,None,2024-04-10,2024-01-01,2027-07-24
-"Carter, Kelly",A1C,2W0X1 Muns Systems,Conventional Mx,available,None,None,2024-04-27,2023-12-12,2027-07-17
-"Hall, Casey",Amn,2W0X1 Muns Systems,Conventional Mx,available,Inspector,None,2024-05-14,2023-11-22,2027-07-10
-"James, Kendall",Amn,2W0X1 Muns Systems,Conventional Mx,available,None,None,2024-05-31,2023-11-02,2027-07-03
-"Turner, Hayden",Amn,2W0X1 Muns Systems,Conventional Mx,available,None,None,2024-06-17,2023-10-13,2027-06-26
-"Wright, Riley",Amn,2W0X1 Muns Systems,Conventional Mx,available,Crew Chief,None,2024-07-04,2023-09-23,2027-06-19
-"Washington, Sage",SrA,2W0X1 Muns Systems,Conventional Mx,available,None,None,2024-07-21,2023-09-03,2027-06-12
-"Jones, Parker",SrA,2W0X1 Muns Systems,Conventional Mx,available,None,None,2024-08-07,2023-08-14,2027-06-05
-"James, Emerson",SrA,2W0X1 Muns Systems,Conventional Mx,available,None,None,2024-08-24,2023-07-25,2027-05-29
-"Lewis, Chris",SSgt,2W0X1 Muns Systems,Conventional Mx,available,None,None,2024-09-10,2023-07-05,2027-05-22
-"Collins, Alex",SSgt,2W0X1 Muns Systems,Conventional Mx,available,Crew Chief|Controller,None,2024-09-27,2023-06-15,2027-05-15
-"Wright, Sage",SSgt,2W0X1 Muns Systems,Conventional Mx,available,None,None,2024-10-14,2023-05-26,2027-05-08
-"Collins, Marley",SSgt,2W0X1 Muns Systems,Conventional Mx,available,None,None,2024-10-31,2023-05-06,2027-05-01
-"Sanchez, Emerson",SSgt,2W0X1 Muns Systems,Conventional Mx,available,None,None,2024-11-17,2023-04-16,2026-04-24
-"Moore, Tatum",SSgt,2W0X1 Muns Systems,Conventional Mx,available,None,None,2024-12-04,2023-03-27,2026-04-17
-"Jenkins, Reagan",SSgt,2W0X1 Muns Systems,Conventional Mx,available,Crew Chief,None,2024-12-21,2023-03-07,2026-04-10
-"Gonzalez, Shawn",SSgt,2W0X1 Muns Systems,Conventional Mx,available,None,None,2025-01-07,2023-02-15,2026-04-03
-"Wilson, Nico",SSgt,2W0X1 Muns Systems,Conventional Mx,available,None,None,2025-01-24,2023-01-26,2026-03-27
-"Thompson, Logan",SSgt,2W0X1 Muns Systems,Conventional Mx,available,None,None,2025-02-10,2023-01-06,2026-03-20
-"Flores, Emerson",SSgt,2W0X1 Muns Systems,Conventional Mx,available,Inspector,None,2025-02-27,2022-12-17,2026-03-13
-"Diaz, Jules",SSgt,2W0X1 Muns Systems,Conventional Mx,available,Crew Chief,None,2025-03-16,2022-11-27,2026-03-06
-"Kelly, Harper",SSgt,2W0X1 Muns Systems,Conventional Mx,available,Controller,None,2025-04-02,2022-11-07,2026-02-27
-"Mitchell, Parker",SSgt,2W0X1 Muns Systems,Conventional Mx,available,None,None,2025-04-19,2025-04-05,2028-08-08
-"Sanchez, Jesse",SSgt,2W0X1 Muns Systems,Conventional Mx,available,None,None,2025-05-06,2025-03-16,2028-08-01
-"Campbell, Riley",TSgt,2W0X1 Muns Systems,Conventional Mx,available,None,None,2025-05-23,2025-02-24,2028-07-25
-"Kennedy, Taylor",TSgt,2W0X1 Muns Systems,Conventional Mx,available,Crew Chief,None,2025-06-09,2025-02-04,2028-07-18
-"Miller, Lee",TSgt,2W0X1 Muns Systems,Conventional Mx,available,None,None,2025-06-26,2025-01-15,2028-07-11
-"Jones, Quinn",TSgt,2W0X1 Muns Systems,Conventional Mx,available,None,None,2025-07-13,2024-12-26,2028-07-04
-"Thompson, Gray",TSgt,2W0X1 Muns Systems,Conventional Mx,available,None,None,2025-07-30,2024-12-06,2028-06-27
-"Torres, Alex",MSgt,2W0X1 Muns Systems,Conventional Mx,available,None,None,2025-08-16,2024-11-16,2028-06-20
-"Collins, Tatum",Amn,2W0X1 Muns Systems,Precision Guided Missiles,available,Crew Chief,None,2025-09-02,2024-10-27,2028-06-13
-"Thomas, Taylor",A1C,2W0X1 Muns Systems,Precision Guided Missiles,available,None,None,2025-09-19,2024-10-07,2028-06-06
-"Washington, Payton",SrA,2W0X1 Muns Systems,Precision Guided Missiles,available,Controller,None,2025-10-06,2024-09-17,2028-05-30
-"Ramirez, Drew",A1C,2W0X1 Muns Systems,Precision Guided Missiles,available,None,None,2025-10-23,2024-08-28,2028-05-23
-"Long, Reagan",Amn,2W0X1 Muns Systems,Precision Guided Missiles,available,None,None,2025-11-09,2024-08-08,2028-05-16
-"Morgan, Parker",Amn,2W0X1 Muns Systems,Precision Guided Missiles,available,Crew Chief,None,2025-11-26,2024-07-19,2028-
-"Diaz, Elliot",A1C,2W0X1 Muns Systems,Precision Guided Missiles,available,Inspector,None,2025-12-13,2024-06-29,2028-05-02
-"Wright, Jules",SrA,2W0X1 Muns Systems,Precision Guided Missiles,available,None,None,2025-12-30,2024-06-09,2028-04-25
-"James, Sidney",A1C,2W0X1 Muns Systems,Precision Guided Missiles,available,None,None,2026-01-16,2024-05-20,2028-04-18
-"Green, Tatum",A1C,2W0X1 Muns Systems,Precision Guided Missiles,available,None,None,2026-02-02,2024-04-30,2028-04-11
-"Bennett, Reese",SrA,2W0X1 Muns Systems,Precision Guided Missiles,available,Crew Chief,None,2026-02-19,2024-04-10,2028-04-04
-"Phillips, Nico",SrA,2W0X1 Muns Systems,Precision Guided Missiles,available,None,None,2026-03-08,2024-03-21,2027-03-29
-"Kelly, Quinn",A1C,2W0X1 Muns Systems,Precision Guided Missiles,available,None,None,2024-01-15,2021-12-22,2025-01-11
-"Nelson, Sidney",Amn,2W0X1 Muns Systems,Precision Guided Missiles,available,Controller,None,2024-02-01,2021-12-02,2025-01-04
-"Robinson, Rowan",Amn,2W0X1 Muns Systems,Precision Guided Missiles,available,None,None,2024-02-18,2021-11-12,2024-12-28
-"Rivera, Elliot",SSgt,2W0X1 Muns Systems,Precision Guided Missiles,available,Crew Chief,None,2024-03-06,2021-10-23,2024-12-21
-"Jackson, Rowan",SSgt,2W0X1 Muns Systems,Precision Guided Missiles,available,None,None,2024-03-23,2024-03-21,2027-06-02
-"Harris, Kendall",SSgt,2W0X1 Muns Systems,Precision Guided Missiles,available,None,None,2024-04-09,2024-03-01,2027-05-26
-"Kennedy, Sidney",SSgt,2W0X1 Muns Systems,Precision Guided Missiles,available,None,None,2024-04-26,2024-02-10,2027-05-19
-"Kennedy, Elliot",SSgt,2W0X1 Muns Systems,Precision Guided Missiles,available,None,None,2024-05-13,2024-01-21,2027-05-12
-"Taylor, Noah",SSgt,2W0X1 Muns Systems,Precision Guided Missiles,available,Crew Chief,None,2024-05-30,2024-01-01,2027-05-05
-"Edwards, Tatum",SSgt,2W0X1 Muns Systems,Precision Guided Missiles,available,None,None,2024-06-16,2023-12-12,2027-04-28
-"Green, Blake",SSgt,2W0X1 Muns Systems,Precision Guided Missiles,available,None,None,2024-07-03,2023-11-22,2027-04-21
-"Brooks, Cameron",SSgt,2W0X1 Muns Systems,Precision Guided Missiles,available,Inspector,None,2024-07-20,2023-11-02,2027-04-14
-"Moore, Hunter",TSgt,2W0X1 Muns Systems,Percision Guided Missiles,available,Controller,None,2024-08-06,2023-10-13,2027-04-07
-"Ramirez, Devon",TSgt,2W0X1 Muns Systems,Percision Guided Missiles,available,Crew Chief,None,2024-08-23,2023-09-23,2027-03-31
-"Parker, Val",TSgt,2W0X1 Muns Systems,Percision Guided Missiles,available,None,None,2024-09-09,2023-09-03,2027-03-24
-"Johnson, Taylor",MSgt,2W0X1 Muns Systems,Percision Guided Missiles,available,None,None,2024-09-26,2023-08-14,2027-03-17
-"Adams, Lane",SrA,2W0X1 Muns Systems,Trailer Mx,available,None,None,2024-10-13,2023-07-25,2027-03-10
-"Morris, Robin",A1C,2W0X1 Muns Systems,Trailer Mx,available,None,None,2024-10-30,2023-07-05,2027-03-03
-"Miller, Kai",Amn,2W0X1 Muns Systems,Trailer Mx,available,Crew Chief,None,2024-11-16,2023-06-15,2027-02-24
-"Evans, Hunter",SrA,2W0X1 Muns Systems,Trailer Mx,available,None,None,2024-12-03,2023-05-26,2027-02-17
-"Sanchez, Logan",SrA,2W0X1 Muns Systems,Trailer Mx,available,None,None,2024-12-20,2023-05-06,2027-02-10
-"Martin, Kendall",SrA,2W0X1 Muns Systems,Trailer Mx,available,None,None,2025-01-06,2023-04-16,2027-02-03
-"Thompson, Drew",SSgt,2W0X1 Muns Systems,Trailer Mx,available,None,None,2025-01-23,2023-03-27,2027-01-27
-"Powell, Corey",SSgt,2W0X1 Muns Systems,Trailer Mx,available,Crew Chief|Controller,None,2025-02-09,2023-03-07,2027-01-20
-"Green, Kai",SSgt,2W0X1 Muns Systems,Trailer Mx,available,None,None,2025-02-26,2023-02-15,2027-01-13
-"Peterson, Payton",TSgt,2W0X1 Muns Systems,Trailer Mx,available,None,None,2025-03-15,2023-01-26,2027-01-06
-"Lewis, Harper",MSgt,2W0X1 Muns Systems,Trailer Mx,available,None,None,2025-04-01,2023-01-06,2026-12-30
-"Ramirez, Mason",SMSgt,2W0X1 Muns Systems,Materiel Flight,available,None,None,2025-04-18,2022-12-17,2025-12-23
-"Roberts, Shawn",SrA,2W0X1 Muns Systems,Munitions Operations,available,Crew Chief|Inspector,None,2025-05-05,2022-11-27,2025-12-16
-"Hill, Kelly",SrA,2W0X1 Muns Systems,Munitions Operations,available,None,None,2025-05-22,2025-04-25,2028-05-27
-"Gray, Corey",SrA,2W0X1 Muns Systems,Munitions Operations,available,None,None,2025-06-08,2025-04-05,2028-05-20
-"King, Kelly",Amn,2W0X1 Muns Systems,Munitions Operations,available,None,None,2025-06-25,2025-03-16,2028-05-13
-"Cruz, Oakley",SrA,2W0X1 Muns Systems,Munitions Operations,available,None,None,2025-07-12,2025-02-24,2028-05-06
-"Long, Rowan",A1C,2W0X1 Muns Systems,Munitions Operations,available,Crew Chief,None,2025-07-29,2025-02-04,2028-04-29
-"Ford, Jordan",A1C,2W0X1 Muns Systems,Munitions Operations,available,Controller,None,2025-08-15,2025-01-15,2028-04-22
-"Jenkins, Dakota",SSgt,2W0X1 Muns Systems,Munitions Operations,available,None,None,2025-09-01,2024-12-26,2028-04-15
-"Rivera, Terry",SSgt,2W0X1 Muns Systems,Munitions Operations,available,None,None,2025-09-18,2024-12-06,2028-04-08
-"Parker, Jesse",SSgt,2W0X1 Muns Systems,Munitions Operations,available,None,None,2025-10-05,2024-11-16,2028-04-01
-"Jenkins, Jamie",SSgt,2W0X1 Muns Systems,Munitions Operations,available,Crew Chief,None,2025-10-22,2024-10-27,2028-03-25
-"Diaz, Lee",TSgt,2W0X1 Muns Systems,Munitions Operations,available,None,None,2025-11-08,2024-10-07,2028-03-18
-"Howard, Reese",MSgt,2W0X1 Muns Systems,Munitions Operations,available,None,None,2025-11-25,2024-09-17,2028-03-11
-"Campbell, Payton",MSgt,2W0X1 Muns Systems,Munitions Operations,available,None,None,2025-12-12,2024-08-28,2028-03-04
-"Evans, Chris",A1C,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2025-12-29,2024-08-08,2028-02-26
-"Roberts, Corey",A1C,2W0X1 Muns Systems,Stockpile Surveillance,available,Crew Chief,None,2026-01-15,2024-07-19,2028-02-19
-"Reed, Kai",SrA,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2026-02-01,2024-06-29,2028-02-12
-"Thompson, Shawn",SrA,2W0X1 Muns Systems,Stockpile Surveillance,available,Controller|Inspector,None,2026-02-18,2024-06-09,2028-02-05
-"Robinson, Shawn",A1C,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2026-03-07,2024-05-20,2028-01-29
-"Jenkins, Phoenix",SrA,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2024-01-14,2022-02-20,2025-11-13
-"Smith, Jesse",SrA,2W0X1 Muns Systems,Stockpile Surveillance,available,Crew Chief,None,2024-01-31,2022-01-31,2025-11-06
-"Kennedy, Shawn",A1C,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2024-02-17,2022-01-11,2025-10-30
-"King, Hayden",Amn,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2024-03-05,2021-12-22,2025-10-23
-"Miller, Micah",SrA,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2024-03-22,2021-12-02,2025-10-16
-"Flores, Jamie",Amn,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2024-04-08,2021-11-12,2025-10-09
-"Parker, Frankie",A1C,2W0X1 Muns Systems,Stockpile Surveillance,available,Crew Chief,None,2024-04-25,2024-04-10,2028-03-20
-"Hill, Casey",A1C,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2024-05-12,2024-03-21,2028-03-13
-"Phillips, Noah",SrA,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2024-05-29,2024-03-01,2027-03-07
-"Powell, Morgan",SrA,2W0X1 Muns Systems,Stockpile Surveillance,available,Controller,None,2024-06-15,2024-02-10,2027-02-28
-"Powell, Sawyer",A1C,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2024-07-02,2024-01-21,2027-02-21
-"Walker, Sawyer",Amn,2W0X1 Muns Systems,Stockpile Surveillance,available,Crew Chief,None,2024-07-19,2024-01-01,2027-02-14
-"Adams, Elliot",SrA,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2024-08-05,2023-12-12,2027-02-07
-"Parker, Remy",SrA,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2024-08-22,2023-11-22,2027-01-31
-"Taylor, Jules",SrA,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2024-09-08,2023-11-02,2027-01-24
-"Ross, Rowan",A1C,2W0X1 Muns Systems,Stockpile Surveillance,available,Inspector,None,2024-09-25,2023-10-13,2027-01-17
-"Ramirez, Jesse",SrA,2W0X1 Muns Systems,Stockpile Surveillance,available,Crew Chief,None,2024-10-12,2023-09-23,2027-01-10
-"Parker, Noah",Amn,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2024-10-29,2023-09-03,2027-01-03
-"Gray, Phoenix",SrA,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2024-11-15,2023-08-14,2026-12-27
-"Fisher, Kai",SrA,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2024-12-02,2023-07-25,2026-12-20
-"Perez, Blake",Amn,2W0X1 Muns Systems,Stockpile Surveillance,available,Controller,None,2024-12-19,2023-07-05,2026-12-13
-"Cooper, Bailey",Amn,2W0X1 Muns Systems,Stockpile Surveillance,available,Crew Chief,None,2025-01-05,2023-06-15,2026-12-06
-"Flores, Sidney",SrA,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2025-01-22,2023-05-26,2026-11-29
-"Hall, Morgan",SrA,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2025-02-08,2023-05-06,2026-11-22
-"Nelson, Micah",SrA,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2025-02-25,2023-04-16,2026-11-15
-"Rivera, Micah",SSgt,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2025-03-14,2023-03-27,2026-11-08
-"Nelson, Finley",SSgt,2W0X1 Muns Systems,Stockpile Surveillance,available,Crew Chief,None,2025-03-31,2023-03-07,2026-11-01
-"Johnson, Phoenix",SSgt,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2025-04-17,2023-02-15,2026-10-25
-"Robinson, Jordan",SSgt,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2025-05-04,2023-01-26,2026-10-18
-"Moore, Rowan",SSgt,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2025-05-21,2023-01-06,2026-10-11
-"Brown, Kris",SSgt,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2025-06-07,2025-06-04,2029-03-22
-"Baker, Kai",SSgt,2W0X1 Muns Systems,Stockpile Surveillance,available,Crew Chief|Controller,None,2025-06-24,2025-05-15,2029-03-15
-"James, Drew",SSgt,2W0X1 Muns Systems,Stockpile Surveillance,available,Inspector,None,2025-07-11,2025-04-25,2029-03-08
-"Edwards, Sage",SSgt,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2025-07-28,2025-04-05,2029-03-01
-"Roberts, Frankie",SSgt,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2025-08-14,2025-03-16,2029-02-22
-"Murphy, Quinn",SSgt,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2025-08-31,2025-02-24,2029-02-15
-"Gonzalez, Logan",SSgt,2W0X1 Muns Systems,Stockpile Surveillance,available,Crew Chief,None,2025-09-17,2025-02-04,2028-02-09
-"Washington, Jordan",TSgt,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2025-10-04,2025-01-15,2028-02-02
-"Walker, Dylan",TSgt,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2025-10-21,2024-12-26,2028-01-26
-"Perez, Gray",TSgt,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2025-11-07,2024-12-06,2028-01-19
-"Collins, Blake",TSgt,2W0X1 Muns Systems,Stockpile Surveillance,available,None,None,2025-11-24,2024-11-16,2028-01-12
-"Diaz, Frankie",MSgt,2W0X1 Muns Systems,Stockpile Surveillance,available,Crew Chief,None,2025-12-11,2024-10-27,2028-01-05
-"White, Nico",SrA,2W0X1 Muns Systems,Inspection,available,Controller,None,2025-12-28,2024-10-07,2027-12-29
-"Turner, Mason",Amn,2W0X1 Muns Systems,Inspection,available,None,None,2026-01-14,2024-09-17,2027-12-22
-"Moore, Marley",Amn,2W0X1 Muns Systems,Inspection,available,None,None,2026-01-31,2024-08-28,2027-12-15
-"Murphy, Casey",SrA,2W0X1 Muns Systems,Inspection,available,None,None,2026-02-17,2024-08-08,2027-12-08
-"Anderson, Remy",SrA,2W0X1 Muns Systems,Inspection,available,Crew Chief,None,2026-03-06,2024-07-19,2027-12-01
-"Ross, Cameron",SrA,2W0X1 Muns Systems,Inspection,available,None,None,2024-01-13,2022-04-21,2025-09-15
-"Morris, Adrian",SSgt,2W0X1 Muns Systems,Inspection,available,None,None,2024-01-30,2022-04-01,2025-09-08
-"Garcia, Robin",SSgt,2W0X1 Muns Systems,Inspection,available,Inspector,None,2024-02-16,2022-03-12,2025-09-01
-"Smith, Bailey",SSgt,2W0X1 Muns Systems,Inspection,available,None,None,2024-03-04,2022-02-20,2025-08-25
-"Taylor, Lee",TSgt,2W0X1 Muns Systems,Inspection,available,Crew Chief,None,2024-03-21,2022-01-31,2025-08-18
-"Roberts, Robin",TSgt,2W0X1 Muns Systems,Inspection,available,None,None,2024-04-07,2022-01-11,2025-08-11
-"Martin, Remy",MSgt,2W0X1 Muns Systems,Inspection,available,Controller,None,2024-04-24,2021-12-22,2025-08-04
-"Cruz, Finley",SMSgt,2W0X1 Muns Systems,Systems Flight,available,None,None,2024-05-11,2021-12-02,2025-07-28
-"Jenkins, Kris",SrA,2W0X1 Muns Systems,Munitions Control,available,None,None,2024-05-28,2024-04-30,2028-01-07
-"Turner, Kai",SrA,2W0X1 Muns Systems,Munitions Control,available,Crew Chief,None,2024-06-14,2024-04-10,2027-12-31
-"Mitchell, Jordan",SrA,2W0X1 Muns Systems,Munitions Control,available,None,None,2024-07-01,2024-03-21,2027-12-24
-"Martin, Reese",SrA,2W0X1 Muns Systems,Munitions Control,available,None,None,2024-07-18,2024-03-01,2027-12-17
-"Hill, Elliot",SrA,2W0X1 Muns Systems,Munitions Control,available,None,None,2024-08-04,2024-02-10,2027-12-10
-"Mitchell, Finley",SrA,2W0X1 Muns Systems,Munitions Control,available,None,None,2024-08-21,2024-01-21,2027-12-03
-"Smith, Skyler",SrA,2W0X1 Muns Systems,Munitions Control,available,Crew Chief,None,2024-09-07,2024-01-01,2027-11-26
-"James, Hunter",Amn,2W0X1 Muns Systems,Munitions Control,available,None,None,2024-09-24,2023-12-12,2027-11-19
-"Ross, Payton",SrA,2W0X1 Muns Systems,Munitions Control,available,None,None,2024-10-11,2023-11-22,2027-11-12
-"Robinson, Bailey",A1C,2W0X1 Muns Systems,Munitions Control,available,Controller,None,2024-10-28,2023-11-02,2026-11-05
-"Richardson, Mason",SrA,2W0X1 Muns Systems,Munitions Control,available,None,None,2024-11-14,2023-10-13,2026-10-29
-"Cruz, Harper",SSgt,2W0X1 Muns Systems,Munitions Control,available,Crew Chief|Inspector,None,2024-12-01,2023-09-23,2026-10-22
-"Peterson, Frankie",SSgt,2W0X1 Muns Systems,Munitions Control,available,None,None,2024-12-18,2023-09-03,2026-10-15
-"Long, Corey",SSgt,2W0X1 Muns Systems,Munitions Control,available,None,None,2025-01-04,2023-08-14,2026-10-08
-"Robinson, Payton",SSgt,2W0X1 Muns Systems,Munitions Control,available,None,None,2025-01-21,2023-07-25,2026-10-01
-"Price, Jules",SSgt,2W0X1 Muns Systems,Munitions Control,available,None,None,2025-02-07,2023-07-05,2026-09-24
-"Morgan, Frankie",SSgt,2W0X1 Muns Systems,Munitions Control,available,Crew Chief,None,2025-02-24,2023-06-15,2026-09-17
-"Kelly, Logan",SSgt,2W0X1 Muns Systems,Munitions Control,available,None,None,2025-03-13,2023-05-26,2026-09-10
-"Jackson, Avery",SSgt,2W0X1 Muns Systems,Munitions Control,available,None,None,2025-03-30,2023-05-06,2026-09-03
-"Lopez, Avery",SSgt,2W0X1 Muns Systems,Munitions Control,available,None,None,2025-04-16,2023-04-16,2026-08-27
-"Harris, Parker",SSgt,2W0X1 Muns Systems,Munitions Control,available,Controller,None,2025-05-03,2023-03-27,2026-08-20
-"Kennedy, Hunter",SSgt,2W0X1 Muns Systems,Munitions Control,available,Crew Chief,None,2025-05-20,2023-03-07,2026-08-13
-"Davis, Phoenix",TSgt,2W0X1 Muns Systems,Munitions Control,available,None,None,2025-06-06,2023-02-15,2026-08-06
-"Lee, Rowan",TSgt,2W0X1 Muns Systems,Munitions Control,available,None,None,2025-06-23,2023-01-26,2026-07-30
-"Green, Logan",TSgt,2W0X1 Muns Systems,Munitions Control,available,None,None,2025-07-10,2025-06-24,2029-01-08
-"Taylor, Drew",TSgt,2W0X1 Muns Systems,Munitions Control,available,None,None,2025-07-27,2025-06-04,2029-01-01
-"Brown, Morgan",MSgt,2W0X1 Muns Systems,Munitions Control,available,Crew Chief,None,2025-08-13,2025-05-15,2028-12-25
-"Fisher, Adrian",SrA,2R2X1 Maint Mgmt,Plans & Scheduling,available,None,None,2025-08-30,2025-04-25,2028-12-18
-"Diaz, Sidney",SrA,2R2X1 Maint Mgmt,Plans & Scheduling,available,Inspector,None,2025-09-16,2025-04-05,2028-12-11
-"Walker, Harper",SSgt,2R2X1 Maint Mgmt,Plans & Scheduling,available,None,None,2025-10-03,2025-03-16,2028-12-04
-"Rogers, Shawn",TSgt,2R2X1 Maint Mgmt,Plans & Scheduling,available,None,None,2025-10-20,2025-02-24,2028-11-27
-"Johnson, Sidney",SrA,8U000 UTM,"Combat Plans, Training & Mobility",available,Crew Chief|Controller,None,2025-11-06,2025-02-04,2028-11-20
-"Edwards, Oakley",SrA,8U000 UTM,"Combat Plans, Training & Mobility",available,None,None,2025-11-23,2025-01-15,2028-11-13
-"Peterson, Jesse",SSgt,8U000 UTM,"Combat Plans, Training & Mobility",available,None,None,2025-12-10,2024-12-26,2028-11-06
-"Walker, Adrian",TSgt,8U000 UTM,"Combat Plans, Training & Mobility",available,None,None,2025-12-27,2024-12-06,2028-10-30
-"Garcia, Jamie",MSgt,8U000 UTM,"Combat Plans, Training & Mobility",available,None,None,2026-01-13,2024-11-16,2028-10-23
+name,rank,role,section,position,status,qualifications,notes,dutyStart,arrived,deros
+Evan Ward,Lt Col,21M3 Munitions and Missile Maintenance Officer,Command & Staff,Command & Staff Deployed Member,deployed,Munitions Senior Leader,,2023-06-14,2023-06-14,2027-06-14
+Jaden Jenkins,Maj,21M3 Munitions and Missile Maintenance Officer,Material Flight,Material Flight Deployed Member,deployed,Munitions Senior Leader,,2024-11-25,2024-11-25,2027-11-25
+Clarissa Thomas,CMSgt,2W091 Munitions Systems Superintendent,Armament Flight,Armament Flight Deployed Member,deployed,Munitions Senior Leader,,2025-04-11,2025-04-11,2029-04-11
+Dylan Hernandez,SMSgt,2W091 Munitions Systems Superintendent,Command & Staff,Senior Enlisted Leader,leave,Munitions Senior Leader,,2022-09-22,2022-09-22,2025-09-22
+Victoria Walker,MSgt,2W071 Munitions Systems Craftsman,Command & Staff,First Sergeant,training,Munitions Senior Leader,,2023-02-07,2023-02-07,2027-02-07
+Blake Lopez,Capt,21M3 Munitions and Missile Maintenance Officer,Munitions Operations,Munitions Operations Deployed Member,deployed,Munitions Senior Leader,,2024-07-18,2024-07-18,2027-07-18
+Charlotte James,1Lt,21M3 Munitions and Missile Maintenance Officer,Command & Staff,Executive Officer,available,Munitions Senior Leader,,2025-12-03,2025-12-03,2029-12-03
+Kyle Hughes,Capt,21M3 Munitions and Missile Maintenance Officer,Command & Staff,CSS NCOIC,available,CSS Admin; Records Management,,2022-05-14,2022-05-14,2025-05-14
+Ashley Martinez,1Lt,21M3 Munitions and Missile Maintenance Officer,Command & Staff,Commander Support Staff Technician,available,CSS Admin; Records Management,,2023-10-25,2023-10-25,2027-10-25
+Charlotte Wilson,1Lt,21M3 Munitions and Missile Maintenance Officer,Command & Staff,Admin Support Technician,available,CSS Admin; Records Management,,2024-03-11,2024-03-11,2027-03-11
+Aiden Carter,1Lt,21M3 Munitions and Missile Maintenance Officer,Command & Staff,Awards and Decorations Monitor,training,CSS Admin; Records Management,,2025-08-22,2025-08-22,2029-08-22
+Logan Henderson,2Lt,21M3 Munitions and Missile Maintenance Officer,Command & Staff,Evaluations Monitor,available,CSS Admin; Records Management,,2022-01-07,2022-01-07,2025-01-07
+Maria Martinez,2Lt,21M3 Munitions and Missile Maintenance Officer,Command & Staff,Leave Program Monitor,training,CSS Admin; Records Management,,2023-06-18,2023-06-18,2027-06-18
+Kevin Flores,CMSgt,2W091 Munitions Systems Superintendent,Command & Staff,Records Management Technician,available,CSS Admin; Records Management,,2024-11-03,2024-11-03,2027-11-03
+Darius Williams,CMSgt,2W091 Munitions Systems Superintendent,Command & Staff,Unit Security Manager,available,CSS Admin; Records Management,,2025-04-14,2025-04-14,2029-04-14
+Dylan Rogers,CMSgt,2W091 Munitions Systems Superintendent,Command & Staff,Orderly Room Technician,available,CSS Admin; Records Management,,2022-09-25,2022-09-25,2025-09-25
+Nathan Brown,SMSgt,2W091 Munitions Systems Superintendent,Command & Staff,CSS Apprentice,available,CSS Admin; Records Management,,2023-02-11,2023-02-11,2027-02-11
+Adam Mitchell,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,QA Chief Inspector,available,QA Inspector; Technical Order Compliance,,2024-07-07,2024-07-07,2027-07-07
+Isaiah Rivera,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,QA Superintendent,available,QA Inspector; Technical Order Compliance,,2025-12-18,2025-12-18,2029-12-18
+Emily Cooper,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,Munitions QA Inspector,available,QA Inspector; Technical Order Compliance,,2022-05-03,2022-05-03,2025-05-03
+Eric Thomas,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,Technical Order Monitor,available,QA Inspector; Technical Order Compliance,,2023-10-14,2023-10-14,2027-10-14
+Leah Walker,TSgt,2W071 Munitions Systems Craftsman,Systems Flight,Systems Flight Deployed Member,deployed,QA Inspector; Technical Order Compliance,,2024-03-25,2024-03-25,2027-03-25
+Logan Hernandez,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,Evaluator,available,QA Inspector; Technical Order Compliance,,2025-08-11,2025-08-11,2029-08-11
+Jaden Wright,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,QA Chief Inspector 07,available,QA Inspector; Technical Order Compliance,,2022-01-22,2022-01-22,2025-01-22
+Ryan Rodriguez,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,QA Superintendent 08,available,QA Inspector; Technical Order Compliance,,2023-06-07,2023-06-07,2027-06-07
+Miles Brown,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,Munitions QA Inspector 09,available,QA Inspector; Technical Order Compliance,,2024-11-18,2024-11-18,2027-11-18
+Daniela Fisher,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,Technical Order Monitor 10,available,QA Inspector; Technical Order Compliance,,2025-04-03,2025-04-03,2029-04-03
+Landon Martinez,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,Inspection Program Monitor 11,available,QA Inspector; Technical Order Compliance,,2022-09-14,2022-09-14,2025-09-14
+Yasmin Butler,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,Evaluator 12,available,QA Inspector; Technical Order Compliance,,2023-02-25,2023-02-25,2027-02-25
+Julian Perez,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,QA Chief Inspector 13,training,QA Inspector; Technical Order Compliance,,2024-07-11,2024-07-11,2027-07-11
+Mario Walker,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,QA Superintendent 14,tdy,QA Inspector; Technical Order Compliance,,2025-12-22,2025-12-22,2029-12-22
+Zachary Cruz,TSgt,2W071 Munitions Systems Craftsman,Special Weapons Flight,Special Weapons Flight Deployed Member,deployed,Weapons Safety; Explosives Safety,,2022-05-07,2022-05-07,2025-05-07
+Kiara Martinez,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,Explosives Safety NCOIC,available,Weapons Safety; Explosives Safety,,2023-10-18,2023-10-18,2027-10-18
+Carlos Reed,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,Mishap Prevention Monitor,available,Weapons Safety; Explosives Safety,,2024-03-03,2024-03-03,2027-03-03
+Aaron Bennett,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,Facility Safety Representative,available,Weapons Safety; Explosives Safety,,2025-08-14,2025-08-14,2029-08-14
+Adam Wood,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,Safety Program Technician,available,Weapons Safety; Explosives Safety,,2022-01-25,2022-01-25,2025-01-25
+Jacob Hayes,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,Weapons Safety Apprentice,available,Weapons Safety; Explosives Safety,,2023-06-11,2023-06-11,2027-06-11
+Leah Cox,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,Unit Training Manager,training,Trainer; Upgrade Training Monitor,,2022-09-22,2022-09-22,2025-09-22
+Kiara Hernandez,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,Training Section Chief,available,Trainer; Upgrade Training Monitor,,2023-02-07,2023-02-07,2027-02-07
+Samantha Harris,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,Upgrade Training Monitor,available,Trainer; Upgrade Training Monitor,,2024-07-18,2024-07-18,2027-07-18
+Gabriel Howard,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,Qualification Trainer,available,Trainer; Upgrade Training Monitor,,2025-12-03,2025-12-03,2029-12-03
+Kyle Edwards,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,CDC Monitor,available,Trainer; Upgrade Training Monitor,,2022-05-14,2022-05-14,2025-05-14
+Mason Price,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,Trainer,available,Trainer; Upgrade Training Monitor,,2023-10-25,2023-10-25,2027-10-25
+Carlos Stewart,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,Unit Training Manager 07,available,Trainer; Upgrade Training Monitor,,2024-03-11,2024-03-11,2027-03-11
+Henry Clark,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,Training Section Chief 08,available,Trainer; Upgrade Training Monitor,,2025-08-22,2025-08-22,2029-08-22
+Hannah Gonzalez,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,Upgrade Training Monitor 09,available,Trainer; Upgrade Training Monitor,,2022-01-07,2022-01-07,2025-01-07
+Clarissa Flores,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,Qualification Trainer 10,available,Trainer; Upgrade Training Monitor,,2023-06-18,2023-06-18,2027-06-18
+Wesley Phillips,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,CDC Monitor 11,available,Trainer; Upgrade Training Monitor,,2024-11-03,2024-11-03,2027-11-03
+Brandon Baker,TSgt,2W071 Munitions Systems Craftsman,Command & Staff,Trainer 12,available,Trainer; Upgrade Training Monitor,,2025-04-14,2025-04-14,2029-04-14
+Marcus Lee,TSgt,2W071 Munitions Systems Craftsman,Material Flight,Materiel Management Section Chief,available,Forklift; HAZMAT; TICMS,,2022-09-25,2022-09-25,2025-09-25
+Jaden Rivera,TSgt,2W071 Munitions Systems Craftsman,Material Flight,Stock Control Supervisor,available,Forklift; HAZMAT; TICMS,,2023-02-11,2023-02-11,2027-02-11
+Clarissa Simmons,TSgt,2W071 Munitions Systems Craftsman,Material Flight,Receiving Technician,training,Forklift; HAZMAT; TICMS,,2024-07-22,2024-07-22,2027-07-22
+Nia Powell,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Shipping Technician,available,Forklift; HAZMAT; TICMS,,2025-12-07,2025-12-07,2029-12-07
+Natalie Collins,SSgt,2W051 Munitions Systems Journeyman,Command & Staff,Command & Staff Deployed Member,deployed,Forklift; HAZMAT; TICMS,,2022-05-18,2022-05-18,2025-05-18
+Christian Collins,SSgt,2W051 Munitions Systems Journeyman,Material Flight,HAZMAT Monitor,leave,Forklift; HAZMAT; TICMS,,2023-10-03,2023-10-03,2027-10-03
+Taylor Stewart,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Inventory Technician,available,Forklift; HAZMAT; TICMS,,2024-03-14,2024-03-14,2027-03-14
+Aubrey Bailey,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Storage Documentation Technician,tdy,Forklift; HAZMAT; TICMS,,2025-08-25,2025-08-25,2029-08-25
+Amir Sanchez,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Materiel Management Section Chief 09,available,Forklift; HAZMAT; TICMS,,2022-01-11,2022-01-11,2025-01-11
+Justin Jenkins,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Stock Control Supervisor 10,training,Forklift; HAZMAT; TICMS,,2023-06-22,2023-06-22,2027-06-22
+Felix Hughes,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Receiving Technician 11,available,Forklift; HAZMAT; TICMS,,2024-11-07,2024-11-07,2027-11-07
+Grant Ramirez,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Shipping Technician 12,available,Forklift; HAZMAT; TICMS,,2025-04-18,2025-04-18,2029-04-18
+Jasmine Gray,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Bench Stock Monitor 13,leave,Forklift; HAZMAT; TICMS,,2022-09-03,2022-09-03,2025-09-03
+Kyle Martin,SSgt,2W051 Munitions Systems Journeyman,Material Flight,HAZMAT Monitor 14,available,Forklift; HAZMAT; TICMS,,2023-02-14,2023-02-14,2027-02-14
+Aisha Garcia,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Inventory Technician 15,available,Forklift; HAZMAT; TICMS,,2024-07-25,2024-07-25,2027-07-25
+James Walker,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Storage Documentation Technician 16,available,Forklift; HAZMAT; TICMS,,2025-12-11,2025-12-11,2029-12-11
+Shawn Cooper,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Materiel Management Section Chief 17,available,Forklift; HAZMAT; TICMS,,2022-05-22,2022-05-22,2025-05-22
+Andre James,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Stock Control Supervisor 18,leave,Forklift; HAZMAT; TICMS,,2023-10-07,2023-10-07,2027-10-07
+Corey Young,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Receiving Technician 19,available,Forklift; HAZMAT; TICMS,,2024-03-18,2024-03-18,2027-03-18
+Kyle Castillo,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Shipping Technician 20,available,Forklift; HAZMAT; TICMS,,2025-08-03,2025-08-03,2029-08-03
+Leah Ramirez,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Bench Stock Monitor 21,available,Forklift; HAZMAT; TICMS,,2022-01-14,2022-01-14,2025-01-14
+Abel Moore,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Material Flight Deployed Member,deployed,Forklift; HAZMAT; TICMS,,2023-06-25,2023-06-25,2027-06-25
+Ryan Simmons,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Storage Section Chief,available,Explosives Storage; Forklift; HAZMAT,,2024-11-11,2024-11-11,2027-11-11
+Eli Lopez,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Storage Bay Supervisor,available,Explosives Storage; Forklift; HAZMAT,,2025-04-22,2025-04-22,2029-04-22
+Emma Jackson,SSgt,2W051 Munitions Systems Journeyman,Armament Flight,Armament Flight Deployed Member,deployed,Explosives Storage; Forklift; HAZMAT,,2022-09-07,2022-09-07,2025-09-07
+Elena Castillo,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Explosive Storage Technician,leave,Explosives Storage; Forklift; HAZMAT,,2023-02-18,2023-02-18,2027-02-18
+Camila Miller,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Forklift Operator,available,Explosives Storage; Forklift; HAZMAT,,2024-07-03,2024-07-03,2027-07-03
+Shawn Hayes,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Magazine Monitor,available,Explosives Storage; Forklift; HAZMAT,,2025-12-14,2025-12-14,2029-12-14
+Christian Ortiz,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Serviceability Monitor,available,Explosives Storage; Forklift; HAZMAT,,2022-05-25,2022-05-25,2025-05-25
+Angelica Roberts,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Asset Locator,available,Explosives Storage; Forklift; HAZMAT,,2023-10-11,2023-10-11,2027-10-11
+Chloe Davis,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Storage Section Chief 09,available,Explosives Storage; Forklift; HAZMAT,,2024-03-22,2024-03-22,2027-03-22
+Aria Jones,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Storage Bay Supervisor 10,tdy,Explosives Storage; Forklift; HAZMAT,,2025-08-07,2025-08-07,2029-08-07
+Evan Wilson,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Igloo Custodian 11,leave,Explosives Storage; Forklift; HAZMAT,,2022-01-18,2022-01-18,2025-01-18
+Jacob Foster,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Explosive Storage Technician 12,available,Explosives Storage; Forklift; HAZMAT,,2023-06-03,2023-06-03,2027-06-03
+Emma Cooper,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Forklift Operator 13,leave,Explosives Storage; Forklift; HAZMAT,,2024-11-14,2024-11-14,2027-11-14
+Naomi Long,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Magazine Monitor 14,available,Explosives Storage; Forklift; HAZMAT,,2025-04-25,2025-04-25,2029-04-25
+Cedric Rodriguez,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Serviceability Monitor 15,available,Explosives Storage; Forklift; HAZMAT,,2022-09-11,2022-09-11,2025-09-11
+Chloe Brooks,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Asset Locator 16,available,Explosives Storage; Forklift; HAZMAT,,2023-02-22,2023-02-22,2027-02-22
+Grant Coleman,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Storage Section Chief 17,available,Explosives Storage; Forklift; HAZMAT,,2024-07-07,2024-07-07,2027-07-07
+Preston Rodriguez,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Storage Bay Supervisor 18,available,Explosives Storage; Forklift; HAZMAT,,2025-12-18,2025-12-18,2029-12-18
+Mia Rogers,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Igloo Custodian 19,leave,Explosives Storage; Forklift; HAZMAT,,2022-05-03,2022-05-03,2025-05-03
+Micah Gray,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Explosive Storage Technician 20,available,Explosives Storage; Forklift; HAZMAT,,2023-10-14,2023-10-14,2027-10-14
+Alyssa Baker,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Forklift Operator 21,available,Explosives Storage; Forklift; HAZMAT,,2024-03-25,2024-03-25,2027-03-25
+Abel Bailey,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Magazine Monitor 22,available,Explosives Storage; Forklift; HAZMAT,,2025-08-11,2025-08-11,2029-08-11
+Henry Gomez,SSgt,2W051 Munitions Systems Journeyman,Material Flight,Serviceability Monitor 23,available,Explosives Storage; Forklift; HAZMAT,,2022-01-22,2022-01-22,2025-01-22
+Xavier Anderson,SSgt,2W051 Munitions Systems Journeyman,Armament Flight,Inspection Section Chief,training,Munitions Inspection; Trailer Maintenance,,2022-05-07,2022-05-07,2025-05-07
+Grant Mitchell,SSgt,2W051 Munitions Systems Journeyman,Armament Flight,Inspection Team Lead,available,Munitions Inspection; Trailer Maintenance,,2023-10-18,2023-10-18,2027-10-18
+Daniela Thompson,SSgt,2W051 Munitions Systems Journeyman,Armament Flight,Trailer Inspection Technician,training,Munitions Inspection; Trailer Maintenance,,2024-03-03,2024-03-03,2027-03-03
+Connor Robinson,SSgt,2W051 Munitions Systems Journeyman,Armament Flight,Missile Inspection Technician,available,Munitions Inspection; Trailer Maintenance,,2025-08-14,2025-08-14,2029-08-14
+Leah Cooper,SSgt,2W051 Munitions Systems Journeyman,Armament Flight,Chaff and Flare Inspector,available,Munitions Inspection; Trailer Maintenance,,2022-01-25,2022-01-25,2025-01-25
+Darius Murphy,SSgt,2W051 Munitions Systems Journeyman,Armament Flight,Small Arms Ammo Inspector,available,Munitions Inspection; Trailer Maintenance,,2023-06-11,2023-06-11,2027-06-11
+Mario Martinez,SSgt,2W051 Munitions Systems Journeyman,Armament Flight,Munitions Inspector,available,Munitions Inspection; Trailer Maintenance,,2024-11-22,2024-11-22,2027-11-22
+Mia Perry,SSgt,2W051 Munitions Systems Journeyman,Armament Flight,TO Compliance Technician,available,Munitions Inspection; Trailer Maintenance,,2025-04-07,2025-04-07,2029-04-07
+Riley Ward,SSgt,2W051 Munitions Systems Journeyman,Armament Flight,Inspection Section Chief 09,training,Munitions Inspection; Trailer Maintenance,,2022-09-18,2022-09-18,2025-09-18
+Julian Thomas,SSgt,2W051 Munitions Systems Journeyman,Armament Flight,Inspection Team Lead 10,available,Munitions Inspection; Trailer Maintenance,,2023-02-03,2023-02-03,2027-02-03
+Garrett Price,SSgt,2W051 Munitions Systems Journeyman,Armament Flight,Trailer Inspection Technician 11,available,Munitions Inspection; Trailer Maintenance,,2024-07-14,2024-07-14,2027-07-14
+Kaitlyn Howard,SSgt,2W051 Munitions Systems Journeyman,Armament Flight,Missile Inspection Technician 12,available,Munitions Inspection; Trailer Maintenance,,2025-12-25,2025-12-25,2029-12-25
+Isabella Morales,SSgt,2W051 Munitions Systems Journeyman,Armament Flight,Chaff and Flare Inspector 13,training,Munitions Inspection; Trailer Maintenance,,2022-05-11,2022-05-11,2025-05-11
+Eli Green,SSgt,2W051 Munitions Systems Journeyman,Armament Flight,Small Arms Ammo Inspector 14,available,Munitions Inspection; Trailer Maintenance,,2023-10-22,2023-10-22,2027-10-22
+Devin Bailey,SSgt,2W051 Munitions Systems Journeyman,Armament Flight,Munitions Inspector 15,training,Munitions Inspection; Trailer Maintenance,,2024-03-07,2024-03-07,2027-03-07
+Aisha Hayes,SSgt,2W051 Munitions Systems Journeyman,Armament Flight,TO Compliance Technician 16,available,Munitions Inspection; Trailer Maintenance,,2025-08-18,2025-08-18,2029-08-18
+Carina Nelson,SSgt,2W051 Munitions Systems Journeyman,Armament Flight,Inspection Section Chief 17,leave,Munitions Inspection; Trailer Maintenance,,2022-01-03,2022-01-03,2025-01-03
+Daniel Ortiz,SSgt,2W051 Munitions Systems Journeyman,Armament Flight,Inspection Team Lead 18,available,Munitions Inspection; Trailer Maintenance,,2023-06-14,2023-06-14,2027-06-14
+Ivan Davis,SSgt,2W051 Munitions Systems Journeyman,Armament Flight,Trailer Inspection Technician 19,available,Munitions Inspection; Trailer Maintenance,,2024-11-25,2024-11-25,2027-11-25
+John Collins,SSgt,2W051 Munitions Systems Journeyman,Armament Flight,Missile Inspection Technician 20,available,Munitions Inspection; Trailer Maintenance,,2025-04-11,2025-04-11,2029-04-11
+Ryan Hall,SSgt,2W051 Munitions Systems Journeyman,Armament Flight,Chaff and Flare Inspector 21,available,Munitions Inspection; Trailer Maintenance,,2022-09-22,2022-09-22,2025-09-22
+Leo Simmons,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Small Arms Ammo Inspector 22,available,Munitions Inspection; Trailer Maintenance,,2023-02-07,2023-02-07,2027-02-07
+Erica Morris,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Munitions Inspector 23,available,Munitions Inspection; Trailer Maintenance,,2024-07-18,2024-07-18,2027-07-18
+Miles Fisher,SrA,2W051 Munitions Systems Journeyman,Armament Flight,TO Compliance Technician 24,tdy,Munitions Inspection; Trailer Maintenance,,2025-12-03,2025-12-03,2029-12-03
+Cedric Perry,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Inspection Section Chief 25,available,Munitions Inspection; Trailer Maintenance,,2022-05-14,2022-05-14,2025-05-14
+Noah Sanders,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Inspection Team Lead 26,available,Munitions Inspection; Trailer Maintenance,,2023-10-25,2023-10-25,2027-10-25
+Brian Gray,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Trailer Inspection Technician 27,available,Munitions Inspection; Trailer Maintenance,,2024-03-11,2024-03-11,2027-03-11
+Sabrina Davis,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Missile Inspection Technician 28,available,Munitions Inspection; Trailer Maintenance,,2025-08-22,2025-08-22,2029-08-22
+Noah Peterson,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Chaff and Flare Inspector 29,available,Munitions Inspection; Trailer Maintenance,,2022-01-07,2022-01-07,2025-01-07
+Bianca Jenkins,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Small Arms Ammo Inspector 30,available,Munitions Inspection; Trailer Maintenance,,2023-06-18,2023-06-18,2027-06-18
+Elena Long,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Conventional Maintenance Section Chief,available,Conventional Munitions; Bomb Build,,2024-11-03,2024-11-03,2027-11-03
+Thomas Thompson,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Bomb Build Team Lead,available,Conventional Munitions; Bomb Build,,2025-04-14,2025-04-14,2029-04-14
+Daniela Rivera,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Munitions Crew Chief,available,Conventional Munitions; Bomb Build,,2022-09-25,2022-09-25,2025-09-25
+Taylor Rivera,SrA,2W051 Munitions Systems Journeyman,Armament Flight,General Purpose Bomb Technician,leave,Conventional Munitions; Bomb Build,,2023-02-11,2023-02-11,2027-02-11
+Erica Gray,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Fuse and Adapter Technician,available,Conventional Munitions; Bomb Build,,2024-07-22,2024-07-22,2027-07-22
+Emma Morgan,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Conventional Munitions Technician,available,Conventional Munitions; Bomb Build,,2025-12-07,2025-12-07,2029-12-07
+Carlos Butler,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Assembly Technician,available,Conventional Munitions; Bomb Build,,2022-05-18,2022-05-18,2025-05-18
+Zachary White,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Tool Room Monitor,available,Conventional Munitions; Bomb Build,,2023-10-03,2023-10-03,2027-10-03
+Jeremiah Reyes,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Conventional Maintenance Section Chief 09,available,Conventional Munitions; Bomb Build,,2024-03-14,2024-03-14,2027-03-14
+Eli Ward,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Bomb Build Team Lead 10,training,Conventional Munitions; Bomb Build,,2025-08-25,2025-08-25,2029-08-25
+Mateo Morris,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Munitions Crew Chief 11,available,Conventional Munitions; Bomb Build,,2022-01-11,2022-01-11,2025-01-11
+Samuel Carter,SrA,2W051 Munitions Systems Journeyman,Armament Flight,General Purpose Bomb Technician 12,training,Conventional Munitions; Bomb Build,,2023-06-22,2023-06-22,2027-06-22
+Lucas Green,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Fuse and Adapter Technician 13,available,Conventional Munitions; Bomb Build,,2024-11-07,2024-11-07,2027-11-07
+Jennifer Cox,SrA,2W051 Munitions Systems Journeyman,Munitions Operations,Munitions Operations Deployed Member,deployed,Conventional Munitions; Bomb Build,,2025-04-18,2025-04-18,2029-04-18
+Mario Evans,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Assembly Technician 15,available,Conventional Munitions; Bomb Build,,2022-09-03,2022-09-03,2025-09-03
+Andrea Castillo,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Tool Room Monitor 16,available,Conventional Munitions; Bomb Build,,2023-02-14,2023-02-14,2027-02-14
+Adam Powell,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Conventional Maintenance Section Chief 17,available,Conventional Munitions; Bomb Build,,2024-07-25,2024-07-25,2027-07-25
+Landon Brooks,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Bomb Build Team Lead 18,available,Conventional Munitions; Bomb Build,,2025-12-11,2025-12-11,2029-12-11
+Daniel Reyes,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Munitions Crew Chief 19,available,Conventional Munitions; Bomb Build,,2022-05-22,2022-05-22,2025-05-22
+Yasmin Ortiz,SrA,2W051 Munitions Systems Journeyman,Armament Flight,General Purpose Bomb Technician 20,available,Conventional Munitions; Bomb Build,,2023-10-07,2023-10-07,2027-10-07
+Micah Reyes,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Fuse and Adapter Technician 21,available,Conventional Munitions; Bomb Build,,2024-03-18,2024-03-18,2027-03-18
+Alyssa Gibson,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Conventional Munitions Technician 22,available,Conventional Munitions; Bomb Build,,2025-08-03,2025-08-03,2029-08-03
+Maya Harris,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Assembly Technician 23,available,Conventional Munitions; Bomb Build,,2022-01-14,2022-01-14,2025-01-14
+Felix Ramirez,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Tool Room Monitor 24,available,Conventional Munitions; Bomb Build,,2023-06-25,2023-06-25,2027-06-25
+Lauren Hernandez,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Conventional Maintenance Section Chief 25,available,Conventional Munitions; Bomb Build,,2024-11-11,2024-11-11,2027-11-11
+Daniel Jenkins,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Bomb Build Team Lead 26,available,Conventional Munitions; Bomb Build,,2025-04-22,2025-04-22,2029-04-22
+Parker Rivera,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Munitions Crew Chief 27,available,Conventional Munitions; Bomb Build,,2022-09-07,2022-09-07,2025-09-07
+Sebastian Miller,SrA,2W051 Munitions Systems Journeyman,Armament Flight,General Purpose Bomb Technician 28,available,Conventional Munitions; Bomb Build,,2023-02-18,2023-02-18,2027-02-18
+Savannah Bennett,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Fuse and Adapter Technician 29,available,Conventional Munitions; Bomb Build,,2024-07-03,2024-07-03,2027-07-03
+Adam Fisher,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Conventional Munitions Technician 30,leave,Conventional Munitions; Bomb Build,,2025-12-14,2025-12-14,2029-12-14
+Cedric Edwards,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Assembly Technician 31,leave,Conventional Munitions; Bomb Build,,2022-05-25,2022-05-25,2025-05-25
+Lena Scott,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Tool Room Monitor 32,available,Conventional Munitions; Bomb Build,,2023-10-11,2023-10-11,2027-10-11
+Henry Sanchez,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Conventional Maintenance Section Chief 33,available,Conventional Munitions; Bomb Build,,2024-03-22,2024-03-22,2027-03-22
+Alana Allen,SrA,2W051 Munitions Systems Journeyman,Armament Flight,Bomb Build Team Lead 34,training,Conventional Munitions; Bomb Build,,2025-08-07,2025-08-07,2029-08-07
+Adam Hall,SMSgt,2W091 Munitions Systems Superintendent,Munitions Operations,Munitions Control Section Chief,training,Munitions Control; TICMS; Radio Dispatch,,2024-07-22,2024-07-22,2027-07-22
+Emily Jackson,SMSgt,2W091 Munitions Systems Superintendent,Munitions Operations,Munitions Control NCOIC,available,Munitions Control; TICMS; Radio Dispatch,,2025-12-07,2025-12-07,2029-12-07
+Michael Wilson,SMSgt,2W091 Munitions Systems Superintendent,Munitions Operations,Shift Controller A,available,Munitions Control; TICMS; Radio Dispatch,,2022-05-18,2022-05-18,2025-05-18
+Carmen Gibson,SMSgt,2W091 Munitions Systems Superintendent,Munitions Operations,Shift Controller B,available,Munitions Control; TICMS; Radio Dispatch,,2023-10-03,2023-10-03,2027-10-03
+Bianca King,SMSgt,2W091 Munitions Systems Superintendent,Munitions Operations,Shift Controller C,available,Munitions Control; TICMS; Radio Dispatch,,2024-03-14,2024-03-14,2027-03-14
+Shawn Hill,SMSgt,2W091 Munitions Systems Superintendent,Systems Flight,Systems Flight Deployed Member,deployed,Munitions Control; TICMS; Radio Dispatch,,2025-08-25,2025-08-25,2029-08-25
+Adrian Gibson,SMSgt,2W091 Munitions Systems Superintendent,Munitions Operations,Status Monitor,available,Munitions Control; TICMS; Radio Dispatch,,2022-01-11,2022-01-11,2025-01-11
+Zachary Brown,MSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Priority Monitor,available,Munitions Control; TICMS; Radio Dispatch,,2023-06-22,2023-06-22,2027-06-22
+John Rogers,MSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Production Controller,available,Munitions Control; TICMS; Radio Dispatch,,2024-11-07,2024-11-07,2027-11-07
+James Cooper,MSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Munitions Control Section Chief 10,available,Munitions Control; TICMS; Radio Dispatch,,2025-04-18,2025-04-18,2029-04-18
+Jared Hernandez,MSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Munitions Control NCOIC 11,tdy,Munitions Control; TICMS; Radio Dispatch,,2022-09-03,2022-09-03,2025-09-03
+Bryce Taylor,MSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Shift Controller A 12,tdy,Munitions Control; TICMS; Radio Dispatch,,2023-02-14,2023-02-14,2027-02-14
+Kevin Jenkins,MSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Shift Controller B 13,available,Munitions Control; TICMS; Radio Dispatch,,2024-07-25,2024-07-25,2027-07-25
+Kayla Jackson,MSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Shift Controller C 14,available,Munitions Control; TICMS; Radio Dispatch,,2025-12-11,2025-12-11,2029-12-11
+Savannah Smith,MSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Munitions Dispatcher 15,training,Munitions Control; TICMS; Radio Dispatch,,2022-05-22,2022-05-22,2025-05-22
+Ashton Powell,MSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Status Monitor 16,training,Munitions Control; TICMS; Radio Dispatch,,2023-10-07,2023-10-07,2027-10-07
+Eric Lewis,MSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Priority Monitor 17,available,Munitions Control; TICMS; Radio Dispatch,,2024-03-18,2024-03-18,2027-03-18
+Justin Cruz,MSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Production Controller 18,tdy,Munitions Control; TICMS; Radio Dispatch,,2025-08-03,2025-08-03,2029-08-03
+Carmen Smith,MSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Accountable Systems Officer,available,CAS; TICMS; Inventory Control,,2022-01-14,2022-01-14,2025-01-14
+Malik Watson,MSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Accountability Section Chief,available,CAS; TICMS; Inventory Control,,2023-06-25,2023-06-25,2027-06-25
+Alana Anderson,MSgt,2W071 Munitions Systems Craftsman,Munitions Operations,CAS Monitor,available,CAS; TICMS; Inventory Control,,2024-11-11,2024-11-11,2027-11-11
+Jose Hughes,MSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Document Control Technician,available,CAS; TICMS; Inventory Control,,2025-04-22,2025-04-22,2029-04-22
+Felix Jenkins,MSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Inventory Reconciliation Technician,available,CAS; TICMS; Inventory Control,,2022-09-07,2022-09-07,2025-09-07
+Aaron Nelson,MSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Expenditure Monitor,available,CAS; TICMS; Inventory Control,,2023-02-18,2023-02-18,2027-02-18
+Carlos Clark,MSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Transaction Control Technician,available,CAS; TICMS; Inventory Control,,2024-07-03,2024-07-03,2027-07-03
+Aubrey Campbell,MSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Accountable Systems Officer 08,available,CAS; TICMS; Inventory Control,,2025-12-14,2025-12-14,2029-12-14
+Justin Phillips,MSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Accountability Section Chief 09,training,CAS; TICMS; Inventory Control,,2022-05-25,2022-05-25,2025-05-25
+Paul Taylor,MSgt,2W071 Munitions Systems Craftsman,Munitions Operations,CAS Monitor 10,available,CAS; TICMS; Inventory Control,,2023-10-11,2023-10-11,2027-10-11
+Aaliyah Long,MSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Document Control Technician 11,available,CAS; TICMS; Inventory Control,,2024-03-22,2024-03-22,2027-03-22
+Christian Walker,MSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Inventory Reconciliation Technician 12,training,CAS; TICMS; Inventory Control,,2025-08-07,2025-08-07,2029-08-07
+Abigail Hernandez,MSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Expenditure Monitor 13,training,CAS; TICMS; Inventory Control,,2022-01-18,2022-01-18,2025-01-18
+Kayla Johnson,MSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Transaction Control Technician 14,training,CAS; TICMS; Inventory Control,,2023-06-03,2023-06-03,2027-06-03
+Kaitlyn Thompson,MSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Accountable Systems Officer 15,training,CAS; TICMS; Inventory Control,,2024-11-14,2024-11-14,2027-11-14
+Jeremiah Parker,MSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Accountability Section Chief 16,available,CAS; TICMS; Inventory Control,,2025-04-25,2025-04-25,2029-04-25
+Lucas Diaz,TSgt,2W071 Munitions Systems Craftsman,Munitions Operations,CAS Monitor 17,leave,CAS; TICMS; Inventory Control,,2022-09-11,2022-09-11,2025-09-11
+Jordan Brown,TSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Document Control Technician 18,available,CAS; TICMS; Inventory Control,,2023-02-22,2023-02-22,2027-02-22
+Sara Smith,TSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Plans and Scheduling Section Chief,training,Plans; Scheduling; Forecasting,,2024-11-22,2024-11-22,2027-11-22
+Javier Parker,TSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Senior Scheduler,available,Plans; Scheduling; Forecasting,,2025-04-07,2025-04-07,2029-04-07
+Natalie Morgan,TSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Production Scheduler,available,Plans; Scheduling; Forecasting,,2022-09-18,2022-09-18,2025-09-18
+Natalie Richardson,TSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Monthly Forecast Monitor,available,Plans; Scheduling; Forecasting,,2023-02-03,2023-02-03,2027-02-03
+Isabella Diaz,TSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Weekly Schedule Monitor,available,Plans; Scheduling; Forecasting,,2024-07-14,2024-07-14,2027-07-14
+Darius Wright,TSgt,2W071 Munitions Systems Craftsman,Munitions Operations,MRSP Monitor,available,Plans; Scheduling; Forecasting,,2025-12-25,2025-12-25,2029-12-25
+Amir Peterson,TSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Maintenance Plans Technician,available,Plans; Scheduling; Forecasting,,2022-05-11,2022-05-11,2025-05-11
+David Lewis,TSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Plans and Scheduling Section Chief 08,available,Plans; Scheduling; Forecasting,,2023-10-22,2023-10-22,2027-10-22
+Landon Henderson,TSgt,2W071 Munitions Systems Craftsman,Munitions Operations,Senior Scheduler 09,available,Plans; Scheduling; Forecasting,,2024-03-07,2024-03-07,2027-03-07
+Brianna Barnes,A1C,2W031 Munitions Systems Apprentice,Systems Flight,Equipment Maintenance Section Chief,training,MHE; AGE; Tool Accountability,,2022-05-14,2022-05-14,2025-05-14
+Layla Wilson,A1C,2W031 Munitions Systems Apprentice,Systems Flight,MHE Maintenance Technician,available,MHE; AGE; Tool Accountability,,2023-10-25,2023-10-25,2027-10-25
+Fatima Lopez,A1C,2W031 Munitions Systems Apprentice,Systems Flight,AGE Technician,available,MHE; AGE; Tool Accountability,,2024-03-11,2024-03-11,2027-03-11
+Isaiah Scott,A1C,2W031 Munitions Systems Apprentice,Systems Flight,Trailer Maintenance Technician,available,MHE; AGE; Tool Accountability,,2025-08-22,2025-08-22,2029-08-22
+Eric Henderson,A1C,2W031 Munitions Systems Apprentice,Systems Flight,Tool Accountability Monitor,available,MHE; AGE; Tool Accountability,,2022-01-07,2022-01-07,2025-01-07
+Andrea Richardson,A1C,2W031 Munitions Systems Apprentice,Systems Flight,Equipment Custodian,leave,MHE; AGE; Tool Accountability,,2023-06-18,2023-06-18,2027-06-18
+Cedric White,A1C,2W031 Munitions Systems Apprentice,Systems Flight,Equipment Maintenance Section Chief 07,available,MHE; AGE; Tool Accountability,,2024-11-03,2024-11-03,2027-11-03
+Yasmin Moore,A1C,2W031 Munitions Systems Apprentice,Systems Flight,MHE Maintenance Technician 08,available,MHE; AGE; Tool Accountability,,2025-04-14,2025-04-14,2029-04-14
+Camila Castillo,A1C,2W031 Munitions Systems Apprentice,Systems Flight,AGE Technician 09,available,MHE; AGE; Tool Accountability,,2022-09-25,2022-09-25,2025-09-25
+Brian Sanders,Amn,2W031 Munitions Systems Apprentice,Systems Flight,Trailer Maintenance Technician 10,available,MHE; AGE; Tool Accountability,,2023-02-11,2023-02-11,2027-02-11
+Yasmin Perry,Amn,2W031 Munitions Systems Apprentice,Systems Flight,Tool Accountability Monitor 11,available,MHE; AGE; Tool Accountability,,2024-07-22,2024-07-22,2027-07-22
+Luis Walker,Amn,2W031 Munitions Systems Apprentice,Systems Flight,Equipment Custodian 12,available,MHE; AGE; Tool Accountability,,2025-12-07,2025-12-07,2029-12-07
+Samantha Anderson,SSgt,2W051 Munitions Systems Journeyman,Systems Flight,Systems Flight Technician,available,Explosives Storage; Forklift; HAZMAT,,2023-06-07,2023-06-07,2027-06-07
+Alex Murphy,SSgt,2W051 Munitions Systems Journeyman,Systems Flight,Systems Flight Technician,leave,Explosives Storage; Forklift; HAZMAT,,2024-11-18,2024-11-18,2027-11-18
+Jennifer James,SSgt,2W051 Munitions Systems Journeyman,Systems Flight,Systems Flight Technician,available,Explosives Storage; Forklift; HAZMAT,,2025-04-03,2025-04-03,2029-04-03
+Mateo Edwards,SSgt,2W051 Munitions Systems Journeyman,Special Weapons Flight,Special Weapons Flight Deployed Member,deployed,Explosives Storage; Forklift; HAZMAT,,2022-09-14,2022-09-14,2025-09-14
+Aisha Thompson,SSgt,2W051 Munitions Systems Journeyman,Command & Staff,Command & Staff Deployed Member,deployed,Explosives Storage; Forklift; HAZMAT,,2023-02-25,2023-02-25,2027-02-25
+Leo Scott,SSgt,2W051 Munitions Systems Journeyman,Systems Flight,Systems Flight Technician,available,Explosives Storage; Forklift; HAZMAT,,2024-07-11,2024-07-11,2027-07-11
+Arianna Diaz,SSgt,2W051 Munitions Systems Journeyman,Systems Flight,Systems Flight Technician,available,Explosives Storage; Forklift; HAZMAT,,2025-12-22,2025-12-22,2029-12-22
+Adam Howard,A1C,2W031 Munitions Systems Apprentice,Systems Flight,Systems Flight Technician,available,Line Delivery; Convoy; MHE,,2022-01-25,2022-01-25,2025-01-25
+Jordan Bennett,A1C,2W031 Munitions Systems Apprentice,Systems Flight,Systems Flight Technician,available,Line Delivery; Convoy; MHE,,2023-06-11,2023-06-11,2027-06-11
+Riley Nelson,A1C,2W031 Munitions Systems Apprentice,Systems Flight,Systems Flight Technician,available,Line Delivery; Convoy; MHE,,2024-11-22,2024-11-22,2027-11-22
+Gabriela Thompson,A1C,2W031 Munitions Systems Apprentice,Systems Flight,Systems Flight Technician,leave,Line Delivery; Convoy; MHE,,2025-04-07,2025-04-07,2029-04-07
+Aaliyah Flores,A1C,2W031 Munitions Systems Apprentice,Systems Flight,Systems Flight Technician,available,Line Delivery; Convoy; MHE,,2022-09-18,2022-09-18,2025-09-18
+Eric Murphy,A1C,2W031 Munitions Systems Apprentice,Systems Flight,Systems Flight Technician,available,Line Delivery; Convoy; MHE,,2023-02-03,2023-02-03,2027-02-03
+Erica Smith,A1C,2W031 Munitions Systems Apprentice,Systems Flight,Systems Flight Technician,available,Line Delivery; Convoy; MHE,,2024-07-14,2024-07-14,2027-07-14
+Felix Nelson,A1C,2W031 Munitions Systems Apprentice,Systems Flight,Systems Flight Technician,available,Line Delivery; Convoy; MHE,,2025-12-25,2025-12-25,2029-12-25
+Devin Edwards,A1C,2W031 Munitions Systems Apprentice,Systems Flight,Systems Flight Technician,available,Line Delivery; Convoy; MHE,,2022-05-11,2022-05-11,2025-05-11
+Emma Stewart,A1C,2W031 Munitions Systems Apprentice,Systems Flight,Systems Flight Technician,available,Line Delivery; Convoy; MHE,,2023-10-22,2023-10-22,2027-10-22
+Amanda Russell,A1C,2W031 Munitions Systems Apprentice,Systems Flight,Systems Flight Technician,available,Line Delivery; Convoy; MHE,,2024-03-07,2024-03-07,2027-03-07
+Sabrina Henderson,A1C,2W031 Munitions Systems Apprentice,Systems Flight,Systems Flight Technician,training,Line Delivery; Convoy; MHE,,2025-08-18,2025-08-18,2029-08-18
+Alex Clark,A1C,2W031 Munitions Systems Apprentice,Systems Flight,Systems Flight Technician,available,Line Delivery; Convoy; MHE,,2022-01-03,2022-01-03,2025-01-03
+Emily Evans,A1C,2W031 Munitions Systems Apprentice,Systems Flight,Systems Flight Technician,available,Line Delivery; Convoy; MHE,,2023-06-14,2023-06-14,2027-06-14
+Hannah Cruz,A1C,2W031 Munitions Systems Apprentice,Systems Flight,Systems Flight Technician,tdy,Line Delivery; Convoy; MHE,,2024-11-25,2024-11-25,2027-11-25
+Sophia Fisher,A1C,2W031 Munitions Systems Apprentice,Systems Flight,Systems Flight Technician,available,Line Delivery; Convoy; MHE,,2025-04-11,2025-04-11,2029-04-11
+Lily Moore,SrA,2W051 Munitions Systems Journeyman,Special Weapons Flight,PGM Section Chief,available,PGM; JDAM; Missile Maintenance,,2022-01-18,2022-01-18,2025-01-18
+Vanessa Morris,SrA,2W051 Munitions Systems Journeyman,Special Weapons Flight,PGM Team Lead,available,PGM; JDAM; Missile Maintenance,,2023-06-03,2023-06-03,2027-06-03
+Samuel Peterson,SrA,2W051 Munitions Systems Journeyman,Special Weapons Flight,JDAM Technician,available,PGM; JDAM; Missile Maintenance,,2024-11-14,2024-11-14,2027-11-14
+Gabriel Ross,SrA,2W051 Munitions Systems Journeyman,Special Weapons Flight,SDB Technician,available,PGM; JDAM; Missile Maintenance,,2025-04-25,2025-04-25,2029-04-25
+Natalie Perry,SrA,2W051 Munitions Systems Journeyman,Special Weapons Flight,AGM Technician,training,PGM; JDAM; Missile Maintenance,,2022-09-11,2022-09-11,2025-09-11
+Victoria Martinez,SrA,2W051 Munitions Systems Journeyman,Special Weapons Flight,Guided Bomb Unit Technician,available,PGM; JDAM; Missile Maintenance,,2023-02-22,2023-02-22,2027-02-22
+Isaac Allen,SrA,2W051 Munitions Systems Journeyman,Special Weapons Flight,Missile Maintenance Technician,available,PGM; JDAM; Missile Maintenance,,2024-07-07,2024-07-07,2027-07-07
+Paige Ortiz,SrA,2W051 Munitions Systems Journeyman,Special Weapons Flight,PGM Tester,available,PGM; JDAM; Missile Maintenance,,2025-12-18,2025-12-18,2029-12-18
+Sabrina Bryant,SrA,2W051 Munitions Systems Journeyman,Special Weapons Flight,PGM Section Chief 09,available,PGM; JDAM; Missile Maintenance,,2022-05-03,2022-05-03,2025-05-03
+Natalie Reyes,SrA,2W051 Munitions Systems Journeyman,Special Weapons Flight,PGM Team Lead 10,available,PGM; JDAM; Missile Maintenance,,2023-10-14,2023-10-14,2027-10-14
+Andre Walker,SrA,2W051 Munitions Systems Journeyman,Special Weapons Flight,JDAM Technician 11,available,PGM; JDAM; Missile Maintenance,,2024-03-25,2024-03-25,2027-03-25
+Adam Edwards,SrA,2W051 Munitions Systems Journeyman,Special Weapons Flight,SDB Technician 12,available,PGM; JDAM; Missile Maintenance,,2025-08-11,2025-08-11,2029-08-11
+Lily Walker,SrA,2W051 Munitions Systems Journeyman,Special Weapons Flight,AGM Technician 13,available,PGM; JDAM; Missile Maintenance,,2022-01-22,2022-01-22,2025-01-22
+Seth Nelson,SrA,2W051 Munitions Systems Journeyman,Special Weapons Flight,Guided Bomb Unit Technician 14,available,PGM; JDAM; Missile Maintenance,,2023-06-07,2023-06-07,2027-06-07
+Tyler Kelly,SrA,2W051 Munitions Systems Journeyman,Special Weapons Flight,Missile Maintenance Technician 15,available,PGM; JDAM; Missile Maintenance,,2024-11-18,2024-11-18,2027-11-18
+Jacob Russell,SrA,2W051 Munitions Systems Journeyman,Special Weapons Flight,PGM Tester 16,available,PGM; JDAM; Missile Maintenance,,2025-04-03,2025-04-03,2029-04-03
+Alyssa Wright,SrA,2W051 Munitions Systems Journeyman,Special Weapons Flight,PGM Section Chief 17,available,PGM; JDAM; Missile Maintenance,,2022-09-14,2022-09-14,2025-09-14
+Nathan Coleman,SrA,2W051 Munitions Systems Journeyman,Special Weapons Flight,PGM Team Lead 18,available,PGM; JDAM; Missile Maintenance,,2023-02-25,2023-02-25,2027-02-25
+Rafael Allen,A1C,2W031 Munitions Systems Apprentice,Special Weapons Flight,JDAM Technician 19,available,PGM; JDAM; Missile Maintenance,,2024-07-11,2024-07-11,2027-07-11
+Samantha Adams,A1C,2W031 Munitions Systems Apprentice,Special Weapons Flight,SDB Technician 20,available,PGM; JDAM; Missile Maintenance,,2025-12-22,2025-12-22,2029-12-22
+Luis Adams,A1C,2W031 Munitions Systems Apprentice,Special Weapons Flight,AGM Technician 21,available,PGM; JDAM; Missile Maintenance,,2022-05-07,2022-05-07,2025-05-07
+Henry Russell,A1C,2W031 Munitions Systems Apprentice,Material Flight,Material Flight Deployed Member,deployed,PGM; JDAM; Missile Maintenance,,2023-10-18,2023-10-18,2027-10-18
+Grace Martin,A1C,2W031 Munitions Systems Apprentice,Special Weapons Flight,Missile Maintenance Technician 23,available,PGM; JDAM; Missile Maintenance,,2024-03-03,2024-03-03,2027-03-03
+Abel Brown,A1C,2W031 Munitions Systems Apprentice,Special Weapons Flight,PGM Tester 24,available,PGM; JDAM; Missile Maintenance,,2025-08-14,2025-08-14,2029-08-14
+Amanda Carter,A1C,2W031 Munitions Systems Apprentice,Special Weapons Flight,Special Weapons Flight Technician,tdy,Line Delivery; Convoy; MHE,,2022-09-22,2022-09-22,2025-09-22
+Eric Perry,A1C,2W031 Munitions Systems Apprentice,Special Weapons Flight,Special Weapons Flight Technician,available,Line Delivery; Convoy; MHE,,2023-02-07,2023-02-07,2027-02-07
+Felix Brooks,A1C,2W031 Munitions Systems Apprentice,Special Weapons Flight,Special Weapons Flight Technician,available,Line Delivery; Convoy; MHE,,2024-07-18,2024-07-18,2027-07-18
+Alana Mitchell,A1C,2W031 Munitions Systems Apprentice,Special Weapons Flight,Special Weapons Flight Technician,available,Line Delivery; Convoy; MHE,,2025-12-03,2025-12-03,2029-12-03
+Ryan Butler,TSgt,2W071 Munitions Systems Craftsman,Special Weapons Flight,Special Weapons Flight Technician,available,Plans; Scheduling; Forecasting,,2025-08-18,2025-08-18,2029-08-18
+Jordan Baker,TSgt,2W071 Munitions Systems Craftsman,Special Weapons Flight,Special Weapons Flight Technician,available,Plans; Scheduling; Forecasting,,2022-01-03,2022-01-03,2025-01-03
+Blake Cooper,TSgt,2W071 Munitions Systems Craftsman,Special Weapons Flight,Special Weapons Flight Technician,available,Plans; Scheduling; Forecasting,,2023-06-14,2023-06-14,2027-06-14
+Alex Morgan,TSgt,2W071 Munitions Systems Craftsman,Special Weapons Flight,Special Weapons Flight Technician,available,Plans; Scheduling; Forecasting,,2024-11-25,2024-11-25,2027-11-25
+Kyle Murphy,TSgt,2W071 Munitions Systems Craftsman,Special Weapons Flight,Special Weapons Flight Technician,available,Plans; Scheduling; Forecasting,,2025-04-11,2025-04-11,2029-04-11
+Spencer Parker,Amn,2W031 Munitions Systems Apprentice,Special Weapons Flight,Special Weapons Flight Technician,available,UDM; UTC; Deployment Processing,,2022-05-18,2022-05-18,2025-05-18
+Alex Nelson,Amn,2W031 Munitions Systems Apprentice,Special Weapons Flight,Special Weapons Flight Technician,available,UDM; UTC; Deployment Processing,,2023-10-03,2023-10-03,2027-10-03
+Dylan Diaz,Amn,2W031 Munitions Systems Apprentice,Unassigned,Unassigned,unassigned,UDM; UTC; Deployment Processing,,2024-03-14,2024-03-14,2027-03-14
+Cedric Davis,Amn,2W031 Munitions Systems Apprentice,Unassigned,Unassigned,unassigned,UDM; UTC; Deployment Processing,,2025-08-25,2025-08-25,2029-08-25
+Kevin Miller,Amn,2W031 Munitions Systems Apprentice,Unassigned,Unassigned,unassigned,UDM; UTC; Deployment Processing,,2022-01-11,2022-01-11,2025-01-11
+Andrea Gray,Amn,2W031 Munitions Systems Apprentice,Unassigned,Unassigned,unassigned,UDM; UTC; Deployment Processing,,2023-06-22,2023-06-22,2027-06-22
+Mario Rodriguez,Amn,2W031 Munitions Systems Apprentice,Unassigned,Unassigned,unassigned,UDM; UTC; Deployment Processing,,2024-11-07,2024-11-07,2027-11-07
+Cedric Young,Amn,2W031 Munitions Systems Apprentice,Unassigned,Unassigned,unassigned,UDM; UTC; Deployment Processing,,2025-04-18,2025-04-18,2029-04-18
